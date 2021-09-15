@@ -1,0 +1,12 @@
+<Connector
+        URIEncoding="UTF-8"
+        port="8080"
+        redirectPort="8443"
+        connectionTimeout="20000"
+        protocol="HTTP/1.1"/>
+
+<Connector
+URIEncoding="UTF-8"
+port="8009"
+redirectPort="8443"
+protocol="AJP/1.3"/>
