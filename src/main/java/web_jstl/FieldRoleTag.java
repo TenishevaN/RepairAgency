@@ -24,7 +24,7 @@ public class FieldRoleTag extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
 
 
-            output = "<select name=roleId>";
+            output = "<select class = form-control name=roleId>";
             for (Role role : Role.values()) {
                 if (role.getId() == id) {
                     output += "<option  value=" + role.getId() + " selected>" + role.getName() + "</option>";
@@ -33,7 +33,6 @@ public class FieldRoleTag extends SimpleTagSupport {
                 }
             }
             output += "</select>";
-
 
         try {
             out.println(output);

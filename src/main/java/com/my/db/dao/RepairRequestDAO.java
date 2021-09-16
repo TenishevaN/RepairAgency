@@ -2,6 +2,7 @@ package com.my.db.dao;
 
 import com.my.db.model.RepairRequest;
 import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         } catch (SQLException ex) {
             log.debug(ex.getMessage());
         }
-        System.out.println("Formed user " + repairRequests);
+        log.info("Formed requests " + repairRequests);
         return repairRequests;
     }
 
@@ -84,7 +85,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_ALL_REPAIR_REQUESTS_FULL + " limit "+ start +", " + total);
+            preparedStatement = connection.prepareStatement(FIND_ALL_REPAIR_REQUESTS_FULL + " limit " + start + ", " + total);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 repairRequests.add(mapRepairRequest(resultSet));
@@ -102,8 +103,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
     public List<RepairRequest> getAll(int start, int total, String orderBy) {
 
         List<RepairRequest> repairRequests = new ArrayList<>();
-        String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL +" ORDER BY " + orderBy + " limit "+ start +", " + total;
-        System.out.println("sqlQuery " + sqlQuery);
+        String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " ORDER BY " + orderBy + " limit " + start + ", " + total;
         try (Connection con = getConnection();
              Statement stmt = con.createStatement();
 
@@ -111,16 +111,14 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
             while (rs.next()) {
                 repairRequests.add(mapRepairRequest(rs));
             }
-
         } catch (SQLException ex) {
-            //   logger.log(Level.WARNING, ex.getMessage());
+            log.debug(" getAll requests exception " + repairRequests);
         }
-        System.out.println("Formed repairRequests " + repairRequests);
         return repairRequests;
     }
 
     public List<RepairRequest> getAll(int start, int total, String filterField, int id) {
-       // "SELECT * FROM repair_request_full WHERE status_id = ?";
+        // "SELECT * FROM repair_request_full WHERE status_id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -128,7 +126,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
-            String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL +" WHERE " + filterField + " = " + id + " limit "+ start +", " + total;
+            String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " WHERE " + filterField + " = " + id + " limit " + start + ", " + total;
             System.out.println("sqlQuery " + sqlQuery);
             preparedStatement = connection.prepareStatement(sqlQuery);
 
@@ -155,9 +153,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
                 count = rs.getInt(1);
             }
         } catch (SQLException ex) {
-            log.debug(ex.getMessage());
+            log.debug("count of requests exception " + ex.getMessage());
         }
-
         return count;
     }
 
@@ -165,7 +162,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         int count = 0;
         String sqlQuery = "SELECT COUNT(id) AS count FROM repair_request WHERE status_id = " + status_id;
-         try (Connection con = getConnection();
+        try (Connection con = getConnection();
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(sqlQuery);) {
             while (rs.next()) {
@@ -192,9 +189,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
                 System.out.println("count " + count);
             }
         } catch (SQLException ex) {
-            //   logger.log(Level.WARNING, ex.getMessage());
+            log.debug(ex.getMessage());
         }
-
         return count;
     }
 
@@ -234,7 +230,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
                 repairRequest = mapRepairRequest(resultSet);
             }
         } catch (SQLException ex) {
-            //  logger.log(Level.WARNING, ex.getMessage());
+            log.debug(ex.getMessage());
         } finally {
             close(resultSet);
             close(preparedStatement);
@@ -282,10 +278,6 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         return true;
     }
 
-    public boolean delete(final int id) {
-        return false;
-    }
-
     public List<RepairRequest> getAllByUserId(int id) {
 
         Connection connection = null;
@@ -319,7 +311,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
-            String sqlQuery = FIND_ALL_REPAIR_REQUEST_BY_USER_ID + " limit "+ start +", " + total;
+            String sqlQuery = FIND_ALL_REPAIR_REQUEST_BY_USER_ID + " limit " + start + ", " + total;
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, String.valueOf(id));
             resultSet = preparedStatement.executeQuery();
@@ -355,9 +347,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
             repairRequest.setStatusName(rs.getString(SQLConstants.FIELD_STATUS_NAME));
             repairRequest.setUserName(rs.getString(SQLConstants.FIELD_USER_NAME));
         } catch (SQLException ex) {
-              log.debug("map Request exception " + ex.getMessage());
-                  }
-
-          return repairRequest;
+            log.debug("map Request exception " + ex.getMessage());
+        }
+        return repairRequest;
     }
 }

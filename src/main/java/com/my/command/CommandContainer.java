@@ -25,6 +25,8 @@ public class CommandContainer {
 		commands.put("sortListRequestsByStatus", new SortListRequestsByStatusCommand());
 	    commands.put("filtertListRequestsByStatus", new FilterListRequestsByStatusCommand());
 		commands.put("filtertListRequestsByMaster", new FilterListRequestsByMasterCommand());
+		commands.put("replenishInvoice", new ReplenishInvoiceCommand());
+
 	}
 
 	public static Command getCommmand(String commmandName) {

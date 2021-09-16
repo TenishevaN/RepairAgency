@@ -12,6 +12,12 @@
     </custom-resource-bundle>
     <custom-resource-bundle>
       <file value="file://$PROJECT_DIR$/src/main/resources/resources.properties" />
+      <file value="file://$PROJECT_DIR$/src/main/resources/resources_ru.properties" />
+      <file value="file://$PROJECT_DIR$/src/main/resources/resources_uk.properties" />
+      <base-name>resources</base-name>
+    </custom-resource-bundle>
+    <custom-resource-bundle>
+      <file value="file://$PROJECT_DIR$/src/main/resources/resources.properties" />
       <file value="file://$PROJECT_DIR$/src/main/resources/resources_en.properties" />
       <file value="file://$PROJECT_DIR$/src/main/resources/resources_ru.properties" />
       <file value="file://$PROJECT_DIR$/src/main/resources/resources_uk.properties" />

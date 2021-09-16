@@ -1,5 +1,7 @@
 package com.my.db.dao;
 
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import javax.naming.*;
 import javax.sql.DataSource;
@@ -7,6 +9,7 @@ import javax.sql.DataSource;
 public class ManagerDAO {
 
     private static ManagerDAO instance;
+    private static final Logger log = Logger.getLogger(InvoiceDAO.class);
 
     public static synchronized ManagerDAO getInstance() {
         if (instance == null) {
@@ -36,7 +39,7 @@ public class ManagerDAO {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-         //   logger.log(Level.WARNING, ex.getMessage());
+            log.debug(ex.getMessage());
         }
     }
 
@@ -44,8 +47,8 @@ public class ManagerDAO {
         if (ac != null) {
             try {
                 ac.close();
-            } catch (Exception e) {
-                // log
+            } catch (Exception ex) {
+                log.debug(ex.getMessage());
             }
         }
     }

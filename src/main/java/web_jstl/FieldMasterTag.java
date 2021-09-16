@@ -27,13 +27,13 @@ public class FieldMasterTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException {
+
         String output = "";
         JspWriter out = getJspContext().getOut();
         UserDAO userDAO = new UserDAO();
         User currentMaster = userDAO.get(idMaster);
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
-            output = "<select name=masterId>";
-         //   List<User> listMaster = userDAO.getAll();
+            output = "<select name = masterId>";
             List<User> listMaster = Controller.masterList;
             for (User master : listMaster) {
                 if (master.getId() == idMaster) {

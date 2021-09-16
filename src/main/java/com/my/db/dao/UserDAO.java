@@ -1,6 +1,9 @@
 package com.my.db.dao;
 
 import com.my.db.model.User;
+import org.apache.log4j.Logger;
+
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +14,11 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
     public static final String TABLE_USER = "account";
     private static final String ADD_NEW_USER = "INSERT INTO " + TABLE_USER + "(login, password, role_id, email, name) values (?, ?, ?, ?, ?);";
     private static final String FIND_ALL_USERS = "SELECT * FROM " + TABLE_USER;
-    private static final String FIND_USER_BY_ID = "SELECT * FROM " + TABLE_USER +" WHERE id=?";
-    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER +" WHERE login=?";
-    private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER +"  right join role on account.role_id = role.id where role.name = 'master'";
+    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER + " WHERE login = ?";
+    private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  right join role on account.role_id = role.id where role.name = 'master'";
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
+    private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id, invoice.ammount FROM account left join invoice on account.invoice_id = invoice.id where account.id = ?;";
+    private static final Logger log = Logger.getLogger(UserDAO.class);
 
 
     public UserDAO() {
@@ -43,10 +47,9 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             }
             connection.commit();
         } catch (SQLException ex) {
-            System.out.println("ex of insertion " + ex.getMessage());
+            log.debug("insert user exception " + ex.getMessage());
             rollBackTransaction(connection);
             return false;
-
         } finally {
             close(resultSet);
             close(preparedStatement);
@@ -66,9 +69,9 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             }
 
         } catch (SQLException ex) {
-            //   logger.log(Level.WARNING, ex.getMessage());
+            log.debug(ex.getMessage());
         }
-        System.out.println("Formed user " + users);
+
         return users;
     }
 
@@ -83,7 +86,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             }
 
         } catch (SQLException ex) {
-            //   logger.log(Level.WARNING, ex.getMessage());
+            log.debug(ex.getMessage());
         }
         return masters;
     }
@@ -99,12 +102,11 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             pstmt = con.prepareStatement(FIND_USER_BY_ID);
             pstmt.setString(1, String.valueOf(id));
             rs = pstmt.executeQuery();
-            if (rs.next())
+            if (rs.next()) {
                 user = mapUser(rs);
-            rs.close();
-            pstmt.close();
+            }
         } catch (SQLException ex) {
-   //            ex.printStackTrace();
+            log.debug("get user exception " + ex.getMessage());
         } finally {
             close(rs);
             close(pstmt);
@@ -124,13 +126,11 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             pstmt = con.prepareStatement(FIND_USER_BY_LOGIN);
             pstmt.setString(1, login);
             rs = pstmt.executeQuery();
-            if (rs.next())
+            if (rs.next()) {
                 user = mapUser(rs);
-            rs.close();
-            pstmt.close();
+            }
         } catch (SQLException ex) {
-            //rollbackAndClose(con);
-            ex.printStackTrace();
+            log.debug("get user exception " + ex.getMessage());
         } finally {
             close(rs);
             close(pstmt);
@@ -141,6 +141,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
     @Override
     public boolean update(User element) {
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -166,8 +167,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             connection.commit();
         } catch (SQLException ex) {
             rollBackTransaction(connection);
-            System.out.println("update user exception " + ex.getMessage());
-            //  logger.log(Level.INFO, ex.getMessage());
+            log.debug(ex.getMessage());
             return false;
 
         } finally {
@@ -178,11 +178,8 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         return true;
     }
 
-    public boolean delete(int id) {
-        return false;
-    }
-
     public User mapUser(ResultSet rs) {
+
         User user = new User();
         try {
             user.setId(rs.getInt(SQLConstants.FIELD_ID));
@@ -190,17 +187,21 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             user.setLogin(rs.getString(SQLConstants.FIELD_LOGIN));
             user.setPassword(rs.getString(SQLConstants.FIELD_PASSWORD));
             user.setRoleId(rs.getInt(SQLConstants.FIELD_ROLE_ID));
-            Integer invoiceId = rs.getInt(SQLConstants.FIELD_INVICE_ID);
+            Integer invoiceId = rs.getInt(SQLConstants.FIELD_INVOICE_ID);
+            System.out.println("invoiceId " + invoiceId);
             if (invoiceId != null && invoiceId != 0) {
                 user.setInvoiceId(invoiceId);
             } else {
                 user.setInvoiceId(-1);
             }
+            BigDecimal ammount = BigDecimal.valueOf(rs.getInt(SQLConstants.FIELD_AMMOUNT));
+            if (ammount != null) {
+                user.setInvoiceAmmount(ammount);
+            }
             user.setEmail(rs.getString("email"));
         } catch (SQLException ex) {
-            //   logger.log(Level.WARNING, ex.getMessage());
+            log.debug("map user exception " + ex.getMessage());
         }
-        System.out.println("+++++user+++++++++" + user);
         return user;
     }
 }

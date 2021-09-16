@@ -1,6 +1,7 @@
 package com.my.db.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class User  implements Serializable {
@@ -13,6 +14,7 @@ public class User  implements Serializable {
 	private transient String password;
 	private int roleId;
 	private int invoiceId;
+	private BigDecimal invoiceAmmount;
 
 	public int getId() {
 		return id;
@@ -74,6 +76,14 @@ public class User  implements Serializable {
 		this.invoiceId = invoiceId;
 	}
 
+	public BigDecimal getInvoiceAmmount() {
+		return invoiceAmmount;
+	}
+
+	public void setInvoiceAmmount(BigDecimal invoiceAmmount) {
+		this.invoiceAmmount = invoiceAmmount;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -97,6 +107,7 @@ public class User  implements Serializable {
 				", password='" + password + '\'' +
 				", roleId=" + roleId +
 				", invoiceId=" + invoiceId +
+				", invoiceAmmount=" + invoiceAmmount +
 				'}';
 	}
 }

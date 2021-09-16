@@ -1,6 +1,7 @@
 package com.my.command;
 
 import com.my.db.model.User;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class PaginationUtil {
@@ -28,11 +29,7 @@ public class PaginationUtil {
     protected void setPaginationSessionParameters(HttpServletRequest req, User currentUser, String command) {
 
         req.setAttribute("userId", currentUser.getId());
-//        if (pageParameter != null) {
-//            req.setAttribute("page", pageParameter);
-//        } else {
-            req.setAttribute("page", 1);
-   //     }
+        req.setAttribute("page", 1);
         req.setAttribute("command", command);
     }
 }

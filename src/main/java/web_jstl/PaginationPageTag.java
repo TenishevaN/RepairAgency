@@ -61,6 +61,7 @@ public class PaginationPageTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException {
+        System.out.println("pagination page " );
         String output = "";
         JspWriter out = getJspContext().getOut();
 
@@ -91,9 +92,11 @@ public class PaginationPageTag extends SimpleTagSupport {
     }
 
     private int getPageCount() {
+System.out.println("idUser "+idUser);
 
         UserDAO userDAO = new UserDAO();
         User user = userDAO.get(idUser);
+        System.out.println(user);
         RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
         if ("user".equals(user.getRoleName(idUser))) {
             return calculateCount(repairRequestDAO.getCountOfAllRequestsDyUserId(idUser));
@@ -124,6 +127,7 @@ public class PaginationPageTag extends SimpleTagSupport {
         if (totalCount % 5 > 0) {
             totalPages++;
         }
+        System.out.println("totalPages " + totalPages);
         return totalPages;
     }
 }

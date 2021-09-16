@@ -3,7 +3,6 @@ package web_jstl;
 import com.my.db.dao.StatusDAO;
 import com.my.db.model.Status;
 import org.apache.log4j.Logger;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -14,7 +13,7 @@ public class FieldStatusTag extends SimpleTagSupport {
 
     private int idStatus;
     private String nameRole;
-    private String  currentLocale;
+    private String currentLocale;
     private static final Logger log = Logger.getLogger(FieldStatusTag.class);
 
     public void setIdStatus(String idStatus) {
@@ -25,7 +24,7 @@ public class FieldStatusTag extends SimpleTagSupport {
         this.nameRole = nameRole;
     }
 
-       public void setCurrentLocale(String currentLocale) {
+    public void setCurrentLocale(String currentLocale) {
         this.currentLocale = currentLocale;
     }
 
@@ -36,7 +35,7 @@ public class FieldStatusTag extends SimpleTagSupport {
 
         System.out.println("currentLocale --- " + currentLocale);
         StatusDAO statusDAO = new StatusDAO();
-        List<Status> listStatus= statusDAO.getAll(currentLocale);
+        List<Status> listStatus = statusDAO.getAll(currentLocale);
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
 
             output = "<select name=statusId>";
@@ -51,9 +50,6 @@ public class FieldStatusTag extends SimpleTagSupport {
         } else if (("master".equals(nameRole))) {
             output = "<select name=statusId>";
             for (Status status : listStatus) {
-            //    if ((status != Status.DONE.ON_THE_JOB) && (status != Status.DONE) && (status.getId() != idStatus)) {
-             //       continue;
-            //    }
                 if (status.getId() == idStatus) {
                     output += "<option  value=" + status.getId() + " selected>" + status.getName() + "</option>";
                 } else {

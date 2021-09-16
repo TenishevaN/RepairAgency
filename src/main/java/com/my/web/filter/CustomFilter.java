@@ -35,27 +35,12 @@ public class CustomFilter implements Filter {
         userRights.add("updateRepairRequest");
         userRights.add("insertReview");
         userRights.add("insertUser");
+        userRights.add("openCardUser");
         userRights.add("listRequests");
         userRights.add("mainPage");
 
         accessMap.put(Role.USER, userRights);
 
-        List<String> adminRights = new ArrayList<>();
-        adminRights.add("openCardRepairRequest");
-        adminRights.add("listRequests");
-        adminRights.add("updateRepairRequest");
-        adminRights.add("insertUser");
-        adminRights.add("listUsers");
-        adminRights.add("openCardUser");
-        adminRights.add("updateCardUser");
-        adminRights.add("reports");
-        adminRights.add("sortListRequestsByDate");
-        adminRights.add("sortListRequestsByCost");
-        adminRights.add("sortListRequestsByStatus");
-        adminRights.add("filtertListRequestsByStatus");
-        adminRights.add("filtertListRequestsByMaster");
-
-        accessMap.put(Role.ADMIN, adminRights);
 
         List<String> masterRights = new ArrayList<>();
         masterRights.add("openCardRepairRequest");
@@ -76,7 +61,25 @@ public class CustomFilter implements Filter {
         managerRights.add("reports");
         managerRights.add("filtertListRequestsByStatus");
         managerRights.add("filtertListRequestsByMaster");
+        managerRights.add("replenishInvoice");
         accessMap.put(Role.MANAGER, managerRights);
+
+        List<String> adminRights = new ArrayList<>();
+        adminRights.add("openCardRepairRequest");
+        adminRights.add("listRequests");
+        adminRights.add("updateRepairRequest");
+          adminRights.add("insertUser");
+        adminRights.add("listUsers");
+        adminRights.add("openCardUser");
+        adminRights.add("updateCardUser");
+        adminRights.add("reports");
+        adminRights.add("sortListRequestsByDate");
+        adminRights.add("sortListRequestsByCost");
+        adminRights.add("sortListRequestsByStatus");
+        adminRights.add("filtertListRequestsByStatus");
+        adminRights.add("filtertListRequestsByMaster");
+        adminRights.add("replenishInvoice");
+        accessMap.put(Role.ADMIN, adminRights);
     }
 
     public CustomFilter() {
