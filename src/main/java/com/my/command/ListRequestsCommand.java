@@ -7,7 +7,6 @@ import com.my.db.model.Role;
 import com.my.db.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ListRequestsCommand implements Command {
@@ -22,21 +21,19 @@ public class ListRequestsCommand implements Command {
             start = Integer.parseInt(req.getParameter("page"));
         }
 
-        System.out.println("pageParameter " + pageParameter);
-        System.out.println("start " + start);
         try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
 
             User currentUser = (User) req.getSession().getAttribute("user");
             Role currentRole = Role.getRole(currentUser);
+            int total = 5;
+            if (start != 0) {
+                start = start - 1;
+                start = start * total + 1;
+            }
             if ("user".equals(currentRole.getName())) {
-                repairRequests = repairRequestDAO.getAllByUserId(currentUser.getId());
+                repairRequests = repairRequestDAO.getAllByUserId(currentUser.getId(), start, total);
             } else {
-                int total = 5;
-                if (start != 0) {
-                    start = start - 1;
-                    start = start * total + 1;
-                }
                 repairRequests = repairRequestDAO.getAll(start, total);
              }
 

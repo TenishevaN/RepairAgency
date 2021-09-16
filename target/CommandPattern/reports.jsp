@@ -18,7 +18,7 @@
 <div class="container-fluid text-center">
 
     <div class="container">
-        <h1><fmt:message key="list_repair_requests"></fmt:message></h1>
+        <h1><fmt:message key="report"></fmt:message></h1>
 
                <ul class="nav navbar-nav">
                 <li>

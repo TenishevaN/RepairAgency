@@ -15,7 +15,7 @@ public class ReportPageCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-         System.out.println("---------- Reports command ---------");
+
         List<RepairRequest> repairRequests;
         int start = 0;
         String pageParameter = req.getParameter("page");
@@ -45,7 +45,6 @@ public class ReportPageCommand implements Command {
             req.setAttribute("role", currentRole.getName());
             req.setAttribute("userId", currentUser.getId());
 
-
             //Pagination
             if (pageParameter != null) {
                 req.setAttribute("page", pageParameter);
@@ -54,11 +53,6 @@ public class ReportPageCommand implements Command {
             }
             req.setAttribute("command", "reports");
 
-
-          //  String orderBy = req.getParameter("orderBy");
-          //  if (orderBy == null) {
-          //      req.setAttribute("orderBy", "ASC");
-          //  }
         } catch (Exception ex) {
            System.out.println(" obtain list reports pagination exception " +ex.getMessage());
         }

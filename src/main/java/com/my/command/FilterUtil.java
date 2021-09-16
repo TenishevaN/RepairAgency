@@ -33,9 +33,13 @@ public class FilterUtil extends PaginationUtil{
             req.setAttribute("repairRequests", repairRequests);
             User currentUser = (User) req.getSession().getAttribute("user");
             Role currentRole = Role.getRole(currentUser);
+            String currentLocale = (String) req.getSession().getAttribute("currentLocale");
+            if (currentLocale == null) {
+                req.setAttribute("currentLocale", "en");
+            } else {
+                req.setAttribute("currentLocale", currentLocale);
+            }
             req.setAttribute("role", currentRole.getName());
-            System.out.println("id status "+req.getParameter("status_id"));
-            System.out.println("id manager "+req.getParameter("master_id"));
             req.setAttribute("idStatus", req.getParameter("status_id"));
             req.setAttribute("idMaster", req.getParameter("master_id"));
 

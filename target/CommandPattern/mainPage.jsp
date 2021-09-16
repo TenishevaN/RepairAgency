@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Repair agency</title>
+    <title><fmt:message key="repair_agency"></fmt:message></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -17,19 +17,11 @@
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-sm-8 text-left">
-            <h1>Welcome</h1>
+            <h1></h1>
             <p></p>
             <hr>
             <h3></h3>
             <p></p>
-        </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
         </div>
     </div>
 </div>
@@ -50,7 +42,7 @@
                 <div class="container">
                     <h1></h1>
 
-                    <form style="width:300px" action="controller" method="get">
+                    <form  action="controller" method="get">
                         <input name="command" type="hidden" value="login">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>

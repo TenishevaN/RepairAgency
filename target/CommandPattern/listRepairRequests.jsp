@@ -21,15 +21,15 @@
     <c:if test="${role eq 'user'}">
         <div class="form-group">
             <form action="controller" method="get">
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#insertModalPage">
-                    New repair request
+                <button type="button"  data-toggle="modal" data-target="#insertModalPage">
+                    <fmt:message key="new_repair_request"></fmt:message>
                 </button>
             </form>
         </div>
     </c:if>
 
     <div class="container">
-        <h1><fmt:message key="list_repair_requests"></fmt:message></h1>
+        <h1><fmt:message key="requests"></fmt:message></h1>
         <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
         <c:if test="${role == 'manager'}">
             <ul class="nav navbar-nav">

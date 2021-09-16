@@ -1,4 +1,3 @@
-
 <%@ include file="/WEB-INF/include/head.jspf" %>
 
 
@@ -9,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
@@ -49,8 +48,11 @@
                         <input name="locale" type="hidden" value="en">
                     </form>
                 </li>
-                <li><a href=#insertModalLoginPage" data-toggle="modal"  data-target="#insertModalRegistrationPage"><span class="glyphicon glyphicon-registration-mark"></span> <fmt:message key="registration"></fmt:message></a></li>
-                <li><a href=#insertModalLoginPage" data-toggle="modal"  data-target="#insertModalLoginPage"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="sign_in"></fmt:message></a></li>
+                <li><a href=#insertModalLoginPage" data-toggle="modal" data-target="#insertModalRegistrationPage"><span
+                        class="glyphicon glyphicon-registration-mark"></span> <fmt:message
+                        key="registration"></fmt:message></a></li>
+                <li><a href=#insertModalLoginPage" data-toggle="modal" data-target="#insertModalLoginPage"><span
+                        class="glyphicon glyphicon-log-in"></span> <fmt:message key="sign_in"></fmt:message></a></li>
             </ul>
         </div>
     </div>
@@ -59,28 +61,17 @@
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-sm-2 sidenav">
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-        </div>
-        <div class="col-sm-8 text-left">
-            <h1>Welcome</h1>
-            <p></p>
-            <hr>
 
         </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
+        <div class="col-sm-8 text-left">
+            <h1></h1>
+            <p></p>
+            <hr>
         </div>
     </div>
 </div>
 
-<jsp:include page="footerBlock.jsp" />
+
 
 <!-- Modal login-->
 <div class="modal fade" id="insertModalLoginPage" role="dialog">
@@ -99,11 +90,11 @@
                         <input name="command" type="hidden" value="login">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input name="login" value="admin"  class="form-control" id="login"><br>
+                            <input name="login" value="admin" class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input name="password" type="password" class="form-control" id="password"  value="1" >
+                            <input name="password" type="password" class="form-control" id="password" value="1">
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="login"></fmt:message></button>
                     </form>
@@ -130,7 +121,7 @@
                         <input name="command" type="hidden" value="insertUser">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input name="login"  class="form-control" id="login"><br>
+                            <input name="login" class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
@@ -138,13 +129,14 @@
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="name"></fmt:message></label>
-                            <input name="name"  class="form-control" id="name"><br>
+                            <input name="name" class="form-control" id="name"><br>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="email"></fmt:message></label>
-                            <input name="email"  class="form-control" id="email"><br>
+                            <input name="email" class="form-control" id="email"><br>
                         </div>
-                        <button type="submit" class="btn btn-default"><fmt:message key="register"></fmt:message></button>
+                        <button type="submit" class="btn btn-default"><fmt:message
+                                key="register"></fmt:message></button>
                     </form>
                 </div>
             </div>
@@ -153,7 +145,7 @@
         </div>
     </div>
 </div>
-
+<jsp:include page="footerBlock.jsp"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
