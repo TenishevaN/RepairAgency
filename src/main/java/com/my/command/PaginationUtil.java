@@ -13,15 +13,14 @@ public class PaginationUtil {
     protected void SetPaginationInitialParameters(HttpServletRequest req) {
 
         start = 0;
-        pageParameter = req.getParameter("page");
+       pageParameter = req.getParameter("page");
         if (pageParameter != null) {
             start = Integer.parseInt(req.getParameter("page"));
-            System.out.println("start " + start);
         }
         if (start != 0) {
             start = start - 1;
             if (start != 0) {
-                start = start * total + 1;
+                start = start * total;
             }
         }
     }

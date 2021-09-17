@@ -1,11 +1,14 @@
 package com.my.db.model;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Invoice {
+public class Invoice implements Serializable {
+
+    private static final long serialVersionUID = 8466257860808346236L;
     private int id;
-    BigDecimal ammount;
+    private int account_id;
+
 
     public int getId() {
         return id;
@@ -15,12 +18,12 @@ public class Invoice {
         this.id = id;
     }
 
-    public BigDecimal getAmmount() {
-        return ammount;
+    public int getAccount_id() {
+        return account_id;
     }
 
-    public void setAmmount(BigDecimal ammount) {
-        this.ammount = ammount;
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class Invoice {
     public String toString() {
         return "Invoice{" +
                 "id=" + id +
-                ", ammount=" + ammount +
+                ", account_id=" + account_id +
                 '}';
     }
 }

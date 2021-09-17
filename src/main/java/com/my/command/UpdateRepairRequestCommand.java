@@ -38,8 +38,7 @@ public class UpdateRepairRequestCommand implements Command {
             if(description != null){
                 repairRequest.setDescription(description);
             }
-            System.out.println("before  update " + repairRequest);
-           repairRequestDAO.update(repairRequest);
+          repairRequestDAO.update(repairRequest);
 
         } catch (Exception ex) {
               log.debug(ex.getMessage());

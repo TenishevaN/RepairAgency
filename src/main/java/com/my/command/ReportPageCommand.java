@@ -36,9 +36,7 @@ public class ReportPageCommand implements Command {
                     start = start - 1;
                     start = start * total + 1;
                 }
-                System.out.println("start " + start);
                 repairRequests = repairRequestDAO.getAll(start, total);
-                System.out.println("repairRequests " + repairRequests);
             }
 
             req.setAttribute("repairRequests", repairRequests);
@@ -54,7 +52,7 @@ public class ReportPageCommand implements Command {
             req.setAttribute("command", "reports");
 
         } catch (Exception ex) {
-           System.out.println(" obtain list reports pagination exception " +ex.getMessage());
+         //log
         }
         return "reports.jsp";
     }

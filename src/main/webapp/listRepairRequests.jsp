@@ -2,7 +2,6 @@
 <%@ include file="mainPageNavBarBlock.jsp" %>
 <%@ taglib prefix="userFieldRight" uri="/WEB-INF/tlib/userFieldRight.tld" %>
 
-
 <html>
 <head>
     <title>Repair agency</title>
@@ -80,7 +79,7 @@
                     </td>
                     <td>
                         <form action="controller" method="get">
-                            <input name="command" type="hidden" value="openCardRepairRequest">
+                            <input name="command" type="hidden" value="deleteCardRepairRequest">
                             <input type="hidden" name="id" id="id" class="form-control" value="${item.id}">
                             <input type="submit" name="delete" value="Delete"><br>
                         </form>
@@ -93,7 +92,7 @@
     </div>
 </div>
 
-<jsp:include page="footerBlock.jsp"/>
+<%@ include file="footerBlock.jsp" %>
 
 <!-- Modal Create new Repair request-->
 <div class="modal fade" id="insertModalPage" role="dialog">

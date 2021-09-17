@@ -1,4 +1,3 @@
-
 <%@ include file="/WEB-INF/include/head.jspf" %>
 <%@ taglib prefix="userFieldRight" uri="/WEB-INF/tlib/userFieldRight.tld" %>
 <%@ include file="mainPageNavBarBlock.jsp" %>
@@ -23,6 +22,7 @@
             <div class="divider bg-primary mx-auto"></div>
         </div>
     </div>
+
     <div class="row mt-5">
         <div class="col-md-8 mx-auto">
             <form action="controller" method="post">
@@ -43,7 +43,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label col-xs-4">Status:</label>
-                            <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"  currentLocale = "${currentLocale}"/>
+                            <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"
+                                                   currentLocale="${currentLocale}"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-4">Master:</label>
@@ -54,14 +55,37 @@
                             <userFieldRight:cost costValue="${repairRequest.cost}" nameRole="${role}"/>
                         </div>
                     </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+
+                            <div class="form-inline">
+                                <div>
+                                    <label><fmt:message key="balance_owed"></fmt:message> ${balance_owed}</label>
+                                </div>
+                                </br>
+                                <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
+                                <c:if test="${role eq 'user'}">
+
+                                    <form action="controller" method="get">
+                                        <button type="button" class="btn btn-default" data-toggle="modal"
+                                                data-target="#insertPaymentPage">
+                                            <fmt:message key="pay"></fmt:message>
+                                        </button>
+                                    </form>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="text-left mt-3">
                     <button type="submit" class="btn btn-default">Update</button>
                 </div>
             </form>
-
+            </br>
             <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
-            <c:if test="${role eq 'user'}">
+            <c:set var="statusId" value="${repairRequest.statusId}"></c:set>
+            <c:if test="${(role eq 'user') && (statusId == 3)}">
 
                 <div class="row">
                     <div class="col-md-6">
@@ -71,7 +95,7 @@
                                 <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                                        value="${repairRequest.id}"/>
                                 <input type="hidden" id="role" name="role" value="${role}"/>
-                                <label class="control-label col-xs-4">Write a review:</label>
+                                <label>Write a review:</label>
 
                                 <div class="form-group" value="Comment">
                                             <textarea rows="5" class="form-control" name="comment"
@@ -124,7 +148,39 @@
 <h3></h3>
 <p></p>
 
-<jsp:include page="footerBlock.jsp" />
+<jsp:include page="footerBlock.jsp"/>
+
+<!-- Modal payment-->
+<div class="modal fade" id="insertPaymentPage" role="dialog">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><fmt:message key="payment"></fmt:message></h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+
+                    <form style="width:300px" action="controller" method="post">
+                        <input name="command" type="hidden" value="insertPayment">
+                        <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="${repairRequest.id}"/>
+                        <input type="hidden" id="idUser" name="idUser" value="${repairRequest.userId}"/>
+                        <input name="operation" type="hidden" value="payment">
+                        <div class="form-group">
+                            <label for="ammount"><fmt:message key="ammount"></fmt:message></label>
+                            <input name="ammount" class="form-control" id="ammount"><br>
+                        </div>
+                        <button type="submit" class="btn btn-default"><fmt:message key="pay"></fmt:message></button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

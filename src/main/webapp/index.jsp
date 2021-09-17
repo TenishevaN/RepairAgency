@@ -16,14 +16,7 @@
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
+          <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#"><fmt:message key="home"></fmt:message></a></li>
                 <li><a href="#"><fmt:message key="contacts"></fmt:message></a></li>
@@ -58,20 +51,7 @@
     </div>
 </nav>
 
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-2 sidenav">
-
-        </div>
-        <div class="col-sm-8 text-left">
-            <h1></h1>
-            <p></p>
-            <hr>
-        </div>
-    </div>
-</div>
-
-
+<%@ include file="footerBlock.jsp" %>
 
 <!-- Modal login-->
 <div class="modal fade" id="insertModalLoginPage" role="dialog">
@@ -145,7 +125,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="footerBlock.jsp"/>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 

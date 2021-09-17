@@ -38,9 +38,10 @@ public class CustomFilter implements Filter {
         userRights.add("openCardUser");
         userRights.add("listRequests");
         userRights.add("mainPage");
+        userRights.add("insertPayment");
+        userRights.add("deleteCardRepairRequest");
 
         accessMap.put(Role.USER, userRights);
-
 
         List<String> masterRights = new ArrayList<>();
         masterRights.add("openCardRepairRequest");
@@ -62,6 +63,8 @@ public class CustomFilter implements Filter {
         managerRights.add("filtertListRequestsByStatus");
         managerRights.add("filtertListRequestsByMaster");
         managerRights.add("replenishInvoice");
+        managerRights.add("insertInvoice");
+        managerRights.add("insertPayment");
         accessMap.put(Role.MANAGER, managerRights);
 
         List<String> adminRights = new ArrayList<>();
@@ -79,6 +82,7 @@ public class CustomFilter implements Filter {
         adminRights.add("filtertListRequestsByStatus");
         adminRights.add("filtertListRequestsByMaster");
         adminRights.add("replenishInvoice");
+        adminRights.add("insertInvoice");
         accessMap.put(Role.ADMIN, adminRights);
     }
 

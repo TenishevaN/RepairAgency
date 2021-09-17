@@ -1,15 +1,20 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.db.dao.InvoiceDAO;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
 import com.my.db.model.User;
+import org.apache.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ListRequestsCommand implements Command {
+
+    private static final Logger log = Logger.getLogger(InvoiceDAO.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -26,10 +31,11 @@ public class ListRequestsCommand implements Command {
 
             User currentUser = (User) req.getSession().getAttribute("user");
             Role currentRole = Role.getRole(currentUser);
+
             int total = 5;
             if (start != 0) {
                 start = start - 1;
-                start = start * total + 1;
+                start = start * total;
             }
             if ("user".equals(currentRole.getName())) {
                 repairRequests = repairRequestDAO.getAllByUserId(currentUser.getId(), start, total);
@@ -62,7 +68,7 @@ public class ListRequestsCommand implements Command {
             req.setAttribute("idStatus", "-1");
             req.setAttribute("idMaster", "-1");
          } catch (Exception ex) {
-            System.out.println("Get List requests exception " + ex.getMessage());
+            log.debug("Get List requests exception " + ex.getMessage());
         }
         return Path.PAGE_LIST_REPAIR_REQUESTS;
     }

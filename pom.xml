@@ -55,7 +55,25 @@
       <version>1.2.17</version>
     </dependency>
 
-  </dependencies>
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.sf.jxls</groupId>
+      <artifactId>jxls-core</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+
+     </dependencies>
   <build>
     <finalName>CommandPattern</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven

@@ -52,6 +52,7 @@ public class FilterUtil extends PaginationUtil{
             }
 
             String orderBy = req.getParameter("orderBy");
+
             if ("null".equals(orderBy)) {
                 req.setAttribute("orderBy", "ASC");
             }
@@ -59,7 +60,7 @@ public class FilterUtil extends PaginationUtil{
             req.setAttribute(sortField, req.getParameter(sortField));
 
         } catch (Exception ex) {
-            System.out.println(" filter by status mistake " + ex.getMessage());
+        //log
         }
         return Path.PAGE_LIST_REPAIR_REQUESTS;
 

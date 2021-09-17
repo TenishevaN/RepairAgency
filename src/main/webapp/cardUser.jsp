@@ -14,42 +14,43 @@
 <body>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 mx-auto text-center">
-            <h2><fmt:message key="user"></fmt:message></h2>
-            <div class="divider bg-primary mx-auto"></div>
-        </div>
+    <div>
+        <h2><fmt:message key="user"></fmt:message></h2>
+        <div class="divider bg-primary mx-auto"></div>
     </div>
-    <div class="row mt-5">
-        <div class="form-group">
-            <form action="controller" method="post">
-                <input name="command" type="hidden" value="replenishInvoice">
-                <div class="row">
-                    <input type="hidden" name="id" value="${user.id}"/>
-                    <input type="hidden" name="invoiceId" value="${user.invoiceId}"/>
-                    <div class="col-md-5">
-                    </div>
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-inline">
+                    <p style="padding:10px;">
+                    <label><fmt:message
+                            key="account_balance"></fmt:message> ${total}</label>
+                    </p>
                     <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
-                    <c:if test="${role != 'manager'}">
-                        <div class="form-inline">
-                            <label><fmt:message
-                                    key="invoice"></fmt:message> ${user.invoiceAmmount}</label>
-                        </div>
+                    <c:set var="userInvoiceId" value="${user.invoiceId}"></c:set>
+                    <c:if test="${(role == 'manager') and (userInvoiceId == -1)}">
+                        <form action="controller" method="post">
+                            <input name="command" type="hidden" value="insertInvoice">
+                            <div class="row">
+                                <input type="hidden" name="userId" value="${user.id}"/>
+                                <button type="submit" class="btn btn-default"><fmt:message
+                                        key="add_invoice"></fmt:message></button>
+                            </div>
+                        </form>
                     </c:if>
 
-                    <c:if test="${role == 'manager'}">
-                        <div class="form-inline">
-                            <label><fmt:message key="invoice"></fmt:message></label>
-
-                            <input type="text" class="form-control" name="invoiceAmmount"
-                                   value="${user.invoiceAmmount}"/>
-
-                            <button type="submit" class="btn btn-default"><fmt:message
-                                    key="replenish"></fmt:message></button>
-                        </div>
+                    <c:if test="${(role eq 'manager') and (userInvoiceId != -1)}">
+                        <form action="controller" method="get">
+                            <button type="button" class="btn btn-default" data-toggle="modal"
+                                    data-target="#insertReplenishmentPage">
+                                <fmt:message key="replenish"></fmt:message>
+                            </button>
+                        </form>
                     </c:if>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="col-md-8 mx-auto">
             <form action="controller" method="post">
@@ -83,7 +84,40 @@
 <h3></h3>
 <p></p>
 
-<jsp:include page="footerBlock.jsp"/>
+<%@ include file="footerBlock.jsp" %>
+
+<!-- Modal replenishment-->
+<div class="modal fade" id="insertReplenishmentPage" role="dialog">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><fmt:message key="replenishment"></fmt:message></h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+
+                    <form style="width:300px" action="controller" method="post">
+                        <input name="command" type="hidden" value="insertPayment">
+                        <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="-1"/>
+                        <input type="hidden" id="idUser" name="idUser" value="${user.id}"/>
+                        <input name="operation" type="hidden" value="replenishment">
+                        <div class="form-group">
+                            <label for="ammount"><fmt:message key="ammount"></fmt:message></label>
+                            <input name="ammount" class="form-control" id="ammount"><br>
+                        </div>
+                        <button type="submit" class="btn btn-default"><fmt:message
+                                key="replenish"></fmt:message></button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

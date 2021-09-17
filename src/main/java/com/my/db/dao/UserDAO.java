@@ -1,5 +1,6 @@
 package com.my.db.dao;
 
+import com.my.db.model.Invoice;
 import com.my.db.model.User;
 import org.apache.log4j.Logger;
 
@@ -17,9 +18,9 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER + " WHERE login = ?";
     private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  right join role on account.role_id = role.id where role.name = 'master'";
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
-    private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id, invoice.ammount FROM account left join invoice on account.invoice_id = invoice.id where account.id = ?;";
+    private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account left join invoice on account.invoice_id = invoice.id where account.id = ?;";
     private static final Logger log = Logger.getLogger(UserDAO.class);
-
+    public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
 
     public UserDAO() {
     }
@@ -100,7 +101,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(FIND_USER_BY_ID);
-            pstmt.setString(1, String.valueOf(id));
+            pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 user = mapUser(rs);
@@ -112,6 +113,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             close(pstmt);
             close(con);
         }
+        System.out.println("Finded user " + user);
         return user;
     }
 

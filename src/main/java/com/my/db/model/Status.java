@@ -10,6 +10,8 @@ import java.util.Objects;
  */
 
 public class Status {
+
+	private static final long serialVersionUID = 8466257860808346236L;
 	private int id;
 	private String name;
 

@@ -17,6 +17,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
     private static final String UPDATE_REPAIR_REQUEST = "UPDATE " + TABLE_REPAIR_REQUEST + " SET " + SQLConstants.FIELD_DESCRIPTION + " = ?, cost = ?, master_id = ?, status_id = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String FIND_ALL_REPAIR_REQUESTS_FULL = "SELECT * FROM " + TABLE_REPAIR_REQUEST_FULL;
     private static final String COUNT_ALL_REPAIR_REQUESTS = "SELECT COUNT(id) AS count FROM repair_request;";
+    public static final String DELETE_REPAIR_REQUEST = "DELETE FROM " + TABLE_REPAIR_REQUEST + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
 
     private static final Logger log = Logger.getLogger(RepairRequestDAO.class);
 
@@ -85,7 +86,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_ALL_REPAIR_REQUESTS_FULL + " limit " + start + ", " + total);
+            String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " limit " + total + " OFFSET " + start;
+             preparedStatement = connection.prepareStatement(sqlQuery);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 repairRequests.add(mapRepairRequest(resultSet));
@@ -103,7 +105,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
     public List<RepairRequest> getAll(int start, int total, String orderBy) {
 
         List<RepairRequest> repairRequests = new ArrayList<>();
-        String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " ORDER BY " + orderBy + " limit " + start + ", " + total;
+        String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " ORDER BY " + orderBy + " limit " + total + " OFFSET " + start;
         try (Connection con = getConnection();
              Statement stmt = con.createStatement();
 
@@ -118,7 +120,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
     }
 
     public List<RepairRequest> getAll(int start, int total, String filterField, int id) {
-        // "SELECT * FROM repair_request_full WHERE status_id = ?";
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -126,10 +128,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
-            String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " WHERE " + filterField + " = " + id + " limit " + start + ", " + total;
-            System.out.println("sqlQuery " + sqlQuery);
+            String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " WHERE " + filterField + " = " + id + " limit " + total + " OFFSET " + start;
             preparedStatement = connection.prepareStatement(sqlQuery);
-
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 repairRequests.add(mapRepairRequest(resultSet));
@@ -179,15 +179,13 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         int count = 0;
         String sqlQuery = "SELECT COUNT(id) AS count FROM repair_request  WHERE master_id = " + master_id;
-        System.out.println("sqlQuery " + sqlQuery);
         try (Connection con = getConnection();
              Statement stmt = con.createStatement();
 
              ResultSet rs = stmt.executeQuery(sqlQuery);) {
             while (rs.next()) {
                 count = rs.getInt(1);
-                System.out.println("count " + count);
-            }
+                   }
         } catch (SQLException ex) {
             log.debug(ex.getMessage());
         }
@@ -198,7 +196,6 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         int count = 0;
         String sqlQuery = "SELECT COUNT(id) AS count FROM repair_request WHERE account_id = " + userId;
-        System.out.println("sqlQuery " + sqlQuery);
         try (Connection con = getConnection();
              Statement stmt = con.createStatement();
 
@@ -209,7 +206,6 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         } catch (SQLException ex) {
             log.debug(ex.getMessage());
         }
-
         return count;
     }
 
@@ -250,10 +246,6 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
             preparedStatement = connection.prepareStatement(ADD_REPAIR_REQUEST, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, element.getUserId());
             preparedStatement.setString(2, element.getDescription());
-
-            System.out.println("user id" + element.getUserId());
-            System.out.println("description " + element.getDescription());
-
             if (preparedStatement.executeUpdate() == 0) {
                 return false;
             }
@@ -261,12 +253,9 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
             resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 element.setId(resultSet.getInt(1));
-                System.out.println("element id " + element.getId());
             }
         } catch (SQLException ex) {
-            System.out.println("insert request exeption");
-            System.out.println(ex.getMessage());
-            rollBackTransaction(connection);
+               rollBackTransaction(connection);
             //  logger.log(Level.INFO, ex.getMessage());
             return false;
 
@@ -303,6 +292,30 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         return repairRequests;
     }
 
+    public boolean delete(RepairRequest repairRequest) {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_REPAIR_REQUEST);
+            preparedStatement.setInt(1, repairRequest.getId());
+            preparedStatement.executeUpdate();
+           log.info("executed " + preparedStatement);
+
+        } catch (SQLException ex) {
+            log.debug(ex.getMessage());
+            return false;
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return true;
+    }
+
+
+
     public List<RepairRequest> getAllByUserId(int id, int start, int total) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -311,7 +324,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
-            String sqlQuery = FIND_ALL_REPAIR_REQUEST_BY_USER_ID + " limit " + start + ", " + total;
+            String sqlQuery = FIND_ALL_REPAIR_REQUEST_BY_USER_ID + " limit " + total + " OFFSET " + start;
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, String.valueOf(id));
             resultSet = preparedStatement.executeQuery();

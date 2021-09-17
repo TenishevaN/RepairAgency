@@ -34,6 +34,7 @@
                         <input name="command" type="hidden" value="sortListRequestsByStatus">
                         <input type="hidden" name="changeOrder" class="form-control" value="true">
                         <input type="hidden" name="currentLocale" class="form-control" value="true">
+                        <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
                         <input type="hidden" name="orderBy" class="form-control" value="${currentLocale}">
                         <input type="submit" name="open" value=<fmt:message key="status"></fmt:message>><br>
                     </form>
@@ -72,11 +73,10 @@
         </table>
             <userFieldRight:pagination_list_requests idUser ="${userId}" command = "${command}" orderBy = "${orderBy}"/>
     </div>
-
 </div>
 </div>
 
-<jsp:include page="footerBlock.jsp"/>
+<%@ include file="footerBlock.jsp" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

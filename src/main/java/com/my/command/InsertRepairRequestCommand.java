@@ -4,6 +4,7 @@ import com.my.Path;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,10 +23,9 @@ public class InsertRepairRequestCommand implements Command {
             repairRequestDAO.insert(repairRequest);
 
         } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("add request exception " + ex.getMessage());
+            //     log
         }
-          return Path.COMMAND_LIST_REQUESTS;
+        return Path.COMMAND_LIST_REQUESTS;
     }
 
 }

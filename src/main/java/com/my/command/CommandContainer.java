@@ -13,7 +13,7 @@ public class CommandContainer {
 		commands.put("insertUser", new InsertUserCommand());
 		commands.put("listUsers", new ListUsersCommand());
 		commands.put("listRequests", new ListRequestsCommand());
-	    commands.put("updateRepairRequest", new UpdateRepairRequestCommand());
+		commands.put("updateRepairRequest", new UpdateRepairRequestCommand());
 		commands.put("insertRepairRequest", new InsertRepairRequestCommand());
 		commands.put("openCardRepairRequest", new CardRepairRequestPageCommand());
 		commands.put("insertReview", new InsertReviewCommand());
@@ -23,10 +23,10 @@ public class CommandContainer {
 		commands.put("sortListRequestsByDate", new SortListRequestsByDateCommand());
 		commands.put("sortListRequestsByCost", new SortListRequestsByCostCommand());
 		commands.put("sortListRequestsByStatus", new SortListRequestsByStatusCommand());
-	    commands.put("filtertListRequestsByStatus", new FilterListRequestsByStatusCommand());
+		commands.put("filtertListRequestsByStatus", new FilterListRequestsByStatusCommand());
 		commands.put("filtertListRequestsByMaster", new FilterListRequestsByMasterCommand());
-		commands.put("replenishInvoice", new ReplenishInvoiceCommand());
-
+		commands.put("insertPayment", new InsertPaymentCommand());
+		commands.put("deleteCardRepairRequest", new DeleteRepairRequestCommand());
 	}
 
 	public static Command getCommmand(String commmandName) {
