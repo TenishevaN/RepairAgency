@@ -2,6 +2,8 @@ package com.my.web.filter;
 
 import com.my.Path;
 import com.my.db.model.Role;
+import com.my.web.Controller;
+import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,12 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 
 @WebFilter("/*")
 public class CustomFilter implements Filter {
 
-    private static final Logger log = Logger.getLogger(CustomFilter.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(CustomFilter.class);
     private static Map<Role, List<String>> accessMap = new HashMap<Role, List<String>>();
     private static List<String> outOfControl = new ArrayList<String>();
 
@@ -36,6 +37,7 @@ public class CustomFilter implements Filter {
         userRights.add("insertReview");
         userRights.add("insertUser");
         userRights.add("openCardUser");
+        userRights.add("updateCardUser");
         userRights.add("listRequests");
         userRights.add("mainPage");
         userRights.add("insertPayment");
@@ -91,8 +93,7 @@ public class CustomFilter implements Filter {
     }
 
     public void init(FilterConfig fConfig) throws ServletException {
-        log.debug("Filter init()");
-    }
+       }
 
     public void destroy() {
     }
@@ -105,14 +106,9 @@ public class CustomFilter implements Filter {
         response.setCharacterEncoding("UTF-8");
 
         if (accessAllowed(request)) {
-
-            log.info("Filter finished");
-            log.debug("Filter finished");
-            chain.doFilter(request, response);
+               chain.doFilter(request, response);
         } else {
-
             String errorMessasge = "You do not have permission to access the requested resource";
-
             request.setAttribute("errorMessage", errorMessasge);
             request.setAttribute("href", "controller?command=listRequests");
             request.setAttribute("hrefName", "Repair requests");
@@ -121,16 +117,17 @@ public class CustomFilter implements Filter {
                 request.getRequestDispatcher(Path.PAGE_ERROR_PAGE)
                         .forward(request, response);
             } catch (Exception ex) {
-                log.debug(ex.getMessage());
+                log.debug("Filter exception " + ex.getMessage());
             }
         }
     }
 
     private boolean accessAllowed(ServletRequest request) {
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         String commandName = request.getParameter("command");
-        System.out.println("commandName  --- " + commandName);
+
         if (commandName == null || commandName.isEmpty())
             return true;
 
@@ -143,14 +140,10 @@ public class CustomFilter implements Filter {
         }
 
         Role userRole = (Role) session.getAttribute("role");
-        System.out.println("Role  --- " + userRole);
-          if (userRole == null) {
+        if (userRole == null) {
             return false;
         }
-        log.debug("commandName " + commandName);
-        log.debug("contains " + accessMap.get(userRole).contains(commandName));
-        System.out.println("contains -----" + accessMap.get(userRole).contains(commandName));
-        System.out.println("accessMap " + accessMap);
-        return accessMap.get(userRole).contains(commandName);
+
+         return accessMap.get(userRole).contains(commandName);
     }
 }

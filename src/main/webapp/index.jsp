@@ -26,18 +26,21 @@
                     <a href="<c:url value="changeLocale.jsp">
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="uk"/>
+                        <c:param name="page" value="index.jsp"/>
                         </c:url>">UK</a>
                 </li>
                 <li>
                     <a href="<c:url value="changeLocale.jsp">
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="ru"/>
+                        <c:param name="page" value="index.jsp"/>
                         </c:url>">RU</a>
                 </li>
                 <li>
                     <a href="<c:url value="changeLocale.jsp">
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="en"/>
+                        <c:param name="page" value="index.jsp"/>
                         </c:url>">EN</a>
                 </li>
                 <li><a href=#insertModalLoginPage" data-toggle="modal"
@@ -68,14 +71,14 @@
                     <h1></h1>
 
                     <form style="width:300px" action="controller" method="get">
-                        <input name="command" type="hidden" value="login">
+                        <input type="hidden" name="command"  value="login">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input name="login" value="admin" class="form-control" id="login"><br>
+                            <input type="text" name="login" value="admin" class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input name="password" type="password" class="form-control" id="password" value="1">
+                            <input  type="password" name="password" class="form-control" id="password" value="1">
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="login"></fmt:message></button>
                     </form>
@@ -99,22 +102,22 @@
             <div class="modal-body">
                 <div class="container">
                     <form style="width:300px" action="controller" method="post">
-                        <input name="command" type="hidden" value="insertUser">
+                        <input type="hidden" name="command"  value="insertUser">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input name="login" class="form-control" id="login"><br>
+                            <input type="text" name="login" class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input name="password" type="password" class="form-control" id="password">
+                            <input type="password" name="password"  class="form-control" id="password">
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="name"></fmt:message></label>
-                            <input name="name" class="form-control" id="name"><br>
+                            <input type="text" name="name" class="form-control" id="name"><br>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="email"></fmt:message></label>
-                            <input name="email" class="form-control" id="email"><br>
+                            <input type="email" name="email" class="form-control" id="email"><br>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message
                                 key="register"></fmt:message></button>

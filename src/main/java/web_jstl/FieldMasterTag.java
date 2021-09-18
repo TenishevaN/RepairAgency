@@ -3,7 +3,7 @@ package web_jstl;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
 import com.my.web.Controller;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -15,7 +15,7 @@ public class FieldMasterTag extends SimpleTagSupport {
 
     private int idMaster;
     private String nameRole;
-    private static final Logger log = Logger.getLogger(FieldMasterTag.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldMasterTag.class);
 
     public void setIdMaster(String idMaster) {
         this.idMaster = Integer.parseInt(idMaster);

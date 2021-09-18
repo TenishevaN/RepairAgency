@@ -4,8 +4,8 @@ import com.my.Path;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.Role;
 import com.my.db.model.User;
-import com.my.web.filter.CustomFilter;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,12 +13,10 @@ import javax.servlet.http.HttpSession;
 
 public class InsertUserCommand implements Command {
 
-    private static final Logger log = Logger.getLogger(InsertUserCommand.class);
+    private static final Logger log =  LogManager.getLogger(InsertUserCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
-
 
         User user = new User();
         user.setLogin(req.getParameter("login"));

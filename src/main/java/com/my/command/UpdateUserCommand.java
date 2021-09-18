@@ -3,14 +3,15 @@ package com.my.command;
 import com.my.Path;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class UpdateUserCommand implements Command {
 
-    private static final Logger log = Logger.getLogger(UpdateUserCommand.class);
+    private static final Logger log =  LogManager.getLogger(UpdateUserCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {

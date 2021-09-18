@@ -25,12 +25,12 @@ public class CommandContainer {
 		commands.put("sortListRequestsByStatus", new SortListRequestsByStatusCommand());
 		commands.put("filtertListRequestsByStatus", new FilterListRequestsByStatusCommand());
 		commands.put("filtertListRequestsByMaster", new FilterListRequestsByMasterCommand());
+		commands.put("insertInvoice", new InsertInvoiceCommand());
 		commands.put("insertPayment", new InsertPaymentCommand());
 		commands.put("deleteCardRepairRequest", new DeleteRepairRequestCommand());
 	}
 
 	public static Command getCommmand(String commmandName) {
-		System.out.println("CommmandName " +commmandName);
 		return commands.get(commmandName);
 	}
 }

@@ -2,11 +2,12 @@ package com.my.command;
 
 import com.my.Path;
 
+import com.my.ServiceLocale;
 import com.my.db.dao.PaymentDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.Role;
 import com.my.db.model.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 
 public class CardUserPageCommand implements Command {
 
-    private static final Logger log = Logger.getLogger(CardUserPageCommand.class);
+    private static final Logger log =  LogManager.getLogger(CardUserPageCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -23,6 +24,7 @@ public class CardUserPageCommand implements Command {
         User user;
         HttpSession session = req.getSession(false);
         try {
+            Role userRole = (Role) session.getAttribute("role");
             UserDAO userDAO = new UserDAO();
             String id = req.getParameter("id");
 
@@ -32,16 +34,22 @@ public class CardUserPageCommand implements Command {
             } else {
                 user = userDAO.get(Integer.parseInt(id));
             }
-            req.setAttribute("user", user);
+            User currentUser = (User) session.getAttribute("user");
+            if(("user".equals(userRole.getName()) && (user.getId() != currentUser.getId()))){
+                log.error("user {} has no right to see the user  card № {}", user.getName(), user.getId());
+                req.setAttribute("errorMessage",  ServiceLocale.getKey("no_right_for_document", "en"));
+                return Path.PAGE_ERROR_PAGE;
+            }
 
-            Role userRole = (Role) session.getAttribute("role");
+            req.setAttribute("user", user);
             req.setAttribute("role", userRole.getName());
             BigDecimal total = new PaymentDAO().getTotal(user.getInvoiceId());
             req.setAttribute("total", total);
         } catch (Exception ex) {
-            log.debug("exception user " + ex.getMessage());
+            log.debug("exception open user {}", ex.getMessage());
+            req.setAttribute("errorMessage",  ServiceLocale.getKey("no_document", "en"));
+            return Path.PAGE_ERROR_PAGE;
         }
-
         return Path.PAGE_USER;
     }
 }

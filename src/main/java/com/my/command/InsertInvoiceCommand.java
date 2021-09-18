@@ -5,14 +5,16 @@ import com.my.db.dao.InvoiceDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.Invoice;
 import com.my.db.model.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 public class InsertInvoiceCommand implements Command {
 
-    private static final Logger log = Logger.getLogger(InsertPaymentCommand.class);
+    private static final Logger log =  LogManager.getLogger(InsertInvoiceCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {

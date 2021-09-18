@@ -1,13 +1,16 @@
 package com.my.db.dao;
 
+
 import com.my.db.model.Invoice;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import java.sql.*;
 import java.util.List;
 
+
 public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
 
-    private static final Logger log = Logger.getLogger(InvoiceDAO.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(InvoiceDAO.class);
 
     private static final String FIND_INVOICE = "SELECT * FROM INVOICE WHERE ID = ?;";
     private static final String TABLE_INVOICE = "invoice";

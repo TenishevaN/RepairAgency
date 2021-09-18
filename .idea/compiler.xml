@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="CommandPattern" />
         <module name="final project" />
+        <module name="RepairAgency" />
       </profile>
     </annotationProcessing>
   </component>

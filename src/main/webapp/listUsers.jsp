@@ -33,7 +33,7 @@
 					<td>${user.email}</td>
 					<td>
 						<form action="controller" method="get">
-							<input name="command" type="hidden" value="openCardUser">
+							<input type="hidden" name="command"  value="openCardUser">
 							<input type="hidden" name="id" id="id" class="form-control" value="${user.id}">
 							<input type="submit" name="open" value="Open"><br>
 						</form>

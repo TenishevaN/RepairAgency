@@ -2,7 +2,7 @@ package web_jstl;
 
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 public class FieldMasterFilterTag extends SimpleTagSupport {
 
-    private static final Logger log = Logger.getLogger(FieldMasterFilterTag.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldMasterFilterTag.class);
     private int idMaster;
     private String currentLocale;
 

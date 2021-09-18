@@ -1,8 +1,8 @@
 package com.my.db.dao;
 
-import com.my.db.model.Invoice;
 import com.my.db.model.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -12,6 +12,8 @@ import java.util.List;
 
 public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
+   private static final Logger log = LogManager.getLogger(UserDAO.class);
+
     public static final String TABLE_USER = "account";
     private static final String ADD_NEW_USER = "INSERT INTO " + TABLE_USER + "(login, password, role_id, email, name) values (?, ?, ?, ?, ?);";
     private static final String FIND_ALL_USERS = "SELECT * FROM " + TABLE_USER;
@@ -19,8 +21,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
     private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  right join role on account.role_id = role.id where role.name = 'master'";
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account left join invoice on account.invoice_id = invoice.id where account.id = ?;";
-    private static final Logger log = Logger.getLogger(UserDAO.class);
-    public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
+   public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
 
     public UserDAO() {
     }
@@ -113,7 +114,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             close(pstmt);
             close(con);
         }
-        System.out.println("Finded user " + user);
+        log.debug("Finded user {}", user);
         return user;
     }
 
@@ -190,19 +191,18 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             user.setPassword(rs.getString(SQLConstants.FIELD_PASSWORD));
             user.setRoleId(rs.getInt(SQLConstants.FIELD_ROLE_ID));
             Integer invoiceId = rs.getInt(SQLConstants.FIELD_INVOICE_ID);
-            System.out.println("invoiceId " + invoiceId);
             if (invoiceId != null && invoiceId != 0) {
                 user.setInvoiceId(invoiceId);
             } else {
                 user.setInvoiceId(-1);
             }
-            BigDecimal ammount = BigDecimal.valueOf(rs.getInt(SQLConstants.FIELD_AMMOUNT));
-            if (ammount != null) {
-                user.setInvoiceAmmount(ammount);
-            }
+//            BigDecimal ammount = BigDecimal.valueOf(rs.getInt(SQLConstants.FIELD_AMMOUNT));
+//            if (ammount != null) {
+//                user.setInvoiceAmmount(ammount);
+//            }
             user.setEmail(rs.getString("email"));
         } catch (SQLException ex) {
-            log.debug("map user exception " + ex.getMessage());
+            log.debug("Map user exception {}",  ex.getMessage());
         }
         return user;
     }

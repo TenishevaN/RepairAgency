@@ -1,6 +1,6 @@
 package com.my.db.dao;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.sql.*;
 import javax.naming.*;
@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 public class ManagerDAO {
 
     private static ManagerDAO instance;
-    private static final Logger log = Logger.getLogger(InvoiceDAO.class);
+    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(ManagerDAO.class);
 
     public static synchronized ManagerDAO getInstance() {
         if (instance == null) {

@@ -23,7 +23,7 @@
                <ul class="nav navbar-nav">
                 <li>
                     <form action="controller" method="get">
-                        <input name="command" type="hidden" value="sortListRequestsByDate">
+                        <input type="hidden" name="command"  value="sortListRequestsByDate">
                         <input type="hidden" name="changeOrder" class="form-control" value="true">
                         <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
                         <input type="submit" name="open" value=<fmt:message key="date"></fmt:message>><br>
@@ -31,7 +31,7 @@
                 </li>
                 <li>
                     <form action="controller" method="get">
-                        <input name="command" type="hidden" value="sortListRequestsByStatus">
+                        <input type="hidden" name="command"  value="sortListRequestsByStatus">
                         <input type="hidden" name="changeOrder" class="form-control" value="true">
                         <input type="hidden" name="currentLocale" class="form-control" value="true">
                         <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
@@ -41,7 +41,7 @@
                 </li>
                 <li>
                     <form action="controller" method="get">
-                        <input name="command" type="hidden" value="sortListRequestsByCost">
+                        <input type="hidden" name="command"  value="sortListRequestsByCost">
                         <input type="hidden" name="changeOrder" class="form-control" value="true">
                         <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
                         <input type="submit" name="open" value=<fmt:message key="cost"></fmt:message>><br>

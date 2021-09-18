@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `db_repair_agency`.`repair_request` ;
 
 CREATE TABLE IF NOT EXISTS `db_repair_agency`.`repair_request` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `cost` DECIMAL UNSIGNED ZEROFILL NULL,
+  `cost` DECIMAL(10,0) UNSIGNED ZEROFILL NULL,
   `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status_id` INT NOT NULL DEFAULT 1,
   `master_id` INT NULL DEFAULT NULL,
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `db_repair_agency`.`payment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `invoice_id` INT NULL,
   `repair_request_id` INT NULL,
-  `ammount` DECIMAL NULL,
+  `ammount` DECIMAL(10,0) NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_payment_invoice1`
     FOREIGN KEY (`invoice_id`)

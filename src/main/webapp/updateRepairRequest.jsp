@@ -26,7 +26,7 @@
     <div>
         <div class="col-md-20 mx-auto">
             <form action="controller" method="post">
-                <input name="command" type="hidden" value="updateRepairRequest">
+                <input type="hidden" name="command"  value="updateRepairRequest">
                 <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                        value="${repairRequest.id}"/>
                 <input type="hidden" id="master_name" name="master_name"
@@ -85,7 +85,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <form action="controller" method="post">
-                                <input name="command" type="hidden" value="insertReview">
+                                <input type="hidden" name="command"  value="insertReview">
                                 <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                                        value="${repairRequest.id}"/>
                                 <input type="hidden" id="role" name="role" value="${role}"/>
@@ -154,13 +154,13 @@
                 <div class="container">
 
                     <form style="width:300px" action="controller" method="post">
-                        <input name="command" type="hidden" value="insertPayment">
+                        <input type="hidden" name="command"  value="insertPayment">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="${repairRequest.id}"/>
                         <input type="hidden" id="idUser" name="idUser" value="${repairRequest.userId}"/>
-                        <input name="operation" type="hidden" value="payment">
+                        <input type="hidden" name="operation"  value="payment">
                         <div class="form-group">
                             <label for="ammount"><fmt:message key="ammount"></fmt:message></label>
-                            <input name="ammount" class="form-control" id="ammount"><br>
+                            <input type="number" step="0.01" name="ammount" class="form-control" id="ammount"><br>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="pay"></fmt:message></button>
                     </form>

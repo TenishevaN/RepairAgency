@@ -1,8 +1,7 @@
 package com.my.db.dao;
 
 import com.my.db.model.Payment;
-import com.my.db.model.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class PaymentDAO extends ManagerDAO implements InterfaceDAO<Payment> {
 
-    private static final Logger log = Logger.getLogger(PaymentDAO.class);
+    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(PaymentDAO.class);
 
     private static final String TABLE_PAYMENT = "payment";
     private static final String ADD_NEW_PAYMENT = "INSERT INTO " + TABLE_PAYMENT + "(invoice_id, repair_request_id, ammount) values (?, ?, ?);";
@@ -48,7 +47,6 @@ public class PaymentDAO extends ManagerDAO implements InterfaceDAO<Payment> {
             connection.commit();
         } catch (SQLException ex) {
             log.debug(" insert payment exception " + ex.getMessage());
-            System.out.println(" insert payment exception " + ex.getMessage());
             rollBackTransaction(connection);
             return false;
 

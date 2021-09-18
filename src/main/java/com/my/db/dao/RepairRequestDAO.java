@@ -1,13 +1,15 @@
 package com.my.db.dao;
 
 import com.my.db.model.RepairRequest;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairRequest> {
+
+    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(RepairRequestDAO.class);
 
     private static final String TABLE_REPAIR_REQUEST = "repair_request";
     private static final String TABLE_REPAIR_REQUEST_FULL = "repair_request_full";
@@ -18,8 +20,6 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
     private static final String FIND_ALL_REPAIR_REQUESTS_FULL = "SELECT * FROM " + TABLE_REPAIR_REQUEST_FULL;
     private static final String COUNT_ALL_REPAIR_REQUESTS = "SELECT COUNT(id) AS count FROM repair_request;";
     public static final String DELETE_REPAIR_REQUEST = "DELETE FROM " + TABLE_REPAIR_REQUEST + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
-
-    private static final Logger log = Logger.getLogger(RepairRequestDAO.class);
 
     @Override
     public boolean update(RepairRequest element) {
@@ -298,7 +298,6 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         PreparedStatement preparedStatement = null;
 
         try {
-            System.out.println("repairRequest.getId() " + repairRequest.getId());
             connection = getConnection();
             preparedStatement = connection.prepareStatement(DELETE_REPAIR_REQUEST);
             preparedStatement.setInt(1, repairRequest.getId());

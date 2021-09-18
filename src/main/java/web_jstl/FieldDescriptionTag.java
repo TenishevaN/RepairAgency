@@ -1,7 +1,6 @@
 package web_jstl;
 
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -11,7 +10,7 @@ public class FieldDescriptionTag extends SimpleTagSupport {
 
     private String descriptionText;
     private String nameRole;
-    private static final Logger log = Logger.getLogger(FieldDescriptionTag.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldDescriptionTag.class);
 
     public void setDescriptionText(String descriptionText) {
         this.descriptionText = descriptionText;

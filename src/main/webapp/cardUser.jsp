@@ -61,12 +61,12 @@
                     <input type="text" name="login" class="form-control" id="login" value="${user.login}"/>
                 </div>
                 <div class="form-group">
-                    <label for="login"><fmt:message key="name"></fmt:message></label>
+                    <label for="name"><fmt:message key="name"></fmt:message></label>
                     <input type="text" name="name" class="form-control" id="name" value="${user.name}"/> <br>
                 </div>
                 <div class="form-group">
-                    <label for="login"><fmt:message key="email"></fmt:message></label>
-                    <input type="text" name="email" class="form-control" id="email" value="${user.email}"/> <br>
+                    <label for="email"><fmt:message key="email"></fmt:message></label>
+                    <input type="email" name="email" class="form-control" id="email" value="${user.email}"/> <br>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-xs-4">Role:</label>
@@ -100,13 +100,13 @@
                 <div class="container">
 
                     <form style="width:300px" action="controller" method="post">
-                        <input name="command" type="hidden" value="insertPayment">
+                        <input type="hidden"  name="command" value="insertPayment">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="-1"/>
                         <input type="hidden" id="idUser" name="idUser" value="${user.id}"/>
-                        <input name="operation" type="hidden" value="replenishment">
+                        <input type="hidden"  name="operation" value="replenishment">
                         <div class="form-group">
                             <label for="ammount"><fmt:message key="ammount"></fmt:message></label>
-                            <input name="ammount" class="form-control" id="ammount"><br>
+                            <input type = "number"  step = "0.01" name="ammount" class="form-control" id="ammount"><br>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message
                                 key="replenish"></fmt:message></button>

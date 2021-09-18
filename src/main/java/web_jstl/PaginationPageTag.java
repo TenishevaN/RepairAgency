@@ -3,7 +3,7 @@ package web_jstl;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class PaginationPageTag extends SimpleTagSupport {
 
-    private static final Logger log = Logger.getLogger(PaginationPageTag.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(PaginationPageTag.class);
     int idUser;
     String command;
     String orderBy;
@@ -72,9 +72,9 @@ public class PaginationPageTag extends SimpleTagSupport {
             for (int i = 1; i <= page; i++) {
                 output += "<div>";
                 output += "<form action = controller method = get >";
-                output += "<input name = command type = hidden value = " + command + ">";
-                output += "<input name = status_id type = hidden value = " + status_id + ">";
-                output += "<input name = master_id type = hidden value = " + master_id + ">";
+                output += "<input type = hidden name = command  value = " + command + ">";
+                output += "<input type = hidden name = status_id  value = " + status_id + ">";
+                output += "<input type = hidden name = master_id  value = " + master_id + ">";
                 output += "<input type = hidden name = changeOrder class = form-control value = false>";
                 output += "<input type = hidden class = form-control name = page value = " + i + " >";
                 output += "<input type = hidden class = form-control name = orderBy value = " + orderBy + " >";

@@ -1,7 +1,7 @@
 package com.my.db.dao;
 
 import com.my.db.model.Review;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,14 +9,14 @@ import java.util.List;
 
 public class ReviewDAO extends ManagerDAO implements InterfaceDAO<Review> {
 
+    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(ReviewDAO.class);
+
     public static final String TABLE_REVIEW = "review";
     private static final String FIND_ALL_REVIEWS = "SELECT * FROM " + TABLE_REVIEW;
     private static final String FIND_ALL_REVIEWS_BY_REQUEST_ID = "SELECT r.id, r.repair_request_id, r.comment, r.date FROM " + TABLE_REVIEW + " r LEFT JOIN repair_request rr ON r.repair_request_id = rr.id  LEFT JOIN account a ON rr.account_id = a.id WHERE r.repair_request_id = ?";
     private static final String ADD_NEW_REVIEW = "INSERT INTO review (repair_request_id, comment) VALUES(?, ?);";
 
-    private static final Logger log = Logger.getLogger(ReviewDAO.class);
-
-    @Override
+      @Override
     public boolean insert(Review element) {
 
         Connection connection = null;

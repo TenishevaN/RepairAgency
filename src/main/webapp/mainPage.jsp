@@ -43,14 +43,14 @@
                     <h1></h1>
 
                     <form  action="controller" method="get">
-                        <input name="command" type="hidden" value="login">
+                        <input type="hidden" name="command"  value="login">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input name="login" value="admin"  class="form-control" id="login"><br>
+                            <input type="text" name="login" value="admin"  class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input name="password" type="password" class="form-control" id="password"  value="1" >
+                            <input type="password" name="password"  class="form-control" id="password"  value="1" >
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="login"></fmt:message></button>
                     </form>
@@ -75,26 +75,26 @@
                 <div class="container">
 
                     <form style="width:300px" action="controller" method="post">
-                        <input name="command" type="hidden" value="insertUser">
+                        <input type="hidden" name="command"  value="insertUser">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input name="login"  class="form-control" id="login"><br>
+                            <input type="text" name="login"  class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input name="password" type="password" class="form-control" id="password">
+                            <input type="password" name="password"  class="form-control" id="password">
                         </div>
                         <div class="form-group">
-                            <label for="login"><fmt:message key="name"></fmt:message></label>
-                            <input name="name"  class="form-control" id="name"><br>
+                            <label for="name"><fmt:message key="name"></fmt:message></label>
+                            <input type="text" name="name"  class="form-control" id="name"><br>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="email"></fmt:message></label>
-                            <input name="email"  class="form-control" id="email"><br>
+                            <input type="email" name="email"  class="form-control" id="email"><br>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input name="login"  class="form-control" id="login"><br>
+                            <input type="text" name="login"  class="form-control" id="login"><br>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="register"></fmt:message></button>
                     </form>

@@ -2,7 +2,7 @@ package web_jstl;
 
 import com.my.db.dao.ReviewDAO;
 import com.my.db.model.Review;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -13,7 +13,7 @@ import java.util.List;
 public class ReviewSectionTag extends SimpleTagSupport {
 
     private int idRepairRequest;
-    private static final Logger log = Logger.getLogger(ReviewSectionTag.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(ReviewSectionTag.class);
 
     public void setIdRepairRequest(String idRepairRequest) {
         this.idRepairRequest = Integer.parseInt(idRepairRequest);

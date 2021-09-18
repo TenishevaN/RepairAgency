@@ -2,7 +2,8 @@ package web_jstl;
 
 import com.my.db.dao.StatusDAO;
 import com.my.db.model.Status;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -14,7 +15,7 @@ public class FieldStatusTag extends SimpleTagSupport {
     private int idStatus;
     private String nameRole;
     private String currentLocale;
-    private static final Logger log = Logger.getLogger(FieldStatusTag.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldStatusTag.class);
 
     public void setIdStatus(String idStatus) {
         this.idStatus = Integer.parseInt(idStatus);

@@ -3,7 +3,8 @@ package com.my.command;
 import com.my.Path;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 
 public class UpdateRepairRequestCommand implements Command {
 
-    private static final Logger log = Logger.getLogger(UpdateRepairRequestCommand.class);
+    private static final Logger log =  LogManager.getLogger(UpdateRepairRequestCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -31,7 +32,7 @@ public class UpdateRepairRequestCommand implements Command {
             repairRequest.setMasterName(req.getParameter("master_name"));
             String cost = req.getParameter("cost");
             if( cost != null && !cost.isEmpty()){
-                repairRequest.setCost(BigDecimal.valueOf(Long.parseLong(req.getParameter("cost"))));
+                repairRequest.setCost(BigDecimal.valueOf(Double.parseDouble(req.getParameter("cost"))));
             }
 
             String description = req.getParameter("description");

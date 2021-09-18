@@ -1,7 +1,7 @@
 package web_jstl;
 
 import com.my.web.filter.CustomFilter;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -12,7 +12,8 @@ public class FieldCostTag extends SimpleTagSupport {
 
     private String costValue;
     private String nameRole;
-    private static final Logger log = Logger.getLogger(FieldCostTag.class);
+
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldCostTag.class);
 
     public void setCostValue(String costValue) {
         this.costValue = costValue;
@@ -28,7 +29,7 @@ public class FieldCostTag extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
 
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
-            output = "<input type=text class=form - control name = cost value= "+ costValue +">";
+            output = "<input type = number step = 0.01 class=form - control name = cost value= "+ costValue +">";
         } else {
             output +=  costValue;
         }
