@@ -298,13 +298,15 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         PreparedStatement preparedStatement = null;
 
         try {
+            System.out.println("repairRequest.getId() " + repairRequest.getId());
             connection = getConnection();
             preparedStatement = connection.prepareStatement(DELETE_REPAIR_REQUEST);
             preparedStatement.setInt(1, repairRequest.getId());
             preparedStatement.executeUpdate();
-           log.info("executed " + preparedStatement);
-
+            connection.commit();
+            log.info("executed " + preparedStatement);
         } catch (SQLException ex) {
+            rollBackTransaction(connection);
             log.debug(ex.getMessage());
             return false;
         } finally {

@@ -16,36 +16,37 @@
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#"><fmt:message key="home"></fmt:message></a></li>
                 <li><a href="#"><fmt:message key="contacts"></fmt:message></a></li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <form action="changeLocale.jsp" method="post">
-                        <input type="submit" value="UK">
-                        <input name="locale" type="hidden" value="uk">
-                    </form>
+                    <a href="<c:url value="changeLocale.jsp">
+                        <c:param name="action" value="post"/>
+                        <c:param name="locale" value="uk"/>
+                        </c:url>">UK</a>
                 </li>
                 <li>
-                    <form action="changeLocale.jsp" method="post">
-                        <input type="submit" value="RU">
-                        <input name="locale" type="hidden" value="ru">
-                    </form>
+                    <a href="<c:url value="changeLocale.jsp">
+                        <c:param name="action" value="post"/>
+                        <c:param name="locale" value="ru"/>
+                        </c:url>">RU</a>
                 </li>
                 <li>
-                    <form action="changeLocale.jsp" method="post">
-                        <input type="submit" value="EN">
-                        <input name="locale" type="hidden" value="en">
-                    </form>
+                    <a href="<c:url value="changeLocale.jsp">
+                        <c:param name="action" value="post"/>
+                        <c:param name="locale" value="en"/>
+                        </c:url>">EN</a>
                 </li>
-                <li><a href=#insertModalLoginPage" data-toggle="modal" data-target="#insertModalRegistrationPage"><span
+                <li><a href=#insertModalLoginPage" data-toggle="modal"
+                       data-target="#insertModalRegistrationPage"><span
                         class="glyphicon glyphicon-registration-mark"></span> <fmt:message
                         key="registration"></fmt:message></a></li>
                 <li><a href=#insertModalLoginPage" data-toggle="modal" data-target="#insertModalLoginPage"><span
-                        class="glyphicon glyphicon-log-in"></span> <fmt:message key="sign_in"></fmt:message></a></li>
+                        class="glyphicon glyphicon-log-in"></span> <fmt:message key="sign_in"></fmt:message></a>
+                </li>
             </ul>
         </div>
     </div>

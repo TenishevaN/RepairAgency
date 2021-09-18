@@ -19,7 +19,7 @@ public class DeleteRepairRequestCommand implements Command {
         try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
             RepairRequest repairRequest = repairRequestDAO.get(Integer.parseInt(req.getParameter("id")));
-
+            System.out.println(" repairRequest.getStatusName() " + repairRequest.getStatusName());
             if("new".equals(repairRequest.getStatusName())){
                 repairRequestDAO.delete(repairRequest);
             } else{

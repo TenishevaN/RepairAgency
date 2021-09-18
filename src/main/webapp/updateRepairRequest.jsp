@@ -15,7 +15,7 @@
 
 <body>
 
-<div class="custom-format" class="container">
+<div class="custom-format"  style="height:800px; padding-left: 40px"  class="container">
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
             <h2> Repair request</h2>
@@ -23,8 +23,8 @@
         </div>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-md-8 mx-auto">
+    <div>
+        <div class="col-md-20 mx-auto">
             <form action="controller" method="post">
                 <input name="command" type="hidden" value="updateRepairRequest">
                 <input type="hidden" id="idRepairRequest" name="idRepairRequest"
@@ -34,52 +34,46 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div style="width:500px" class="form-group">
                             <label class="control-label col-xs-4">Description:</label>
                             <userFieldRight:description descriptionText="${repairRequest.description}"
                                                         nameRole="${role}"/>
                         </div>
+                        <div class="text-left mt-3">
+                            <button type="submit" class="btn btn-default">Update</button>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-xs-4">Status:</label>
+                        <div class="form-inline">
+                            <div>
+                                <label><fmt:message key="balance_owed"></fmt:message> ${balance_owed}</label>
+                            </div>
+                            </br>
+                            <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
+                            <c:if test="${role eq 'user'}">
+
+                                <form action="controller" method="get">
+                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                            data-target="#insertPaymentPage">
+                                        <fmt:message key="pay"></fmt:message>
+                                    </button>
+                                </form>
+                            </c:if>
+                        </div>
+                        <div>
+                            <label>Status:</label>
                             <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"
                                                    currentLocale="${currentLocale}"/>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-4">Master:</label>
+                        <div>
+                            <label>Master:</label>
                             <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}"/>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-4">Cost:</label>
+                        <div>
+                            <label>Cost:</label>
                             <userFieldRight:cost costValue="${repairRequest.cost}" nameRole="${role}"/>
                         </div>
                     </div>
-                    <div class="col-md-6">
-
-                        <div class="form-group">
-
-                            <div class="form-inline">
-                                <div>
-                                    <label><fmt:message key="balance_owed"></fmt:message> ${balance_owed}</label>
-                                </div>
-                                </br>
-                                <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
-                                <c:if test="${role eq 'user'}">
-
-                                    <form action="controller" method="get">
-                                        <button type="button" class="btn btn-default" data-toggle="modal"
-                                                data-target="#insertPaymentPage">
-                                            <fmt:message key="pay"></fmt:message>
-                                        </button>
-                                    </form>
-                                </c:if>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-default">Update</button>
                 </div>
             </form>
             </br>
@@ -97,7 +91,7 @@
                                 <input type="hidden" id="role" name="role" value="${role}"/>
                                 <label>Write a review:</label>
 
-                                <div class="form-group" value="Comment">
+                                <div style="width:500px" class="form-group" value="Comment">
                                             <textarea rows="5" class="form-control" name="comment"
                                                       placeholder="What are you looking for?">  Write your comment.. </textarea>
                                 </div>
@@ -111,7 +105,6 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-
                         <div class="reviews-list-item">
                             <userFieldRight:listReviews idRepairRequest="${repairRequest.id}"/>
                         </div>
@@ -122,10 +115,10 @@
             </c:if>
             <c:if test="${role != 'user'}">
                 <div class="row mt-5">
-                    <div class="col-md-12 mx-auto">
+                    <div class="col-md-10 mx-auto">
                         <form _lpchecked="1">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-10">
                                     <div class="form-group">
                                         <div class="reviews-list-item">
                                             <div class="reviews-list-item-question">
@@ -143,12 +136,9 @@
         </div>
     </div>
 </div>
-<p></p>
-<hr>
-<h3></h3>
-<p></p>
 
-<jsp:include page="footerBlock.jsp"/>
+
+<%@ include file="footerBlock.jsp" %>
 
 <!-- Modal payment-->
 <div class="modal fade" id="insertPaymentPage" role="dialog">

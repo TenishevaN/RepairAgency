@@ -33,10 +33,16 @@ DROP TABLE IF EXISTS `db_repair_agency`.`invoice` ;
 
 CREATE TABLE IF NOT EXISTS `db_repair_agency`.`invoice` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(11) NOT NULL,
-  `ammount` DECIMAL ZEROFILL NULL,
-  PRIMARY KEY (`id`))
+  `account_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_invoice_account1`
+    FOREIGN KEY (`account_id`)
+    REFERENCES `db_repair_agency`.`account` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_invoice_account1_idx` ON `db_repair_agency`.`invoice` (`account_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -60,11 +66,11 @@ CREATE TABLE IF NOT EXISTS `db_repair_agency`.`account` (
     REFERENCES `db_repair_agency`.`role` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_account_invoice1`
+  CONSTRAINT `fk_account_invoice`
     FOREIGN KEY (`invoice_id`)
     REFERENCES `db_repair_agency`.`invoice` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE UNIQUE INDEX `id_UNIQUE` ON `db_repair_agency`.`account` (`id` ASC) VISIBLE;
@@ -140,7 +146,6 @@ CREATE TABLE IF NOT EXISTS `db_repair_agency`.`repair_request` (
   `master_id` INT NULL DEFAULT NULL,
   `account_id` INT NOT NULL,
   `description` VARCHAR(21000) NULL,
-  `service_id` INT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_repair_request_status`
     FOREIGN KEY (`status_id`)
@@ -176,10 +181,10 @@ DROP TABLE IF EXISTS `db_repair_agency`.`review` ;
 CREATE TABLE IF NOT EXISTS `db_repair_agency`.`review` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `comment` VARCHAR(1000) NULL,
-  `repair_request_id` INT NULL,
   `date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `repair_request_id` INT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_review_repair_request`
+  CONSTRAINT `fk_review_repair_request1`
     FOREIGN KEY (`repair_request_id`)
     REFERENCES `db_repair_agency`.`repair_request` (`id`)
     ON DELETE SET NULL
@@ -187,6 +192,34 @@ CREATE TABLE IF NOT EXISTS `db_repair_agency`.`review` (
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_review_repair_request1_idx` ON `db_repair_agency`.`review` (`repair_request_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `db_repair_agency`.`payment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_repair_agency`.`payment` ;
+
+CREATE TABLE IF NOT EXISTS `db_repair_agency`.`payment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `invoice_id` INT NULL,
+  `repair_request_id` INT NULL,
+  `ammount` DECIMAL NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_payment_invoice1`
+    FOREIGN KEY (`invoice_id`)
+    REFERENCES `db_repair_agency`.`invoice` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_payment_repair_request1`
+    FOREIGN KEY (`repair_request_id`)
+    REFERENCES `db_repair_agency`.`repair_request` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_payment_invoice1_idx` ON `db_repair_agency`.`payment` (`invoice_id` ASC) VISIBLE;
+
+CREATE INDEX `fk_payment_repair_request1_idx` ON `db_repair_agency`.`payment` (`repair_request_id` ASC) VISIBLE;
 
 USE `db_repair_agency` ;
 
@@ -218,9 +251,9 @@ USE `db_repair_agency`;
 INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (1, 'admin', '1', DEFAULT, 1, NULL, NULL, DEFAULT, 'admin');
 INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (2, 'manager', '1', DEFAULT, 2, NULL, NULL, DEFAULT, 'manager');
 INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (3, 'master', '1', DEFAULT, 3, NULL, NULL, DEFAULT, 'master');
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (4, 'user1', '1', DEFAULT, 4, NULL, NULL, DEFAULT, 'user1');
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (5, 'user2', '1', DEFAULT, 4, NULL, NULL, DEFAULT, 'user2');
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (6, 'master2', '1', DEFAULT, 3, NULL, NULL, DEFAULT, 'master2');
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (4, 'master2', '1', DEFAULT, 3, NULL, NULL, DEFAULT, 'master2');
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (5, 'user1', '1', DEFAULT, 4, NULL, NULL, DEFAULT, 'user1');
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `invoice_id`, `email`, `deleted`, `name`) VALUES (6, 'user2', '1', DEFAULT, 4, NULL, NULL, DEFAULT, 'user2');
 
 COMMIT;
 
@@ -280,11 +313,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `db_repair_agency`;
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`, `service_id`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, NULL, 4, 'new', NULL);
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`, `service_id`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, NULL, 4, 'new1', NULL);
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`, `service_id`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, NULL, 5, 'new3', NULL);
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`, `service_id`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, NULL, 5, 'new 4', NULL);
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`, `service_id`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, NULL, 4, 'new 5', NULL);
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, NULL, 5, 'new');
 
 COMMIT;
 

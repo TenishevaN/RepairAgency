@@ -107,12 +107,12 @@
                 <div class="container">
                     <h1></h1>
 
-                    <form style="width:300px" action="controller" method="post">
+                    <form style="width:1000px" action="controller" method="post">
                         <input name="command" type="hidden" value="insertRepairRequest">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="${repairRequest.id}"/>
                         <label class="control-label col-xs-4">Description:</label>
-                        <div class="form-group" value="Comment">
-                                            <textarea rows="5" class="form-control"
+                        <div class="form-group" style="width:500px"  value="Comment">
+                                            <textarea   rows="10" class="form-control"
                                                       name=description>  Write your description.. </textarea>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="send"></fmt:message></button>
