@@ -3,6 +3,7 @@ package com.my.command;
 import java.util.*;
 import javax.servlet.http.*;
 
+import com.my.Path;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
 
@@ -19,7 +20,7 @@ public class ListUsersCommand implements Command {
             //log
         }
 
-        return "listUsers.jsp";
+        return Path.PAGE_USER_LIST;
     }
 
 }

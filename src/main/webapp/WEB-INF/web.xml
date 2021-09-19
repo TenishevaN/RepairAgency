@@ -22,6 +22,11 @@
     <listener>
         <listener-class>ContextListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>
+            ContextAttributeListener
+        </listener-class>
+    </listener>
 
       <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

@@ -3,7 +3,6 @@ package com.my.command;
 import com.my.Path;
 import com.my.db.dao.PaymentDAO;
 import com.my.db.dao.RepairRequestDAO;
-import com.my.db.dao.UserDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
 import com.my.db.model.User;
@@ -49,12 +48,15 @@ public class CardRepairRequestPageCommand implements Command {
                 paid = BigDecimal.ZERO;
             }
             BigDecimal cost = repairRequest.getCost();
-            BigDecimal balance_owed = cost.add(paid);
+            BigDecimal balance_owed = BigDecimal.ZERO;
+            if(cost != null){
+                balance_owed = cost.add(paid);
+            }
             req.setAttribute("balance_owed", (balance_owed));
 
         } catch (Exception ex) {
             log.debug("exception open repair request {}", ex.getMessage());
-            req.setAttribute("errorMessage",  ServiceLocale.getKey("no_document", "en"));
+             req.setAttribute("errorMessage",  ServiceLocale.getKey("no_document", "en"));
             return Path.PAGE_ERROR_PAGE;
         }
 

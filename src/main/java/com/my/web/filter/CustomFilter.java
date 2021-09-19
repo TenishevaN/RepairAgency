@@ -73,7 +73,8 @@ public class CustomFilter implements Filter {
         adminRights.add("openCardRepairRequest");
         adminRights.add("listRequests");
         adminRights.add("updateRepairRequest");
-          adminRights.add("insertUser");
+        adminRights.add("insertUser");
+        adminRights.add("deleteUser");
         adminRights.add("listUsers");
         adminRights.add("openCardUser");
         adminRights.add("updateCardUser");

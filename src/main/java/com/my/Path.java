@@ -13,8 +13,11 @@ public final class Path {
 	public static final String PAGE_ERROR_PAGE = "error.jsp";
 	public static final String PAGE_UPDATE_REPAIR_REQUEST = "updateRepairRequest.jsp";
 	public static final String PAGE_USER = "cardUser.jsp";
+	public static final String PAGE_USER_LIST =  "listUsers.jsp";
+
 
 	// commands
+	public static final String COMMAND_LIST_USERS = "controller?command=listUsers";
 	public static final String COMMAND_LIST_REQUESTS = "controller?command=listRequests";
 	public static final String COMMAND_OPEN_REPAIR_REQUEST_BY_ID = "controller?command=openCardRepairRequest&id=";
 	public static final String COMMAND_OPEN_USER_BY_ID = "controller?command=openCardUser&id=";

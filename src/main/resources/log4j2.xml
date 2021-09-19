@@ -26,10 +26,6 @@
             <AppenderRef ref="console"/>
             <AppenderRef ref="rollingFile"/>
         </Logger>
-        <Root level="DEBUG" additivity="false">
-            <AppenderRef ref="console"/>
-            <AppenderRef ref="rollingFile"/>
-        </Root>
     </Loggers>
 
 </Configuration>

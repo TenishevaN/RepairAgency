@@ -21,10 +21,14 @@ public final class Controller extends HttpServlet {
     public static List<User> masterList;
 
     public Controller() {
+        setMasterList();
+    }
+
+    public static void setMasterList() {
+
         UserDAO userDAO = new UserDAO();
         masterList = userDAO.getMasterList();
     }
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

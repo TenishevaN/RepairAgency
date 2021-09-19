@@ -35,6 +35,7 @@ public class FieldMasterTag extends SimpleTagSupport {
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
             output = "<select name = masterId>";
             List<User> listMaster = Controller.masterList;
+            log.debug(" FieldMasterTag {} ", listMaster);
             for (User master : listMaster) {
                 if (master.getId() == idMaster) {
                     output += "<option  value=" + master.getId() + " selected>" + master.getName() + "</option>";
@@ -50,7 +51,7 @@ public class FieldMasterTag extends SimpleTagSupport {
         try {
             out.println(output);
         } catch (IOException e) {
-            log.debug(e.getMessage());
+            log.debug(" FieldMasterTag exception {} ", e.getMessage());
         }
     }
 }

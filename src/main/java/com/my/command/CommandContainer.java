@@ -28,6 +28,7 @@ public class CommandContainer {
 		commands.put("insertInvoice", new InsertInvoiceCommand());
 		commands.put("insertPayment", new InsertPaymentCommand());
 		commands.put("deleteCardRepairRequest", new DeleteRepairRequestCommand());
+		commands.put("deleteUser", new DeleteUserCommand());
 	}
 
 	public static Command getCommmand(String commmandName) {

@@ -20,7 +20,7 @@
     <c:if test="${role eq 'user'}">
         <div class="form-group">
             <form action="controller" method="get">
-                <button type="button"  data-toggle="modal" data-target="#insertModalPage">
+                <button type="button" data-toggle="modal" data-target="#insertModalPage">
                     <fmt:message key="new_repair_request"></fmt:message>
                 </button>
             </form>
@@ -34,17 +34,17 @@
             <ul class="nav navbar-nav">
                 <li>
                     <form action="controller" method="get">
-                        <input type="hidden" name="command"  value="filtertListRequestsByStatus">
+                        <input type="hidden" name="command" value="filtertListRequestsByStatus">
                         <label class="control-label col-xs-4">Status:</label>
-                        <userFieldRight:status_filter currentLocale = "${currentLocale}" idStatus = "${idStatus}"/>
+                        <userFieldRight:status_filter currentLocale="${currentLocale}" idStatus="${idStatus}"/>
                         <input type="submit" name="open" value=<fmt:message key="status"></fmt:message>><br>
                     </form>
                 </li>
                 <li>
                     <form action="controller" method="get">
-                        <input type="hidden" name="command"  value="filtertListRequestsByMaster">
+                        <input type="hidden" name="command" value="filtertListRequestsByMaster">
                         <label class="control-label col-xs-4">Master:</label>
-                        <userFieldRight:master_filter currentLocale = "${currentLocale}" idMaster = "${idMaster}"/>
+                        <userFieldRight:master_filter currentLocale="${currentLocale}" idMaster="${idMaster}"/>
                         <input type="submit" name="open" value=<fmt:message key="master"></fmt:message>><br>
                     </form>
                 </li>
@@ -72,7 +72,7 @@
                     <td>${item.description}</td>
                     <td>
                         <form action="controller" method="get">
-                            <input type="hidden" name="command"  value="openCardRepairRequest">
+                            <input type="hidden" name="command" value="openCardRepairRequest">
                             <input type="hidden" name="id" id="id" class="form-control" value="${item.id}">
                             <input type="submit" name="open" value="Open"><br>
                         </form>
@@ -108,11 +108,11 @@
                     <h1></h1>
 
                     <form style="width:1000px" action="controller" method="post">
-                        <input type="hidden" name="command"  value="insertRepairRequest">
+                        <input type="hidden" name="command" value="insertRepairRequest">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="${repairRequest.id}"/>
                         <label class="control-label col-xs-4">Description:</label>
-                        <div class="form-group" style="width:500px"  value="Comment">
-                                            <textarea   rows="10" class="form-control"
+                        <div class="form-group" style="width:500px" value="Comment">
+                                            <textarea rows="10" class="form-control"
                                                       name=description>  Write your description.. </textarea>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="send"></fmt:message></button>

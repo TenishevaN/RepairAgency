@@ -4,7 +4,6 @@ import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +15,12 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
     public static final String TABLE_USER = "account";
     private static final String ADD_NEW_USER = "INSERT INTO " + TABLE_USER + "(login, password, role_id, email, name) values (?, ?, ?, ?, ?);";
-    private static final String FIND_ALL_USERS = "SELECT * FROM " + TABLE_USER;
-    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER + " WHERE login = ?";
-    private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  right join role on account.role_id = role.id where role.name = 'master'";
+    private static final String FIND_ALL_USERS = "SELECT * FROM " + TABLE_USER + " where deleted = false";
+    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER + " WHERE login = ? and deleted = false";
+    private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  where role_id = 3 and deleted = false";
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account left join invoice on account.invoice_id = invoice.id where account.id = ?;";
-   public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
+    public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
 
     public UserDAO() {
     }
@@ -86,9 +85,9 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             while (rs.next()) {
                 masters.add(mapUser(rs));
             }
-
+            log.debug("Get list master {}", masters);
         } catch (SQLException ex) {
-            log.debug(ex.getMessage());
+            log.debug("Get list master exception {}", ex.getMessage());
         }
         return masters;
     }
@@ -181,6 +180,30 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         return true;
     }
 
+    public boolean delete(User user) {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_USER);
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            rollBackTransaction(connection);
+            log.debug(" delete user exception {}", ex.getMessage());
+            return false;
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return true;
+    }
+
+
+
     public User mapUser(ResultSet rs) {
 
         User user = new User();
@@ -196,10 +219,6 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             } else {
                 user.setInvoiceId(-1);
             }
-//            BigDecimal ammount = BigDecimal.valueOf(rs.getInt(SQLConstants.FIELD_AMMOUNT));
-//            if (ammount != null) {
-//                user.setInvoiceAmmount(ammount);
-//            }
             user.setEmail(rs.getString("email"));
         } catch (SQLException ex) {
             log.debug("Map user exception {}",  ex.getMessage());
