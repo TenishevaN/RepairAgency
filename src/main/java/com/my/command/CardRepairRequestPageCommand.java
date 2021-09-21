@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import com.my.ServiceLocale;
+import com.my.ServiceUtil;
 
 public class CardRepairRequestPageCommand implements Command {
 
@@ -31,7 +31,7 @@ public class CardRepairRequestPageCommand implements Command {
             User user = (User) session.getAttribute("user");
             if(("user".equals(userRole.getName()) && (user.getId() != repairRequest.getUserId()))){
                 log.error("user {} has no right to see document Repair request № {}", user.getName(), repairRequest.getId());
-                req.setAttribute("errorMessage",  ServiceLocale.getKey("no_right_for_document", "en"));
+                req.setAttribute("errorMessage",  ServiceUtil.getKey("no_right_for_document", "en"));
                 return Path.PAGE_ERROR_PAGE;
             }
             req.setAttribute("repairRequest", repairRequest);
@@ -56,7 +56,7 @@ public class CardRepairRequestPageCommand implements Command {
 
         } catch (Exception ex) {
             log.debug("exception open repair request {}", ex.getMessage());
-             req.setAttribute("errorMessage",  ServiceLocale.getKey("no_document", "en"));
+             req.setAttribute("errorMessage",  ServiceUtil.getKey("no_document", "en"));
             return Path.PAGE_ERROR_PAGE;
         }
 

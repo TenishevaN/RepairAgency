@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/dynamics.js"></script>
+
+
+</head>
 
 <body>
 
@@ -24,20 +28,17 @@
         <div class="col-md-4">
             <div class="form-group">
                 <div class="form-inline">
-                    <p style="padding:10px;">
                     <label><fmt:message
                             key="account_balance"></fmt:message> ${total}</label>
-                    </p>
+
                     <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
                     <c:set var="userInvoiceId" value="${user.invoiceId}"></c:set>
                     <c:if test="${(role == 'manager') and (userInvoiceId == -1)}">
                         <form action="controller" method="post">
                             <input name="command" type="hidden" value="insertInvoice">
-                            <div class="row">
-                                <input type="hidden" name="userId" value="${user.id}"/>
-                                <button type="submit" class="btn btn-default"><fmt:message
-                                        key="add_invoice"></fmt:message></button>
-                            </div>
+                            <input type="hidden" name="userId" value="${user.id}"/>
+                            <button type="submit" class="btn btn-default"><fmt:message
+                                    key="add_invoice"></fmt:message></button>
                         </form>
                     </c:if>
 
@@ -53,7 +54,7 @@
             </div>
         </div>
         <div class="col-md-8 mx-auto">
-            <form action="controller" method="post">
+            <form name="userForm" id="userForm" action="controller" method="post">
                 <input name="command" type="hidden" value="updateCardUser">
                 <input type="hidden" id="id" name="id" value="${user.id}"/>
                 <div class="form-group">
@@ -66,14 +67,16 @@
                 </div>
                 <div class="form-group">
                     <label for="email"><fmt:message key="email"></fmt:message></label>
-                    <input type="email" name="email" class="form-control" id="email" value="${user.email}"/> <br>
+                    <input type="email" class="form-control" id="email" name="email" value="${user.email}"/> <br>
+                    <div style="color:red" id="errorEmail"></div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-xs-4">Role:</label>
                     <userFieldRight:role id="${user.roleId}"/>
                 </div>
                 <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-default"><fmt:message key="update"></fmt:message></button>
+                    <button type="submit" onclick="return handleEmailChange()" class="btn btn-default"><fmt:message
+                            key="update"></fmt:message></button>
                 </div>
             </form>
         </div>
@@ -100,13 +103,13 @@
                 <div class="container">
 
                     <form style="width:300px" action="controller" method="post">
-                        <input type="hidden"  name="command" value="insertPayment">
+                        <input type="hidden" name="command" value="insertPayment">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="-1"/>
                         <input type="hidden" id="idUser" name="idUser" value="${user.id}"/>
-                        <input type="hidden"  name="operation" value="replenishment">
+                        <input type="hidden" name="operation" value="replenishment">
                         <div class="form-group">
                             <label for="ammount"><fmt:message key="ammount"></fmt:message></label>
-                            <input type = "number"  step = "0.01" name="ammount" class="form-control" id="ammount"><br>
+                            <input type="number" step="0.01" name="ammount" class="form-control" id="ammount"><br>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message
                                 key="replenish"></fmt:message></button>

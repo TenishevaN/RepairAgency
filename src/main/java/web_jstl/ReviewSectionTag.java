@@ -41,7 +41,6 @@ public class ReviewSectionTag extends SimpleTagSupport {
        }
         try {
             out.println(output);
-            System.out.println("We get reviews: " + output);
         } catch (IOException e) {
             log.debug(e.getMessage());
         }

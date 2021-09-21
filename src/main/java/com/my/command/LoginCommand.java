@@ -57,6 +57,10 @@ public class LoginCommand implements Command {
             session.setAttribute("role", userRole);
             log.info("User " + user + " logged as " + userRole.toString().toLowerCase());
 
+            String currentLocale = (String) session.getAttribute("currentLocale");
+            if (currentLocale == null) {
+                session.setAttribute("currentLocale", "en");
+            }
 //			// work with i18n
 //			String userLocaleName = user.getLocaleName();
 //		//	log.trace("userLocalName --> " + userLocaleName);

@@ -1,6 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.ServiceUtil;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.Role;
 import com.my.db.model.User;
@@ -18,11 +19,18 @@ public class InsertUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        String currentLocale = (String) req.getAttribute("currentLocale");
+        if (currentLocale == null) {
+            req.getSession().setAttribute("currentLocale", "en");
+        }
+        String login = req.getParameter("login");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
         User user = new User();
-        user.setLogin(req.getParameter("login"));
-        user.setPassword(req.getParameter("password"));
+        user.setLogin(login);
+        user.setPassword(password);
         user.setName(req.getParameter("name"));
-        user.setEmail(req.getParameter("email"));
+        user.setEmail(email);
         user.setRoleId(4);
 
         try {

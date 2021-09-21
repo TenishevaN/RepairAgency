@@ -7,9 +7,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/dynamics.js"></script>
+
 
 </head>
 <body>
@@ -43,6 +44,7 @@
                         <c:param name="page" value="index.jsp"/>
                         </c:url>">EN</a>
                 </li>
+
                 <li><a href=#insertModalLoginPage" data-toggle="modal"
                        data-target="#insertModalRegistrationPage"><span
                         class="glyphicon glyphicon-registration-mark"></span> <fmt:message
@@ -71,14 +73,14 @@
                     <h1></h1>
 
                     <form style="width:300px" action="controller" method="get">
-                        <input type="hidden" name="command"  value="login">
+                        <input type="hidden" name="command" value="login">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
                             <input type="text" name="login" value="admin" class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input  type="password" name="password" class="form-control" id="password" value="1">
+                            <input type="password" name="password" class="form-control" id="password" value="1">
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="login"></fmt:message></button>
                     </form>
@@ -102,24 +104,27 @@
             <div class="modal-body">
                 <div class="container">
                     <form style="width:300px" action="controller" method="post">
-                        <input type="hidden" name="command"  value="insertUser">
+                        <input type="hidden" name="command" value="insertUser">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input type="text" name="login" class="form-control" id="login"><br>
+                            <input type="text" name="login" class="form-control" id="login" required><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input type="password" name="password"  class="form-control" id="password">
+                            <input type="password" name="password" id="passcode" class="form-control" required>
+                            <div style="color:red" id="errorPassword"></div>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="name"></fmt:message></label>
                             <input type="text" name="name" class="form-control" id="name"><br>
                         </div>
                         <div class="form-group">
-                            <label for="login"><fmt:message key="email"></fmt:message></label>
-                            <input type="email" name="email" class="form-control" id="email"><br>
+                            <label for="email"><fmt:message key="email"></fmt:message></label>
+                            <input type="email" name="email" id="email" class="form-control" required><br>
+                            <div style="color:red" id="errorEmail"></div>
                         </div>
-                        <button type="submit" class="btn btn-default"><fmt:message
+                        <button type="submit" onclick="return handleSubmitRegistrationUserForm()"
+                                class="btn btn-default"><fmt:message
                                 key="register"></fmt:message></button>
                     </form>
                 </div>

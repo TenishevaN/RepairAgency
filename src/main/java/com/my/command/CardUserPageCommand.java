@@ -2,7 +2,7 @@ package com.my.command;
 
 import com.my.Path;
 
-import com.my.ServiceLocale;
+import com.my.ServiceUtil;
 import com.my.db.dao.PaymentDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.Role;
@@ -37,7 +37,7 @@ public class CardUserPageCommand implements Command {
             User currentUser = (User) session.getAttribute("user");
             if(("user".equals(userRole.getName()) && (user.getId() != currentUser.getId()))){
                 log.error("user {} has no right to see the user  card № {}", user.getName(), user.getId());
-                req.setAttribute("errorMessage",  ServiceLocale.getKey("no_right_for_document", "en"));
+                req.setAttribute("errorMessage",  ServiceUtil.getKey("no_right_for_document", "en"));
                 return Path.PAGE_ERROR_PAGE;
             }
 
@@ -47,7 +47,7 @@ public class CardUserPageCommand implements Command {
             req.setAttribute("total", total);
         } catch (Exception ex) {
             log.debug("exception open user {}", ex.getMessage());
-            req.setAttribute("errorMessage",  ServiceLocale.getKey("no_document", "en"));
+            req.setAttribute("errorMessage",  ServiceUtil.getKey("no_document", "en"));
             return Path.PAGE_ERROR_PAGE;
         }
         return Path.PAGE_USER;

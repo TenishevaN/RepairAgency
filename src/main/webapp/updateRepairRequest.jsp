@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/include/head.jspf" %>
 <%@ taglib prefix="userFieldRight" uri="/WEB-INF/tlib/userFieldRight.tld" %>
 <%@ include file="mainPageNavBarBlock.jsp" %>
+<%@ taglib prefix="tagfile" tagdir="/WEB-INF/tags" %>
 
 <html>
 <head>
@@ -15,7 +16,7 @@
 
 <body>
 
-<div class="custom-format"  style="height:800px; padding-left: 40px"  class="container">
+<div class="custom-format"  style="height:1000px; padding-left: 40px"  class="container">
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
             <h2> Repair request</h2>
@@ -39,27 +40,14 @@
                             <userFieldRight:description descriptionText="${repairRequest.description}"
                                                         nameRole="${role}"/>
                         </div>
-                        <div class="text-left mt-3">
+                        <div >
                             <button type="submit" class="btn btn-default">Update</button>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-inline">
-                            <div>
-                                <label><fmt:message key="balance_owed"></fmt:message> ${balance_owed}</label>
-                            </div>
-                            </br>
-                            <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
-                            <c:if test="${role eq 'user'}">
 
-                                <form action="controller" method="get">
-                                    <button type="button" class="btn btn-default" data-toggle="modal"
-                                            data-target="#insertPaymentPage">
-                                        <fmt:message key="pay"></fmt:message>
-                                    </button>
-                                </form>
-                            </c:if>
-                        </div>
+                             <tagfile:balanceOwed balance_owed="${balance_owed}" role ="${fn:toLowerCase(role)}"></tagfile:balanceOwed>
+
                         <div>
                             <label>Status:</label>
                             <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"
@@ -108,7 +96,6 @@
                         <div class="reviews-list-item">
                             <userFieldRight:listReviews idRepairRequest="${repairRequest.id}"/>
                         </div>
-
                     </div>
                 </div>
 

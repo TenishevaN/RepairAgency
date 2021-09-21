@@ -1,5 +1,6 @@
 package web_jstl;
 
+import com.my.ServiceUtil;
 import com.my.db.dao.StatusDAO;
 import com.my.db.model.Status;
 import org.apache.logging.log4j.LogManager;
@@ -35,9 +36,9 @@ public class FieldStatusFilterTag extends SimpleTagSupport {
         StatusDAO statusDAO = new StatusDAO();
         List<Status> listStatus = statusDAO.getAll(currentLocale);
         if (idStatus == -1){
-            output += "<option  value = -1  selected>" + getKey("all", currentLocale) + "</option>";
+            output += "<option  value = -1  selected>" + ServiceUtil.getKey("all", currentLocale) + "</option>";
         } else{
-            output += "<option  value = -1>" + getKey("all", currentLocale) + "</option>";
+            output += "<option  value = -1>" + ServiceUtil.getKey("all", currentLocale) + "</option>";
         }
         for (Status status : listStatus) {
             if (status.getId() == idStatus) {
@@ -53,11 +54,6 @@ public class FieldStatusFilterTag extends SimpleTagSupport {
         } catch (IOException e) {
             log.debug(e.getMessage());
         }
-    }
-
-    public static String getKey(String key, String locale){
-        ResourceBundle resource = ResourceBundle.getBundle("resources", new Locale(locale));
-        return resource.getString(key);
     }
 }
 

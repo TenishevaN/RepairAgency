@@ -1,5 +1,6 @@
 package web_jstl;
 
+import com.my.ServiceUtil;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
 import com.my.web.Controller;
@@ -36,6 +37,9 @@ public class FieldMasterTag extends SimpleTagSupport {
             output = "<select name = masterId>";
             List<User> listMaster = Controller.masterList;
             log.debug(" FieldMasterTag {} ", listMaster);
+            if (idMaster == -1) {
+                 output += "<option  value = -1></option>";
+            }
             for (User master : listMaster) {
                 if (master.getId() == idMaster) {
                     output += "<option  value=" + master.getId() + " selected>" + master.getName() + "</option>";

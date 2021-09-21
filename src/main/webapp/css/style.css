@@ -9,6 +9,7 @@
 	display: flex;
 	flex-flow: row wrap;
 	align-items: center;
+	padding: 15px;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -51,6 +52,11 @@
 	height: 70%;
 	position: center;
 }
+.custom-margin-2 {
+	margin-right: 2px;
+}
+
+
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {

@@ -1,5 +1,6 @@
 package com.my.command;
 
+import com.my.Path;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
@@ -54,6 +55,6 @@ public class ReportPageCommand implements Command {
         } catch (Exception ex) {
          //log
         }
-        return "reports.jsp";
+        return Path.REPORTS;
     }
 }

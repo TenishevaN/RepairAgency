@@ -14,6 +14,8 @@ public final class Path {
 	public static final String PAGE_UPDATE_REPAIR_REQUEST = "updateRepairRequest.jsp";
 	public static final String PAGE_USER = "cardUser.jsp";
 	public static final String PAGE_USER_LIST =  "listUsers.jsp";
+	public static final String REPORTS = "reports.jsp";
+	public static String PAGE_LIST_REPAIR_REQUESTS = "listRepairRequests.jsp";
 
 
 	// commands
@@ -23,6 +25,5 @@ public final class Path {
 	public static final String COMMAND_OPEN_USER_BY_ID = "controller?command=openCardUser&id=";
 
 
-    public static final String REPORTS = "reports.jsp";
-    public static String PAGE_LIST_REPAIR_REQUESTS = "listRepairRequests.jsp";
+
 }

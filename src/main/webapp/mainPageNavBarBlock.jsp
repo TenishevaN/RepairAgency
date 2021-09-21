@@ -24,24 +24,26 @@
                     <a href="<c:url value="changeLocale.jsp">
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="uk"/>
-                        <c:param name="page" value="mainPage.jsp"/>
+                        <c:param name="page" value="index.jsp"/>
                         </c:url>">UK</a>
                 </li>
                 <li>
                     <a href="<c:url value="changeLocale.jsp">
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="ru"/>
-                        <c:param name="page" value="mainPage.jsp"/>
+                        <c:param name="page" value="index.jsp"/>
                         </c:url>">RU</a>
                 </li>
                 <li>
                     <a href="<c:url value="changeLocale.jsp">
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="en"/>
-                        <c:param name="page" value="mainPage.jsp"/>
+                        <c:param name="page" value="index.jsp"/>
                         </c:url>">EN</a>
                 </li>
-                <li><a href="index.jsp"><span class="glyphicon glyphicon-log-out"></span><fmt:message key="log_out"></fmt:message></a></li>
+
+                <li><a href="index.jsp"><span class="glyphicon glyphicon-log-out"></span><fmt:message
+                        key="log_out"></fmt:message></a></li>
             </ul>
         </div>
     </div>

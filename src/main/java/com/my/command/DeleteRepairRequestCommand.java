@@ -27,7 +27,7 @@ public class DeleteRepairRequestCommand implements Command {
             }
 
          } catch (Exception ex) {
-            log.debug("insert user exception "+ex.getMessage());
+            log.debug("delete user exception "+ex.getMessage());
             return  Path.PAGE_ERROR_PAGE;
         }
         return Path.COMMAND_LIST_REQUESTS;

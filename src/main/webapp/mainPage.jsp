@@ -1,6 +1,7 @@
 
 <%@ include file="/WEB-INF/include/head.jspf" %>
 <%@ include file="mainPageNavBarBlock.jsp" %>
+<%@ taglib prefix="tagfile" tagdir="/WEB-INF/tags" %>
 
 <html>
 <head>
@@ -18,7 +19,8 @@
     <div class="row content">
         <div class="col-sm-8 text-left">
             <h1></h1>
-            <p></p>
+            <p>
+            </p>
             <hr>
             <h3></h3>
             <p></p>
