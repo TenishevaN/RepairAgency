@@ -155,12 +155,12 @@ CREATE TABLE IF NOT EXISTS `db_repair_agency`.`repair_request` (
   CONSTRAINT `fk_repair_request_master`
     FOREIGN KEY (`master_id`)
     REFERENCES `db_repair_agency`.`account` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_repair_request_account`
     FOREIGN KEY (`account_id`)
     REFERENCES `db_repair_agency`.`account` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -221,6 +221,45 @@ CREATE INDEX `fk_payment_invoice1_idx` ON `db_repair_agency`.`payment` (`invoice
 
 CREATE INDEX `fk_payment_repair_request1_idx` ON `db_repair_agency`.`payment` (`repair_request_id` ASC) VISIBLE;
 
+
+-- -----------------------------------------------------
+-- Table `db_repair_agency`.`account_archive`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_repair_agency`.`account_archive` ;
+
+CREATE TABLE IF NOT EXISTS `db_repair_agency`.`account_archive` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(15) NOT NULL,
+  `password` VARCHAR(11) NOT NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `email` VARCHAR(60) NULL,
+  `account_id` INT NOT NULL DEFAULT 0,
+  `name` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `id_UNIQUE` ON `db_repair_agency`.`account_archive` (`id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `db_repair_agency`.`repair_request_archive`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_repair_agency`.`repair_request_archive` ;
+
+CREATE TABLE IF NOT EXISTS `db_repair_agency`.`repair_request_archive` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `cost` DECIMAL(10,0) UNSIGNED ZEROFILL NULL,
+  `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `description` VARCHAR(21000) NULL,
+  `document_id` INT NULL,
+  `status_id` INT NULL,
+  `master_id` INT NULL,
+  `account_id` INT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `id_UNIQUE` ON `db_repair_agency`.`repair_request_archive` (`id` ASC) VISIBLE;
+
 USE `db_repair_agency` ;
 
 -- -----------------------------------------------------
@@ -229,6 +268,32 @@ USE `db_repair_agency` ;
 DROP VIEW IF EXISTS `db_repair_agency`.`repair_request_full` ;
 USE `db_repair_agency`;
 CREATE  OR REPLACE VIEW `repair_request_full` AS SELECT repair_request.id, repair_request.cost, repair_request.date, repair_request.status_id, repair_request.master_id, repair_request.account_id, repair_request.description, status.name AS status_name, master.name AS master_name, user.name AS user_name FROM repair_request LEFT JOIN status ON repair_request.status_id = status.id LEFT JOIN account master ON repair_request.master_id = master.id LEFT JOIN account user ON repair_request.account_id = user.id;
+USE `db_repair_agency`;
+
+DELIMITER $$
+
+USE `db_repair_agency`$$
+DROP TRIGGER IF EXISTS `db_repair_agency`.`account_BEFORE_DELETE` $$
+USE `db_repair_agency`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `db_repair_agency`.`account_BEFORE_DELETE` BEFORE DELETE ON `account` FOR EACH ROW
+BEGIN
+INSERT INTO account_archive(account_id, login, password, email, name)
+    VALUES(old.id, old.login, old.password, old.email, old.name);
+ DELETE FROM repair_request WHERE id = old.id;       
+END$$
+
+
+USE `db_repair_agency`$$
+DROP TRIGGER IF EXISTS `db_repair_agency`.`repair_request_BEFORE_DELETE` $$
+USE `db_repair_agency`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `db_repair_agency`.`repair_request_BEFORE_DELETE` BEFORE DELETE ON `repair_request` FOR EACH ROW
+BEGIN
+INSERT INTO repair_request_archive(document_id, status_id, master_id, account_id, cost, description)
+    VALUES(old.id, old.status_id, old.master_id, old.account_id, old.cost, old.description);
+END$$
+
+
+DELIMITER ;
 
 -- -----------------------------------------------------
 -- Data for table `db_repair_agency`.`role`

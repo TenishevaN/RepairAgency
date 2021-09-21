@@ -70,6 +70,8 @@ public class CustomFilter implements Filter {
         accessMap.put(Role.MANAGER, managerRights);
 
         List<String> adminRights = new ArrayList<>();
+        adminRights.add("servicePage");
+        adminRights.add("deleteMarkedUsers");
         adminRights.add("openCardRepairRequest");
         adminRights.add("listRequests");
         adminRights.add("updateRepairRequest");

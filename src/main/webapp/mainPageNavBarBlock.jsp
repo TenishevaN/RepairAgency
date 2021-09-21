@@ -16,7 +16,7 @@
                 <c:if test="${role != 'user'}">
                     <li><a href="controller?command=listUsers""><fmt:message key="users"></fmt:message></a></li>
                     <li><a href="controller?command=reports"><fmt:message key="reports"></fmt:message></a></li>
-                    <li><a href="#"><fmt:message key="service"></fmt:message></a></li>
+                    <li><a href="controller?command=servicePage"><fmt:message key="service"></fmt:message></a></li>
                 </c:if>
             </ul>
             <ul class="nav navbar-nav navbar-right">

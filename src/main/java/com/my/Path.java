@@ -15,7 +15,8 @@ public final class Path {
 	public static final String PAGE_USER = "cardUser.jsp";
 	public static final String PAGE_USER_LIST =  "listUsers.jsp";
 	public static final String REPORTS = "reports.jsp";
-	public static String PAGE_LIST_REPAIR_REQUESTS = "listRepairRequests.jsp";
+	public static final String SERVICE_PAGE = "servicePage.jsp";
+    public static String PAGE_LIST_REPAIR_REQUESTS = "listRepairRequests.jsp";
 
 
 	// commands

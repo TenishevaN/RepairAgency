@@ -21,6 +21,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account left join invoice on account.invoice_id = invoice.id where account.id = ?;";
     public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
+    private static final String DELETE_MARKED_USER = "Delete from " + TABLE_USER + " where deleted = true";
 
     public UserDAO() {
     }
@@ -202,7 +203,26 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         return true;
     }
 
+    public boolean deleteMarkedUsers() {
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_MARKED_USER);
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            rollBackTransaction(connection);
+            log.debug(" delete marked users exception {}", ex.getMessage());
+            return false;
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return true;
+    }
 
     public User mapUser(ResultSet rs) {
 
@@ -225,4 +245,6 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         }
         return user;
     }
+
+   
 }
