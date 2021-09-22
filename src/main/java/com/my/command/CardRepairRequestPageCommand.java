@@ -43,19 +43,27 @@ public class CardRepairRequestPageCommand implements Command {
             } else {
                 req.setAttribute("currentLocale", currentLocale);
             }
-            BigDecimal paid = new InvoiceBalanceDAO().getBalanceOwed(id);
+            BigDecimal balance_owed = BigDecimal.ZERO;
+                    BigDecimal paid = new InvoiceBalanceDAO().getBalanceOwed(id);
             if (paid == null) {
                 paid = BigDecimal.ZERO;
+            } else {
+                balance_owed = balance_owed.add(paid);
             }
             BigDecimal cost = repairRequest.getCost();
-            BigDecimal balance_owed = BigDecimal.ZERO;
-            if(cost != null){
-                balance_owed = cost.add(paid).divide(BigDecimal.valueOf(100));
-            } else{
+            if (cost == null) {
                 cost = BigDecimal.ZERO;
+            } else{
+                balance_owed = balance_owed.add(cost);
+                cost = cost.divide(BigDecimal.valueOf(100));
             }
 
-            req.setAttribute("cost", cost.divide(BigDecimal.valueOf(100)));
+            if((balance_owed !=  BigDecimal.ZERO)){
+                balance_owed = balance_owed.divide(BigDecimal.valueOf(100));
+            }
+
+
+            req.setAttribute("cost", cost);
             req.setAttribute("balance_owed", balance_owed);
 
         } catch (Exception ex) {

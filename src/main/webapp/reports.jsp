@@ -63,9 +63,9 @@
                 <tr>
                     <td>${item.id}</td>
                     <td>${item.date}</td>
-                    <td>${item.statusName}</td>
+                    <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}" currentLocale="${currentLocale}" area="list"/></td>
                     <td>${item.userName}</td>
-                    <td>${item.masterName}</td>
+                    <td><userFieldRight:master idMaster="${item.masterId}" nameRole="${role}" currentLocale="${currentLocale}" area="list"/></td>
                     <td>${item.cost}</td>
                     <td>${item.description}</td>
                 </tr>

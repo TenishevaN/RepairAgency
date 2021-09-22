@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS `db_repair_agency`.`status` ;
 
 CREATE TABLE IF NOT EXISTS `db_repair_agency`.`status` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` ENUM('new', 'on_the_job', 'paid', 'canceled', 'done') NOT NULL DEFAULT 'new',
+  `name` ENUM('new', 'on_the_job', 'paid', 'canceled', 'done', 'waiting_for_payment') NOT NULL DEFAULT 'new',
   `status_localization_status_id` INT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_status_status_localization_status`
@@ -411,6 +411,9 @@ INSERT INTO `db_repair_agency`.`status_localization` (`id`, `name`, `status_id`,
 INSERT INTO `db_repair_agency`.`status_localization` (`id`, `name`, `status_id`, `language_id`) VALUES (DEFAULT, 'done', 5, 1);
 INSERT INTO `db_repair_agency`.`status_localization` (`id`, `name`, `status_id`, `language_id`) VALUES (DEFAULT, 'виконано', 5, 2);
 INSERT INTO `db_repair_agency`.`status_localization` (`id`, `name`, `status_id`, `language_id`) VALUES (DEFAULT, 'выполнено', 5, 3);
+INSERT INTO `db_repair_agency`.`status_localization` (`id`, `name`, `status_id`, `language_id`) VALUES (DEFAULT, 'waiting for payment', 6, 1);
+INSERT INTO `db_repair_agency`.`status_localization` (`id`, `name`, `status_id`, `language_id`) VALUES (DEFAULT, 'чекає на оплату', 6, 2);
+INSERT INTO `db_repair_agency`.`status_localization` (`id`, `name`, `status_id`, `language_id`) VALUES (DEFAULT, 'ожидает оплату', 6, 3);
 
 COMMIT;
 
@@ -425,6 +428,7 @@ INSERT INTO `db_repair_agency`.`status` (`id`, `name`, `status_localization_stat
 INSERT INTO `db_repair_agency`.`status` (`id`, `name`, `status_localization_status_id`) VALUES (3, 'paid', NULL);
 INSERT INTO `db_repair_agency`.`status` (`id`, `name`, `status_localization_status_id`) VALUES (4, 'canceled', NULL);
 INSERT INTO `db_repair_agency`.`status` (`id`, `name`, `status_localization_status_id`) VALUES (5, 'done', NULL);
+INSERT INTO `db_repair_agency`.`status` (`id`, `name`, `status_localization_status_id`) VALUES (6, 'waiting_for_payment', NULL);
 
 COMMIT;
 
@@ -434,7 +438,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `db_repair_agency`;
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, NULL, 5, 'new');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, 3, 5, 'new request');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 1000, '2021-09-15', 2, 4, 6, 'request 1');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 5000, '2021-09-16', DEFAULT, 4, 5, 'request 2');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 2000, '2021-09-16', 3, 3, 6, 'request 3');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 5000, '2021-09-17', DEFAULT, 4, 5, 'request 4');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 2000, '2021-09-01', 2, 3, 5, 'request 5');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 1000, '2021-08-01', 5, 4, 6, 'request 6');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 4000, '2021-09-11', 2, 4, 5, 'request 7');
 
 COMMIT;
 

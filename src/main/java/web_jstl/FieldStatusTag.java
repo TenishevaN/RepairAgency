@@ -9,6 +9,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FieldStatusTag extends SimpleTagSupport {
 
@@ -56,8 +57,7 @@ public class FieldStatusTag extends SimpleTagSupport {
         if (area.equals("list")) {
             return statusDAO.get(currentLocale, idStatus).toString();
         }
-        if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
-
+        if ("admin".equals(nameRole)) {
             output = "<select name=statusId>";
             for (Status status : listStatus) {
                 if (status.getId() == idStatus) {
@@ -67,19 +67,36 @@ public class FieldStatusTag extends SimpleTagSupport {
                 }
             }
             output += "</select>";
-        } else if (("master".equals(nameRole))) {
-            output = "<select name=statusId>";
-            for (Status status : listStatus) {
-                if (status.getId() == idStatus) {
-                    output += "<option  value=" + status.getId() + " selected>" + status.getName() + "</option>";
-                } else {
-                    output += "<option  value=" + status.getId() + ">" + status.getName() + "</option>";
-                }
-            }
-            output += "</select>";
-        } else {
-            output += statusDAO.get(currentLocale, idStatus);
+            return output;
         }
+        if ("manager".equals(nameRole)) {
+            output = "<select name=statusId>";
+            List<Status> masterList = listStatus.stream().filter(item -> (item.getId() == 6) || (item.getId() == 3) || (item.getId() == 4) || (item.getId() == idStatus)).collect(Collectors.toList());
+            for (Status status : masterList) {
+                if (status.getId() == idStatus) {
+                    output += "<option  value=" + status.getId() + " selected>" + status.getName() + "</option>";
+                } else {
+                    output += "<option  value=" + status.getId() + ">" + status.getName() + "</option>";
+                }
+            }
+            output += "</select>";
+            return output;
+        }
+        if (("master".equals(nameRole))) {
+            output = "<select name=statusId>";
+            List<Status> masterList = listStatus.stream().filter(item -> (item.getId() == 2) || (item.getId() == 5) || (item.getId() == idStatus)).collect(Collectors.toList());
+            for (Status status : masterList) {
+                if (status.getId() == idStatus) {
+                    output += "<option  value=" + status.getId() + " selected>" + status.getName() + "</option>";
+                } else {
+                    output += "<option  value=" + status.getId() + ">" + status.getName() + "</option>";
+                }
+            }
+            output += "</select>";
+            return output;
+        }
+        output += statusDAO.get(currentLocale, idStatus);
+
         return output;
     }
 }

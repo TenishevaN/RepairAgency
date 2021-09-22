@@ -19,8 +19,9 @@ public class ReportPageCommand implements Command {
         List<RepairRequest> repairRequests;
         int start = 0;
         String pageParameter = req.getParameter("page");
-        if(pageParameter != null){
-            start = Integer.parseInt(req.getParameter("page"));;
+        if (pageParameter != null) {
+            start = Integer.parseInt(req.getParameter("page"));
+            ;
         }
 
         try {
@@ -42,6 +43,8 @@ public class ReportPageCommand implements Command {
             req.setAttribute("repairRequests", repairRequests);
             req.setAttribute("role", currentRole.getName());
             req.setAttribute("userId", currentUser.getId());
+            String currentLocale = (String) req.getSession().getAttribute("currentLocale");
+            req.setAttribute("currentLocale", currentLocale);
 
             //Pagination
             if (pageParameter != null) {
@@ -52,7 +55,7 @@ public class ReportPageCommand implements Command {
             req.setAttribute("command", "reports");
 
         } catch (Exception ex) {
-         //log
+            //log
         }
         return Path.REPORTS;
     }
