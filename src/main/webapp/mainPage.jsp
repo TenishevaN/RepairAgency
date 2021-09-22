@@ -1,7 +1,7 @@
 
 <%@ include file="/WEB-INF/include/head.jspf" %>
 <%@ include file="mainPageNavBarBlock.jsp" %>
-<%@ taglib prefix="tagfile" tagdir="/WEB-INF/tags" %>
+
 
 <html>
 <head>
@@ -48,7 +48,7 @@
                         <input type="hidden" name="command"  value="login">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input type="text" name="login" value="admin"  class="form-control" id="login"><br>
+                            <input type="text" name="login" value="manager"  class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>

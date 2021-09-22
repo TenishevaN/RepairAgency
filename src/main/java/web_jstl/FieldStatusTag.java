@@ -12,10 +12,12 @@ import java.util.List;
 
 public class FieldStatusTag extends SimpleTagSupport {
 
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldStatusTag.class);
+
     private int idStatus;
     private String nameRole;
     private String currentLocale;
-    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldStatusTag.class);
+    private String area;
 
     public void setIdStatus(String idStatus) {
         this.idStatus = Integer.parseInt(idStatus);
@@ -29,14 +31,31 @@ public class FieldStatusTag extends SimpleTagSupport {
         this.currentLocale = currentLocale;
     }
 
+    public void setArea(String area) {
+        this.area = area;
+    }
+
     @Override
     public void doTag() throws JspException {
-        String output = "";
-        JspWriter out = getJspContext().getOut();
 
-        System.out.println("currentLocale --- " + currentLocale);
+        JspWriter out = getJspContext().getOut();
+        String output = getOutput();
+        try {
+            out.println(output);
+        } catch (IOException e) {
+            log.debug(" FieldStatusTag exception {} ", e.getMessage());
+        }
+    }
+
+    private String getOutput() {
+
+        String output = "";
         StatusDAO statusDAO = new StatusDAO();
         List<Status> listStatus = statusDAO.getAll(currentLocale);
+
+        if (area.equals("list")) {
+            return statusDAO.get(currentLocale, idStatus).toString();
+        }
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
 
             output = "<select name=statusId>";
@@ -61,12 +80,7 @@ public class FieldStatusTag extends SimpleTagSupport {
         } else {
             output += statusDAO.get(currentLocale, idStatus);
         }
-
-        try {
-            out.println(output);
-        } catch (IOException e) {
-            log.debug(e.getMessage());
-        }
+        return output;
     }
 }
 

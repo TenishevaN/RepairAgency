@@ -1,7 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
-import com.my.db.dao.PaymentDAO;
+import com.my.db.dao.InvoiceBalanceDAO;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
@@ -43,16 +43,20 @@ public class CardRepairRequestPageCommand implements Command {
             } else {
                 req.setAttribute("currentLocale", currentLocale);
             }
-            BigDecimal paid = new PaymentDAO().getBalanceOwed(id);
+            BigDecimal paid = new InvoiceBalanceDAO().getBalanceOwed(id);
             if (paid == null) {
                 paid = BigDecimal.ZERO;
             }
             BigDecimal cost = repairRequest.getCost();
             BigDecimal balance_owed = BigDecimal.ZERO;
             if(cost != null){
-                balance_owed = cost.add(paid);
+                balance_owed = cost.add(paid).divide(BigDecimal.valueOf(100));
+            } else{
+                cost = BigDecimal.ZERO;
             }
-            req.setAttribute("balance_owed", (balance_owed));
+
+            req.setAttribute("cost", cost.divide(BigDecimal.valueOf(100)));
+            req.setAttribute("balance_owed", balance_owed);
 
         } catch (Exception ex) {
             log.debug("exception open repair request {}", ex.getMessage());

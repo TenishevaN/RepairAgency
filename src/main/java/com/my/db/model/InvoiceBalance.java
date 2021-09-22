@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Payment implements Serializable {
+public class InvoiceBalance implements Serializable {
 
     private static final long serialVersionUID = 8466257860808346236L;
     private int id;
@@ -48,7 +48,7 @@ public class Payment implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Payment payment = (Payment) o;
+        InvoiceBalance payment = (InvoiceBalance) o;
         return id == payment.id;
     }
 

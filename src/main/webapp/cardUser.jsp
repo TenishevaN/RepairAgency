@@ -27,22 +27,11 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
+
                 <div class="form-inline">
-                    <label><fmt:message
+                    <label class="custom-margin-2"><fmt:message
                             key="account_balance"></fmt:message> ${total}</label>
-
-                    <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
-                    <c:set var="userInvoiceId" value="${user.invoiceId}"></c:set>
-                    <c:if test="${(role == 'manager') and (userInvoiceId == -1)}">
-                        <form action="controller" method="post">
-                            <input name="command" type="hidden" value="insertInvoice">
-                            <input type="hidden" name="userId" value="${user.id}"/>
-                            <button type="submit" class="btn btn-default"><fmt:message
-                                    key="add_invoice"></fmt:message></button>
-                        </form>
-                    </c:if>
-
-                    <c:if test="${(role eq 'manager') and (userInvoiceId != -1)}">
+                    <c:if test="${(role eq 'manager')}">
                         <form action="controller" method="get">
                             <button type="button" class="btn btn-default" data-toggle="modal"
                                     data-target="#insertReplenishmentPage">
@@ -74,6 +63,18 @@
                     <label class="control-label col-xs-4">Role:</label>
                     <userFieldRight:role id="${user.roleId}"/>
                 </div>
+                <div class="form-group">
+                    <label for="nameEN"><fmt:message key="name"></fmt:message> EN</label>
+                    <input type="text" name="nameEN" class="form-control" id="nameEN" value="${nameEN}"/> <br>
+                </div>
+                <div class="form-group">
+                    <label for="nameUK"><fmt:message key="name"></fmt:message> UK</label>
+                    <input type="text" name="nameUK" class="form-control" id="nameUK" value="${nameUK}"/> <br>
+                </div>
+                <div class="form-group">
+                    <label for="nameRU"><fmt:message key="name"></fmt:message> RU</label>
+                    <input type="text" name="nameRU" class="form-control" id="nameRU" value="${nameRU}"/> <br>
+                </div>
                 <div class="text-left mt-3">
                     <button type="submit" onclick="return handleEmailChange()" class="btn btn-default"><fmt:message
                             key="update"></fmt:message></button>
@@ -103,7 +104,7 @@
                 <div class="container">
 
                     <form style="width:300px" action="controller" method="post">
-                        <input type="hidden" name="command" value="insertPayment">
+                        <input type="hidden" name="command" value="insertInvoiceBalance">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="-1"/>
                         <input type="hidden" id="idUser" name="idUser" value="${user.id}"/>
                         <input type="hidden" name="operation" value="replenishment">

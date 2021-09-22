@@ -12,9 +12,8 @@ import java.util.List;
 
 public class ReviewSectionTag extends SimpleTagSupport {
 
-    private int idRepairRequest;
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(ReviewSectionTag.class);
-
+    private int idRepairRequest;
     public void setIdRepairRequest(String idRepairRequest) {
         this.idRepairRequest = Integer.parseInt(idRepairRequest);
     }

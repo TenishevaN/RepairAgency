@@ -61,6 +61,7 @@ public class LoginCommand implements Command {
             if (currentLocale == null) {
                 session.setAttribute("currentLocale", "en");
             }
+
 //			// work with i18n
 //			String userLocaleName = user.getLocaleName();
 //		//	log.trace("userLocalName --> " + userLocaleName);

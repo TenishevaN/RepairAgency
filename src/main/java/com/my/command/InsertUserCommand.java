@@ -2,7 +2,9 @@ package com.my.command;
 
 import com.my.Path;
 import com.my.ServiceUtil;
+import com.my.db.dao.AccountLocalizationDAO;
 import com.my.db.dao.UserDAO;
+import com.my.db.model.AccountLocalization;
 import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
@@ -37,16 +39,23 @@ public class InsertUserCommand implements Command {
             UserDAO userDAO = new UserDAO();
             userDAO.insert(user);
 
-            Role userRole = Role.getRole(user);
-            HttpSession session = req.getSession();
-            session.setAttribute("user", user);
-            session.setAttribute("role", userRole);
-            log.info("User " + user + " logged as " + userRole.toString().toLowerCase());
-            return Path.COMMAND_MAIN_PAGE;
-
         } catch (Exception ex) {
             log.debug("insert user exception "+ex.getMessage());
             return  Path.PAGE_ERROR_PAGE;
         }
+
+        int userId = user.getId();
+        System.out.println("userId " + userId);
+        AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+        accountLocalizationDAO.insert(userId, 1);
+        accountLocalizationDAO.insert(userId, 2);
+        accountLocalizationDAO.insert(userId, 3);
+
+        Role userRole = Role.getRole(user);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", user);
+        session.setAttribute("role", userRole);
+        log.info("User " + user + " logged as " + userRole.toString().toLowerCase());
+        return Path.COMMAND_MAIN_PAGE;
     }
 }

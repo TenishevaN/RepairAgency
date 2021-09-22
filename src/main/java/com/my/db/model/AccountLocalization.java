@@ -1,16 +1,13 @@
 package com.my.db.model;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Invoice implements Serializable {
+public class AccountLocalization {
 
-    private static final long serialVersionUID = 8466257860808346236L;
     private int id;
     private int account_id;
-    private BigDecimal ammount;
-
+    private int language_id;
+    private String name;
 
     public int getId() {
         return id;
@@ -28,20 +25,28 @@ public class Invoice implements Serializable {
         this.account_id = account_id;
     }
 
-    public BigDecimal getAmmount() {
-        return ammount;
+    public int getLanguage_id() {
+        return language_id;
     }
 
-    public void setAmmount(BigDecimal ammount) {
-        this.ammount = ammount;
+    public void setLanguage_id(int language_id) {
+        this.language_id = language_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Invoice invoice = (Invoice) o;
-        return id == invoice.id;
+        AccountLocalization that = (AccountLocalization) o;
+        return id == that.id;
     }
 
     @Override
@@ -51,9 +56,6 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "Invoice{" +
-                "id=" + id +
-                ", account_id=" + account_id +
-                '}';
+        return name;
     }
 }

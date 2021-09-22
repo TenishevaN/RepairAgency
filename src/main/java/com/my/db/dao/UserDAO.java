@@ -1,12 +1,15 @@
 package com.my.db.dao;
 
+import com.my.db.model.AccountLocalization;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
@@ -17,9 +20,10 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
     private static final String ADD_NEW_USER = "INSERT INTO " + TABLE_USER + "(login, password, role_id, email, name) values (?, ?, ?, ?, ?);";
     private static final String FIND_ALL_USERS = "SELECT * FROM " + TABLE_USER + " where deleted = false";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER + " WHERE login = ? and deleted = false";
-    private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  where role_id = 3 and deleted = false";
+   // private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  where role_id = 3 and deleted = false";
+   private static final String FIND_ALL_MASTERS = "SELECT id, role_id, name FROM account ac where role_id = 3 and deleted = false;";
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
-    private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account left join invoice on account.invoice_id = invoice.id where account.id = ?;";
+    private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account where account.id = ?;";
     public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String DELETE_MARKED_USER = "Delete from " + TABLE_USER + " where deleted = true";
 
@@ -40,6 +44,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             preparedStatement.setInt(3, user.getRoleId());
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getName());
+
             if (preparedStatement.executeUpdate() == 0) {
                 return false;
             }
@@ -77,20 +82,24 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         return users;
     }
 
-    public List<User> getMasterList() {
+    public Map<User, List<AccountLocalization>> getMasterList() {
 
-        List<User> masters = new ArrayList<>();
+        Map<User, List<AccountLocalization>> masters = new HashMap<>();
         try (Connection con = getConnection();
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(FIND_ALL_MASTERS);) {
             while (rs.next()) {
-                masters.add(mapUser(rs));
+                User newUser = mapUser(rs);
+                AccountLocalizationDAO accountLocalizationDAO = new  AccountLocalizationDAO();
+                List<AccountLocalization> userLocalization = accountLocalizationDAO.get(newUser.getId());
+                masters.put(mapUser(rs), userLocalization);
             }
             log.debug("Get list master {}", masters);
         } catch (SQLException ex) {
             log.debug("Get list master exception {}", ex.getMessage());
         }
         return masters;
+
     }
 
     @Override
@@ -240,6 +249,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
                 user.setInvoiceId(-1);
             }
             user.setEmail(rs.getString("email"));
+
         } catch (SQLException ex) {
             log.debug("Map user exception {}",  ex.getMessage());
         }

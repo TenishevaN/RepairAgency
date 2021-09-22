@@ -61,6 +61,13 @@ public class ListRequestsCommand implements Command {
 
             req.setAttribute("idStatus", "-1");
             req.setAttribute("idMaster", "-1");
+
+            String currentLocale = (String) req.getSession().getAttribute("currentLocale");
+            if (currentLocale == null) {
+                req.setAttribute("currentLocale", "en");
+            } else {
+                req.setAttribute("currentLocale", currentLocale);
+            }
          } catch (Exception ex) {
             log.debug("Get List requests exception " + ex.getMessage());
         }

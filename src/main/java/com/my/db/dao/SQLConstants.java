@@ -20,4 +20,5 @@ public final class SQLConstants {
     public static final String FIELD_USER_NAME = "user_name";
     public static final String FIELD_INVOICE_ID = "invoice_id";
     public static final String FIELD_AMMOUNT = "ammount";
-   }
+    public static final String FIELD_LANGUAGE_ID = "language_id";
+}

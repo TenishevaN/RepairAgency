@@ -32,7 +32,7 @@ public class UpdateRepairRequestCommand implements Command {
             repairRequest.setMasterName(req.getParameter("master_name"));
             String cost = req.getParameter("cost");
             if( cost != null && !cost.isEmpty()){
-                repairRequest.setCost(BigDecimal.valueOf(Double.parseDouble(req.getParameter("cost"))));
+                repairRequest.setCost(new BigDecimal(req.getParameter("cost")).multiply(BigDecimal.valueOf(100)));
             }
 
             String description = req.getParameter("description");

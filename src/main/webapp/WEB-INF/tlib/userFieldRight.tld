@@ -14,6 +14,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>area</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>nameRole</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -61,7 +66,17 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>area</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>nameRole</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>currentLocale</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

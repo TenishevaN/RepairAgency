@@ -1,7 +1,8 @@
 package com.my.command;
 
 import com.my.Path;
-import com.my.db.dao.PaymentDAO;
+import com.my.db.dao.InvoiceBalanceDAO;
+import com.my.db.dao.InvoiceDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.*;
 import org.apache.logging.log4j.LogManager;
@@ -12,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
-public class InsertPaymentCommand implements Command {
+public class InsertInvoiceBalanceCommand implements Command {
 
-    private static final Logger log = LogManager.getLogger(InsertPaymentCommand.class);
+    private static final Logger log = LogManager.getLogger(InsertInvoiceBalanceCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -32,27 +33,33 @@ public class InsertPaymentCommand implements Command {
             return Path.PAGE_ERROR_PAGE;
         }
         String idRepairRequest = req.getParameter("idRepairRequest");
-        BigDecimal ammount = BigDecimal.valueOf(Double.parseDouble(req.getParameter("ammount")));
+        BigDecimal ammount = new BigDecimal(req.getParameter("ammount"));
         String operation = req.getParameter("operation");
         if ("payment".equals(operation)) {
             ammount = ammount.negate();
         }
         try {
-            Payment payment = new Payment();
+            InvoiceBalance payment = new InvoiceBalance();
             payment.setInvoiceId(invoiceId);
             payment.setRepairRequestId(Integer.parseInt(idRepairRequest));
-            payment.setAmmount(ammount);
+            payment.setAmmount(ammount.multiply(BigDecimal.valueOf(100)));
 
-            PaymentDAO paymentDAO = new PaymentDAO();
-            paymentDAO.insert(payment);
+            InvoiceBalanceDAO invoiceBalanceDAO = new InvoiceBalanceDAO();
+            invoiceBalanceDAO.insert(payment);
+
+            InvoiceDAO invoiceDAO = new InvoiceDAO();
+            Invoice invoice = invoiceDAO.get(idUser);
+            invoice.setAmmount(invoiceBalanceDAO.getTotal(invoice.getId()));
+            invoiceDAO.update(invoice);
+
             User currentUser = (User) req.getSession().getAttribute("user");
             Role userRole = Role.getRole(currentUser);
             session.setAttribute("user", currentUser);
             session.setAttribute("role", userRole);
 
             if ("-1".equals(idRepairRequest)) {
-                BigDecimal total = new PaymentDAO().getTotal(invoiceId);
-                req.setAttribute("total", total);
+                //replenish the user invoice from the user card
+                req.setAttribute("total", invoice.getAmmount());
                 return Path.COMMAND_OPEN_USER_BY_ID + idUser;
             } else {
                 return Path.COMMAND_OPEN_REPAIR_REQUEST_BY_ID + idRepairRequest;

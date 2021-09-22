@@ -1,7 +1,9 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.db.dao.AccountLocalizationDAO;
 import com.my.db.dao.UserDAO;
+import com.my.db.model.AccountLocalization;
 import com.my.db.model.Role;
 import com.my.db.model.User;
 import com.my.web.Controller;
@@ -30,12 +32,37 @@ public class UpdateUserCommand implements Command {
         if ((invoiceId != null) && (!invoiceId.isEmpty())) {
             user.setInvoiceId(Integer.parseInt(invoiceId));
         }
+
         try {
             userDAO.update(user);
         } catch (Exception ex) {
             log.debug(ex.getMessage());
             return Path.PAGE_ERROR_PAGE;
         }
+
+        String nameEn = req.getParameter("nameEN");
+        AccountLocalization accountLocalization = null;
+        if ((nameEn != null) || (!nameEn.isEmpty())) {
+            AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+            accountLocalization = accountLocalizationDAO.get(user.getId(), 1);
+            accountLocalization.setName(nameEn);
+            accountLocalizationDAO.update(accountLocalization);
+        }
+        String nameRU = req.getParameter("nameRU");
+        if ((nameRU != null) || (!nameRU.isEmpty())) {
+            AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+            accountLocalization = accountLocalizationDAO.get(user.getId(), 3);
+            accountLocalization.setName(nameRU);
+            accountLocalizationDAO.update(accountLocalization);
+        }
+        String nameUK = req.getParameter("nameUK");
+        if ((nameUK != null) || (!nameUK.isEmpty())) {
+            AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+            accountLocalization = accountLocalizationDAO.get(user.getId(), 2);
+            accountLocalization.setName(nameUK);
+            accountLocalizationDAO.update(accountLocalization);
+        }
+
         roleChanged(userRoleId, roleId);
         return Path.COMMAND_OPEN_USER_BY_ID + req.getParameter("id");
     }

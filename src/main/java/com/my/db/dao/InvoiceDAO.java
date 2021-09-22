@@ -15,6 +15,7 @@ public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
     private static final String FIND_INVOICE = "SELECT * FROM INVOICE WHERE ID = ?;";
     private static final String TABLE_INVOICE = "invoice";
     private static final String ADD_NEW_INVOICE = "INSERT INTO " + TABLE_INVOICE + "(account_id) values (?);";
+    private static final String UPDATE_INVOICE = "UPDATE " + TABLE_INVOICE + " SET ammount = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
 
 
     public Invoice get(int id) {
@@ -83,28 +84,29 @@ public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
     @Override
     public boolean update(Invoice invoice) {
 
-//        Connection connection = null;
-//        PreparedStatement preparedStatement = null;
-//        ResultSet resultSet = null;
-//
-//        try {
-//            connection = getConnection();
-//            preparedStatement = connection.prepareStatement(UPDATE_INVOICE);
-//            preparedStatement.setInt(2, invoice.getId());
-//            if (preparedStatement.executeUpdate() == 0) {
-//                return false;
-//            }
-//            connection.commit();
-//        } catch (SQLException ex) {
-//            rollBackTransaction(connection);
-//            log.debug(ex.getMessage());
-//            return false;
-//
-//        } finally {
-//            close(resultSet);
-//            close(preparedStatement);
-//            close(connection);
-//        }
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_INVOICE);
+            preparedStatement.setBigDecimal(1, invoice.getAmmount());
+            preparedStatement.setInt(2, invoice.getId());
+            if (preparedStatement.executeUpdate() == 0) {
+                return false;
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            rollBackTransaction(connection);
+            log.debug(ex.getMessage());
+            return false;
+
+        } finally {
+            close(resultSet);
+            close(preparedStatement);
+            close(connection);
+        }
         return true;
     }
 
@@ -114,6 +116,7 @@ public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
         try {
             invoice.setId(rs.getInt(SQLConstants.FIELD_ID));
             invoice.setAccount_id(rs.getInt(SQLConstants.FIELD_ACCOUNT_ID));
+            invoice.setAmmount(rs.getBigDecimal(SQLConstants.FIELD_AMMOUNT));
         } catch (SQLException ex) {
             log.debug("map invoice exception " + ex.getMessage());
         }

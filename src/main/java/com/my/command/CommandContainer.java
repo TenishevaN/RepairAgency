@@ -25,8 +25,7 @@ public class CommandContainer {
 		commands.put("sortListRequestsByStatus", new SortListRequestsByStatusCommand());
 		commands.put("filtertListRequestsByStatus", new FilterListRequestsByStatusCommand());
 		commands.put("filtertListRequestsByMaster", new FilterListRequestsByMasterCommand());
-		commands.put("insertInvoice", new InsertInvoiceCommand());
-		commands.put("insertPayment", new InsertPaymentCommand());
+	    commands.put("insertInvoiceBalance", new InsertInvoiceBalanceCommand());
 		commands.put("deleteCardRepairRequest", new DeleteRepairRequestCommand());
 		commands.put("deleteUser", new DeleteUserCommand());
 		commands.put("deleteMarkedUsers", new DeleteMarkedUsersCommand());

@@ -1,6 +1,6 @@
 package com.my.db.dao;
 
-import com.my.db.model.Payment;
+import com.my.db.model.InvoiceBalance;
 import org.apache.logging.log4j.LogManager;
 
 import java.math.BigDecimal;
@@ -8,20 +8,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentDAO extends ManagerDAO implements InterfaceDAO<Payment> {
+public class InvoiceBalanceDAO extends ManagerDAO implements InterfaceDAO<InvoiceBalance> {
 
-    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(PaymentDAO.class);
+    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(InvoiceBalanceDAO.class);
 
-    private static final String TABLE_PAYMENT = "payment";
-    private static final String ADD_NEW_PAYMENT = "INSERT INTO " + TABLE_PAYMENT + "(invoice_id, repair_request_id, ammount) values (?, ?, ?);";
-    private static final String FIND_PAYMENT = "SELECT * FROM " + TABLE_PAYMENT + " WHERE ID = ?;";
-    private static final String UPDATE_PAYMENT = "UPDATE " + TABLE_PAYMENT + " SET ammount = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
-    private static final String FIND_ALL_PAYMENTS = "SELECT * FROM " + TABLE_PAYMENT;
-    private static final String GET_TOTAL_BY_INVOICE_ID = "SELECT SUM(ammount) AS total FROM " + TABLE_PAYMENT + " where invoice_id = ?";
-    private static final String GET_TOTAL_BY_REQUEST_ID = "SELECT SUM(ammount) AS total FROM " + TABLE_PAYMENT + " where repair_request_id = ?";
+    private static final String TABLE_INVOICE_BALANCE = "invoice_balance";
+    private static final String ADD_NEW_PAYMENT = "INSERT INTO " + TABLE_INVOICE_BALANCE + "(invoice_id, repair_request_id, ammount) values (?, ?, ?);";
+    private static final String FIND_PAYMENT = "SELECT * FROM " + TABLE_INVOICE_BALANCE + " WHERE ID = ?;";
+    private static final String UPDATE_PAYMENT = "UPDATE " + TABLE_INVOICE_BALANCE + " SET ammount = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
+    private static final String FIND_ALL_PAYMENTS = "SELECT * FROM " + TABLE_INVOICE_BALANCE;
+    private static final String GET_TOTAL_BY_INVOICE_ID = "SELECT SUM(ammount) AS total FROM " + TABLE_INVOICE_BALANCE + " where invoice_id = ?";
+    private static final String GET_TOTAL_BY_REQUEST_ID = "SELECT SUM(ammount) AS total FROM " + TABLE_INVOICE_BALANCE + " where repair_request_id = ?";
 
     @Override
-    public boolean insert(Payment element) {
+    public boolean insert(InvoiceBalance element) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -59,9 +59,9 @@ public class PaymentDAO extends ManagerDAO implements InterfaceDAO<Payment> {
     }
 
     @Override
-    public List<Payment> getAll() {
+    public List<InvoiceBalance> getAll() {
 
-        List<Payment> payments = new ArrayList<>();
+        List<InvoiceBalance> payments = new ArrayList<>();
         try (Connection con = getConnection();
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(FIND_ALL_PAYMENTS);) {
@@ -77,9 +77,9 @@ public class PaymentDAO extends ManagerDAO implements InterfaceDAO<Payment> {
     }
 
     @Override
-    public Payment get(int id) {
+    public InvoiceBalance get(int id) {
 
-        Payment payment = null;
+        InvoiceBalance payment = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         Connection con = null;
@@ -153,7 +153,7 @@ public class PaymentDAO extends ManagerDAO implements InterfaceDAO<Payment> {
     }
 
     @Override
-    public boolean update(Payment element) {
+    public boolean update(InvoiceBalance element) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -181,9 +181,9 @@ public class PaymentDAO extends ManagerDAO implements InterfaceDAO<Payment> {
         return true;
     }
 
-    private Payment mapPayment(ResultSet rs) {
+    private InvoiceBalance mapPayment(ResultSet rs) {
 
-        Payment payment = new Payment();
+        InvoiceBalance payment = new InvoiceBalance();
         try {
             payment.setId(rs.getInt(SQLConstants.FIELD_ID));
             payment.setInvoiceId(rs.getInt(SQLConstants.FIELD_INVOICE_ID));

@@ -50,16 +50,15 @@
 
                         <div>
                             <label>Status:</label>
-                            <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"
-                                                   currentLocale="${currentLocale}"/>
+                            <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}" currentLocale="${currentLocale}" area="card"/>
                         </div>
                         <div>
                             <label>Master:</label>
-                            <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}"/>
+                            <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}" currentLocale="${currentLocale}" area="card"/>
                         </div>
                         <div>
                             <label>Cost:</label>
-                            <userFieldRight:cost costValue="${repairRequest.cost}" nameRole="${role}"/>
+                            <userFieldRight:cost costValue="${cost}" nameRole="${role}"/>
                         </div>
                     </div>
                 </div>
@@ -141,7 +140,7 @@
                 <div class="container">
 
                     <form style="width:300px" action="controller" method="post">
-                        <input type="hidden" name="command"  value="insertPayment">
+                        <input type="hidden" name="command"  value="insertInvoiceBalance">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="${repairRequest.id}"/>
                         <input type="hidden" id="idUser" name="idUser" value="${repairRequest.userId}"/>
                         <input type="hidden" name="operation"  value="payment">
