@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Repair agency</title>
+    <title><fmt:message key="repair_agency"></fmt:message></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -20,11 +20,11 @@
 
         <table class="table">
             <tr>
-                <td>Name</td>
-                <td>Login</td>
-                <td>Email</td>
-                <th>Open</th>
-                <th>Delete</th>
+                <td><fmt:message key="name"></fmt:message></td>
+                <td><fmt:message key="login"></fmt:message></td>
+                <td><fmt:message key="email"></fmt:message></td>
+                <th><fmt:message key="open"></fmt:message></th>
+                <th><fmt:message key="delete"></fmt:message></th>
             </tr>
             <c:forEach items="${users}" var="user">
                 <tr>
@@ -35,14 +35,14 @@
                         <form action="controller" method="get">
                             <input type="hidden" name="command" value="openCardUser">
                             <input type="hidden" name="id" id="id" class="form-control" value="${user.id}">
-                            <input type="submit" name="open" value="Open"><br>
+                            <input type="submit" name="open" value=<fmt:message key="open"></fmt:message>><br>
                         </form>
                     </td>
                     <td>
                         <form action="controller" method="get">
                             <input type="hidden" name="command" value="deleteUser">
                             <input type="hidden" name="id" id="id" class="form-control" value="${user.id}">
-                            <input type="submit" name="delete" value="Delete"><br>
+                            <input type="submit" name="delete" value=<fmt:message key="delete"></fmt:message>><br>
                         </form>
                     </td>
                 </tr>

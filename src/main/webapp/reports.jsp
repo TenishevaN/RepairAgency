@@ -52,11 +52,11 @@
         <table class="table table-bordered">
             <tr>
                 <th>&#8470;</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>User</th>
-                <th>Master</th>
-                <th>Cost</th>
+                <th><fmt:message key="date"></fmt:message></th>
+                <th><fmt:message key="status"></fmt:message></th>
+                <th><fmt:message key="user"></fmt:message></th>
+                <th><fmt:message key="master"></fmt:message></th>
+                <th><fmt:message key="cost"></fmt:message></th>
                 <th>Description</th>
             </tr>
             <c:forEach items="${repairRequests}" var="item">

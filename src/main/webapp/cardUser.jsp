@@ -11,8 +11,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/dynamics.js"></script>
-
-
+    <script type="text/javascript">
+        function checkReplenishment() {
+            var ammount = document.getElementById("ammountValue").value;
+            if ((ammount === 0) || (ammount === null) || (ammount === "") || (ammount === "0")) {
+                $('#errorIndicateAmmount').css('visibility', 'visible');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
 <body>
@@ -57,7 +65,7 @@
                 <div class="form-group">
                     <label for="email"><fmt:message key="email"></fmt:message></label>
                     <input type="email" class="form-control" id="email" name="email" value="${user.email}"/> <br>
-                    <div style="color:red" id="errorEmail"></div>
+                    <div style="color:red; visibility: hidden" id="errorEmail"><fmt:message key="errorEmail"></fmt:message></div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-xs-4">Role:</label>
@@ -109,10 +117,12 @@
                         <input type="hidden" id="idUser" name="idUser" value="${user.id}"/>
                         <input type="hidden" name="operation" value="replenishment">
                         <div class="form-group">
-                            <label for="ammount"><fmt:message key="ammount"></fmt:message></label>
-                            <input type="number" step="0.01" name="ammount" class="form-control" id="ammount"><br>
+                            <label for="ammountValue"><fmt:message key="ammount"></fmt:message></label>
+                            <input type="number" step="0.01" name="ammount" class="form-control" id="ammountValue"><br>
+                            <label style="color:red; visibility: hidden" id="errorIndicateAmmount"><fmt:message
+                                    key="indicate_ammount"></fmt:message></label>
                         </div>
-                        <button type="submit" class="btn btn-default"><fmt:message
+                        <button type="submit" onclick="return checkReplenishment()" class="btn btn-default"><fmt:message
                                 key="replenish"></fmt:message></button>
                     </form>
                 </div>

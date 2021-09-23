@@ -3,23 +3,45 @@
 <%@ include file="mainPageNavBarBlock.jsp" %>
 <%@ taglib prefix="tagfile" tagdir="/WEB-INF/tags" %>
 
+
 <html>
 <head>
-    <title>Repair agency</title>
+    <title><fmt:message key="repair_agency"></fmt:message></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/dynamics.js"></script>
+    <script type="text/javascript">
+        function checkPayment() {
+
+            var ammount = document.getElementById("ammountValue").value;
+            var total = document.getElementById("total").value;
+            if ((ammount === 0) || (ammount === null) || (ammount === "") || (ammount === "0")) {
+                $('#errorIndicateAmmount').css('visibility', 'visible');
+                $('#errorNotEnoughFundsToPay').css('visibility', 'hidden');
+                return false;
+            }
+         alert(" total " + total);
+            alert("ammount " + ammount);
+            if (Number(total) < Number(ammount)) {
+                $('#errorNotEnoughFundsToPay').css('visibility', 'visible');
+                $('#errorIndicateAmmount').css('visibility', 'hidden');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
 <body>
 
-<div class="custom-format"  style="height:1000px; padding-left: 40px"  class="container">
+<div class="custom-format" style="height:800px; margin-left: 140px; padding-top: 20px; padding-left: 100px"
+     class="container">
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
-            <h2> Repair request</h2>
+            <h2><fmt:message key="repair_request"></fmt:message></h2>
             <div class="divider bg-primary mx-auto"></div>
         </div>
     </div>
@@ -27,7 +49,7 @@
     <div>
         <div class="col-md-20 mx-auto">
             <form action="controller" method="post">
-                <input type="hidden" name="command"  value="updateRepairRequest">
+                <input type="hidden" name="command" value="updateRepairRequest">
                 <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                        value="${repairRequest.id}"/>
                 <input type="hidden" id="master_name" name="master_name"
@@ -36,28 +58,32 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div style="width:500px" class="form-group">
-                            <label class="control-label col-xs-4">Description:</label>
+                            <label class="control-label col-xs-4"><fmt:message key="description"></fmt:message>:</label>
                             <userFieldRight:description descriptionText="${repairRequest.description}"
                                                         nameRole="${role}"/>
                         </div>
-                        <div >
-                            <button type="submit" class="btn btn-default">Update</button>
+                        <div>
+                            <button type="submit" class="btn btn-default"><fmt:message
+                                    key="update"></fmt:message></button>
                         </div>
                     </div>
                     <div class="col-md-6">
 
-                             <tagfile:balanceOwed balance_owed="${balance_owed}" role ="${fn:toLowerCase(role)}"></tagfile:balanceOwed>
+                        <tagfile:balanceOwed balance_owed="${balance_owed}"
+                                             role="${fn:toLowerCase(role)}"></tagfile:balanceOwed>
 
                         <div>
-                            <label>Status:</label>
-                            <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}" currentLocale="${currentLocale}" area="card"/>
+                            <label><fmt:message key="status"></fmt:message></label>
+                            <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"
+                                                   currentLocale="${currentLocale}" area="card"/>
                         </div>
                         <div>
-                            <label>Master:</label>
-                            <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}" currentLocale="${currentLocale}" area="card"/>
+                            <label><fmt:message key="master"></fmt:message></label>
+                            <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}"
+                                                   currentLocale="${currentLocale}" area="card"/>
                         </div>
                         <div>
-                            <label>Cost:</label>
+                            <label><fmt:message key="cost"></fmt:message></label>
                             <userFieldRight:cost costValue="${cost}" nameRole="${role}"/>
                         </div>
                     </div>
@@ -72,7 +98,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <form action="controller" method="post">
-                                <input type="hidden" name="command"  value="insertReview">
+                                <input type="hidden" name="command" value="insertReview">
                                 <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                                        value="${repairRequest.id}"/>
                                 <input type="hidden" id="role" name="role" value="${role}"/>
@@ -80,13 +106,15 @@
 
                                 <div style="width:500px" class="form-group" value="Comment">
                                             <textarea rows="5" class="form-control" name="comment"
-                                                      placeholder="What are you looking for?">  Write your comment.. </textarea>
+                                                      placeholder="What are you looking for?">  <fmt:message
+                                                    key="write_your_coment"></fmt:message>.. </textarea>
                                 </div>
                                 <div class="text-left mt-3">
                                     <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                                            value="${repairRequest.id}"/>
                                     <input type="hidden" id="role" name="role" value="${role}"/>
-                                    <button type="submit" class="btn btn-default">Send</button>
+                                    <button type="submit" class="btn btn-default"><fmt:message
+                                            key="send"></fmt:message></button>
                                 </div>
                             </form>
                         </div>
@@ -138,17 +166,27 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-
                     <form style="width:300px" action="controller" method="post">
-                        <input type="hidden" name="command"  value="insertInvoiceBalance">
+                        <input type="hidden" name="command" value="insertInvoiceBalance">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="${repairRequest.id}"/>
+                        <input type="hidden" id="total" name="total" value="${total}"/>
                         <input type="hidden" id="idUser" name="idUser" value="${repairRequest.userId}"/>
-                        <input type="hidden" name="operation"  value="payment">
-                        <div class="form-group">
-                            <label for="ammount"><fmt:message key="ammount"></fmt:message></label>
-                            <input type="number" step="0.01" name="ammount" class="form-control" id="ammount"><br>
+                        <input type="hidden" name="operation" value="payment">
+                        <div>
+                            <label for="ammountValue"><fmt:message key="ammount"></fmt:message></label>
+                            <input type="number" step="0.01" name="ammount" class="form-control" id="ammountValue"><br>
+                            <div class="form-inline">
+                            <label style="color:red; visibility: hidden" id="errorNotEnoughFundsToPay"><fmt:message
+                                    key="not_enough_funds_to_pay"></fmt:message></label>
+                            <label style="color:red; visibility: hidden" id="errorIndicateAmmount"><fmt:message
+                                    key="indicate_ammount"></fmt:message></label>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-default"><fmt:message key="pay"></fmt:message></button>
+                        <div>
+                        <button type="submit" onclick="return checkPayment()"
+                                class="btn btn-default"><fmt:message
+                                key="pay"></fmt:message></button>
+                        </div>
                     </form>
                 </div>
             </div>

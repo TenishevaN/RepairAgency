@@ -1,6 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.ServiceUtil;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ListRequestsCommand implements Command {
@@ -19,6 +21,8 @@ public class ListRequestsCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        HttpSession session = req.getSession(false);
+        String currentLocale = (String) session.getAttribute("currentLocale");
         List<RepairRequest> repairRequests;
         int start = 0;
         String pageParameter = req.getParameter("page");
@@ -61,15 +65,12 @@ public class ListRequestsCommand implements Command {
 
             req.setAttribute("idStatus", "-1");
             req.setAttribute("idMaster", "-1");
+            req.setAttribute("currentLocale", currentLocale);
 
-            String currentLocale = (String) req.getSession().getAttribute("currentLocale");
-            if (currentLocale == null) {
-                req.setAttribute("currentLocale", "en");
-            } else {
-                req.setAttribute("currentLocale", currentLocale);
-            }
          } catch (Exception ex) {
             log.debug("Get List requests exception " + ex.getMessage());
+            req.setAttribute("errorMessage",  ServiceUtil.getKey("contact_manager", currentLocale));
+            return Path.PAGE_ERROR_PAGE;
         }
         return Path.PAGE_LIST_REPAIR_REQUESTS;
     }

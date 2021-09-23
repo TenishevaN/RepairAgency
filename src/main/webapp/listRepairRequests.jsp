@@ -36,7 +36,7 @@
                 <li>
                     <form action="controller" method="get">
                         <input type="hidden" name="command" value="filtertListRequestsByStatus">
-                        <label class="control-label col-xs-4">Status:</label>
+                        <label class="control-label col-xs-4"><fmt:message key="status"></fmt:message>:</label>
                         <userFieldRight:status_filter currentLocale="${currentLocale}" idStatus="${idStatus}"/>
                         <input type="submit" name="open" value=<fmt:message key="status"></fmt:message>><br>
                     </form>
@@ -44,7 +44,7 @@
                 <li>
                     <form action="controller" method="get">
                         <input type="hidden" name="command" value="filtertListRequestsByMaster">
-                        <label class="control-label col-xs-4">Master:</label>
+                        <label class="control-label col-xs-4"><fmt:message key="master"></fmt:message>:</label>
                         <userFieldRight:master_filter currentLocale="${currentLocale}" idMaster="${idMaster}"/>
                         <input type="submit" name="open" value=<fmt:message key="master"></fmt:message>><br>
                     </form>
@@ -55,13 +55,13 @@
         <table class="table">
             <tr>
                 <th>&#8470;</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Master</th>
-                <th>Cost</th>
-                <th>Description</th>
-                <th>Open</th>
-                <th>Delete</th>
+                <th><fmt:message key="date"></fmt:message></th>
+                <th><fmt:message key="status"></fmt:message></th>
+                <th><fmt:message key="master"></fmt:message></th>
+                <th><fmt:message key="cost"></fmt:message></th>
+                <th><fmt:message key="description"></fmt:message></th>
+                <th><fmt:message key="open"></fmt:message></th>
+                <th><fmt:message key="delete"></fmt:message></th>
             </tr>
             <c:forEach items="${repairRequests}" var="item">
                 <tr>
@@ -111,10 +111,10 @@
                     <form style="width:1000px" action="controller" method="post">
                         <input type="hidden" name="command" value="insertRepairRequest">
                         <input type="hidden" id="idRepairRequest" name="idRepairRequest" value="${repairRequest.id}"/>
-                        <label class="control-label col-xs-4">Description:</label>
+                        <label class="control-label col-xs-4"><fmt:message key="description"></fmt:message>:</label>
                         <div class="form-group" style="width:500px" value="Comment">
                                             <textarea rows="10" class="form-control"
-                                                      name=description>  Write your description.. </textarea>
+                                                      name=description  required> <fmt:message key="write_your_description"></fmt:message></textarea>
                         </div>
                         <button type="submit" class="btn btn-default"><fmt:message key="send"></fmt:message></button>
                         <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message

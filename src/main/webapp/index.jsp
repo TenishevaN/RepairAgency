@@ -3,15 +3,13 @@
 
 <html>
 <head>
-    <title>Repai request</title>
+    <title><fmt:message key="repair_agency"></fmt:message></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/dynamics.js"></script>
-
-
 </head>
 <body>
 
@@ -20,8 +18,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#"><fmt:message key="home"></fmt:message></a></li>
-                <li><a href="#"><fmt:message key="contacts"></fmt:message></a></li>
-            </ul>
+             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="<c:url value="changeLocale.jsp">
@@ -76,7 +73,7 @@
                         <input type="hidden" name="command" value="login">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input type="text" name="login" value="admin" class="form-control" id="login"><br>
+                            <input type="text" name="login" value="manager" class="form-control" id="login"><br>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
@@ -112,7 +109,7 @@
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
                             <input type="password" name="password" id="passcode" class="form-control" required>
-                            <div style="color:red" id="errorPassword"></div>
+                            <div style="color:red; visibility: hidden" id="errorPassword"><fmt:message key="errorPassword"></fmt:message></div>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="name"></fmt:message></label>
@@ -121,7 +118,7 @@
                         <div class="form-group">
                             <label for="email"><fmt:message key="email"></fmt:message></label>
                             <input type="email" name="email" id="email" class="form-control" required><br>
-                            <div style="color:red" id="errorEmail"></div>
+                            <div style="color:red; visibility: hidden" id="errorEmail"><fmt:message key="errorEmail"></fmt:message></div>
                         </div>
                         <button type="submit" onclick="return handleSubmitRegistrationUserForm()"
                                 class="btn btn-default"><fmt:message

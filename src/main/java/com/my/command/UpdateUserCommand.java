@@ -1,6 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.ServiceUtil;
 import com.my.db.dao.AccountLocalizationDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class UpdateUserCommand implements Command {
 
@@ -20,6 +22,8 @@ public class UpdateUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        HttpSession session = req.getSession(false);
+        String currentLocale = (String) session.getAttribute("currentLocale");
         UserDAO userDAO = new UserDAO();
         User user = userDAO.get(Integer.parseInt(req.getParameter("id")));
         user.setLogin(req.getParameter("login"));
@@ -36,7 +40,8 @@ public class UpdateUserCommand implements Command {
         try {
             userDAO.update(user);
         } catch (Exception ex) {
-            log.debug(ex.getMessage());
+            log.debug("user  was not updated " + ex.getMessage());
+            req.setAttribute("errorMessage",  ServiceUtil.getKey("user_was_not_updated", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
 

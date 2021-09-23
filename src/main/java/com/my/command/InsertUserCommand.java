@@ -41,7 +41,8 @@ public class InsertUserCommand implements Command {
 
         } catch (Exception ex) {
             log.debug("insert user exception "+ex.getMessage());
-            return  Path.PAGE_ERROR_PAGE;
+            req.setAttribute("errorMessage",  ServiceUtil.getKey("insert_user_exception", currentLocale));
+            return Path.PAGE_ERROR_PAGE;
         }
 
         int userId = user.getId();

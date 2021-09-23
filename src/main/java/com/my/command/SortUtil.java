@@ -5,12 +5,15 @@ import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
 import com.my.db.model.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class SortUtil extends PaginationUtil {
 
+    private static final Logger log =  LogManager.getLogger(SortUtil.class);
     protected String orderBy;
 
 
@@ -42,7 +45,7 @@ public class SortUtil extends PaginationUtil {
             repairRequests = repairRequestDAO.getAll(start, total, sortField + " " + orderBy);
             setSessionParameters(req, repairRequests, command);
         } catch (Exception ex) {
-            // log;
+            log.debug("Get report exception " + ex.getMessage());
         }
         return Path.REPORTS;
     }

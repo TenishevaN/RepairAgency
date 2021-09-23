@@ -20,8 +20,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
     private static final String ADD_NEW_USER = "INSERT INTO " + TABLE_USER + "(login, password, role_id, email, name) values (?, ?, ?, ?, ?);";
     private static final String FIND_ALL_USERS = "SELECT * FROM " + TABLE_USER + " where deleted = false";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER + " WHERE login = ? and deleted = false";
-   // private static final String FIND_ALL_MASTERS = "SELECT * FROM " + TABLE_USER + "  where role_id = 3 and deleted = false";
-   private static final String FIND_ALL_MASTERS = "SELECT id, role_id, name FROM account ac where role_id = 3 and deleted = false;";
+    private static final String FIND_ALL_MASTERS = "SELECT id, role_id, name FROM account ac where role_id = 3 and deleted = false;";
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account where account.id = ?;";
     public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
@@ -76,7 +75,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             }
 
         } catch (SQLException ex) {
-            log.debug(ex.getMessage());
+            log.debug("get all users exception {}",  ex.getMessage());
         }
 
         return users;
@@ -89,10 +88,10 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(FIND_ALL_MASTERS);) {
             while (rs.next()) {
-                User newUser = mapUser(rs);
+                User newMaster = mapMaster(rs);
                 AccountLocalizationDAO accountLocalizationDAO = new  AccountLocalizationDAO();
-                List<AccountLocalization> userLocalization = accountLocalizationDAO.get(newUser.getId());
-                masters.put(mapUser(rs), userLocalization);
+                List<AccountLocalization> userLocalization = accountLocalizationDAO.get(newMaster.getId());
+                masters.put(newMaster, userLocalization);
             }
             log.debug("Get list master {}", masters);
         } catch (SQLException ex) {
@@ -179,7 +178,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             connection.commit();
         } catch (SQLException ex) {
             rollBackTransaction(connection);
-            log.debug(ex.getMessage());
+            log.debug("update user exception {}",  ex.getMessage());
             return false;
 
         } finally {
@@ -231,6 +230,18 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             close(connection);
         }
         return true;
+    }
+
+    public User mapMaster(ResultSet rs) {
+
+        User user = new User();
+        try {
+            user.setId(rs.getInt(SQLConstants.FIELD_ID));
+            user.setName(rs.getString(SQLConstants.FIELD_NAME));
+        } catch (SQLException ex) {
+            log.debug("Map master exception {}",  ex.getMessage());
+        }
+        return user;
     }
 
     public User mapUser(ResultSet rs) {

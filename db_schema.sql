@@ -439,13 +439,13 @@ COMMIT;
 START TRANSACTION;
 USE `db_repair_agency`;
 INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, NULL, DEFAULT, DEFAULT, 3, 5, 'new request');
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 1000, '2021-09-15', 2, 4, 6, 'request 1');
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 5000, '2021-09-16', DEFAULT, 4, 5, 'request 2');
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 2000, '2021-09-16', 3, 3, 6, 'request 3');
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 5000, '2021-09-17', DEFAULT, 4, 5, 'request 4');
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 2000, '2021-09-01', 2, 3, 5, 'request 5');
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 1000, '2021-08-01', 5, 4, 6, 'request 6');
-INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 4000, '2021-09-11', 2, 4, 5, 'request 7');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 100000, '2021-09-15', 2, 4, 6, 'request 1');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 500000, '2021-09-16', DEFAULT, 4, 5, 'request 2');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 200000, '2021-09-16', 3, 3, 6, 'request 3');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 500000, '2021-09-17', DEFAULT, 4, 5, 'request 4');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 200000, '2021-09-01', 2, 3, 5, 'request 5');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 100000, '2021-08-01', 5, 4, 6, 'request 6');
+INSERT INTO `db_repair_agency`.`repair_request` (`id`, `cost`, `date`, `status_id`, `master_id`, `account_id`, `description`) VALUES (DEFAULT, 400000, '2021-09-11', 2, 4, 5, 'request 7');
 
 COMMIT;
 

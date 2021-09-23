@@ -3,7 +3,7 @@
 <html>
 <body>
 
-<h2>Error</h2>
+<h2><fmt:message key="error"></fmt:message></h2>
 
 ${errorMessage}
 <br>

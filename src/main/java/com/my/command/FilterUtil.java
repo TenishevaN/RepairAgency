@@ -1,15 +1,21 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.ServiceUtil;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
 import com.my.db.model.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class FilterUtil extends PaginationUtil{
+
+    private static final Logger log = LogManager.getLogger(FilterUtil.class);
 
     private void SetInitialParameters(HttpServletRequest req) {
 
@@ -20,6 +26,9 @@ public class FilterUtil extends PaginationUtil{
 
         List<RepairRequest> repairRequests;
         SetInitialParameters(req);
+
+        HttpSession session = req.getSession(false);
+        String currentLocale = (String) session.getAttribute("currentLocale");
 
         try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
@@ -33,7 +42,6 @@ public class FilterUtil extends PaginationUtil{
             req.setAttribute("repairRequests", repairRequests);
             User currentUser = (User) req.getSession().getAttribute("user");
             Role currentRole = Role.getRole(currentUser);
-            String currentLocale = (String) req.getSession().getAttribute("currentLocale");
             if (currentLocale == null) {
                 req.setAttribute("currentLocale", "en");
             } else {
@@ -60,7 +68,7 @@ public class FilterUtil extends PaginationUtil{
             req.setAttribute(sortField, req.getParameter(sortField));
 
         } catch (Exception ex) {
-        //log
+            log.debug("filter exception {}", ex.getMessage());
         }
         return Path.PAGE_LIST_REPAIR_REQUESTS;
 

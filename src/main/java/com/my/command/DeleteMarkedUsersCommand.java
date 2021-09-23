@@ -1,9 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
-import com.my.db.dao.RepairRequestDAO;
 import com.my.db.dao.UserDAO;
-import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

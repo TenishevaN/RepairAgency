@@ -1,6 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.ServiceUtil;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
 public class UpdateRepairRequestCommand implements Command {
@@ -17,6 +19,8 @@ public class UpdateRepairRequestCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        HttpSession session = req.getSession(false);
+        String currentLocale = (String) session.getAttribute("currentLocale");
           try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
             RepairRequest repairRequest = repairRequestDAO.get(Integer.parseInt(req.getParameter("idRepairRequest")));
@@ -42,7 +46,9 @@ public class UpdateRepairRequestCommand implements Command {
           repairRequestDAO.update(repairRequest);
 
         } catch (Exception ex) {
-              log.debug(ex.getMessage());
+              log.debug("repair request  was not updated " + ex.getMessage());
+              req.setAttribute("errorMessage",  ServiceUtil.getKey("repair_request_was_not_updated", currentLocale));
+              return Path.PAGE_ERROR_PAGE;
         }
         return Path.COMMAND_OPEN_REPAIR_REQUEST_BY_ID + req.getParameter("idRepairRequest");
     }

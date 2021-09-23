@@ -1,6 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.ServiceUtil;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class DeleteRepairRequestCommand implements Command {
 
@@ -16,13 +18,15 @@ public class DeleteRepairRequestCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        HttpSession session = req.getSession(false);
+        String currentLocale = (String) session.getAttribute("currentLocale");
         try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
             RepairRequest repairRequest = repairRequestDAO.get(Integer.parseInt(req.getParameter("id")));
             if("new".equals(repairRequest.getStatusName())){
                 repairRequestDAO.delete(repairRequest);
             } else{
-                req.setAttribute("errorMessage", "Only new request can be deleted!");
+                req.setAttribute("errorMessage", ServiceUtil.getKey("only_new_request_can_be_deleted", currentLocale));
                 return  Path.PAGE_ERROR_PAGE;
             }
 

@@ -4,7 +4,6 @@ import com.my.Path;
 
 import com.my.ServiceUtil;
 import com.my.db.dao.AccountLocalizationDAO;
-import com.my.db.dao.InvoiceBalanceDAO;
 import com.my.db.dao.InvoiceDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
@@ -27,32 +26,31 @@ public class CardUserPageCommand implements Command {
 
         User user;
         HttpSession session = req.getSession(false);
+        String currentLocale = (String) session.getAttribute("currentLocale");
         try {
             Role userRole = (Role) session.getAttribute("role");
             UserDAO userDAO = new UserDAO();
             String id = req.getParameter("id");
 
+            User currentUser = (User) session.getAttribute("user");
             if (id.isEmpty()) {
-                User userSession = (User) session.getAttribute("user");
-                user = userDAO.get(userSession.getId());
+                user = userDAO.get(currentUser.getId());
             } else {
                 user = userDAO.get(Integer.parseInt(id));
             }
-            User currentUser = (User) session.getAttribute("user");
+
+            //Server side data validation
             if(("user".equals(userRole.getName()) && (user.getId() != currentUser.getId()))){
                 log.error("user {} has no right to see the user  card № {}", user.getName(), user.getId());
-                req.setAttribute("errorMessage",  ServiceUtil.getKey("no_right_for_document", "en"));
+                req.setAttribute("errorMessage",  ServiceUtil.getKey("no_right_for_document", currentLocale));
                 return Path.PAGE_ERROR_PAGE;
             }
 
             req.setAttribute("user", user);
             req.setAttribute("role", userRole.getName());
-          //  BigDecimal total = new InvoiceBalanceDAO().getTotal(user.getInvoiceId());
             BigDecimal total = new InvoiceDAO().get(user.getInvoiceId()).getAmmount();
-            System.out.println("total " + total);
             if(total != null){
                 req.setAttribute("total", total.divide(BigDecimal.valueOf(100)));
-                System.out.println("total result " + total);
             }
 
             AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
@@ -72,7 +70,7 @@ public class CardUserPageCommand implements Command {
 
         } catch (Exception ex) {
             log.debug("exception open user {}", ex.getMessage());
-            req.setAttribute("errorMessage",  ServiceUtil.getKey("no_document", "en"));
+            req.setAttribute("errorMessage",  ServiceUtil.getKey("no_document", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
         return Path.PAGE_USER;
