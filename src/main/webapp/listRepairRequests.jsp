@@ -3,6 +3,7 @@
 <%@ taglib prefix="userFieldRight" uri="/WEB-INF/tlib/userFieldRight.tld" %>
 <%@ taglib prefix="tagfile" tagdir="/WEB-INF/tags" %>
 
+
 <html>
 <head>
     <title>Repair agency</title>
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jst_dynamics1.js"></script>
 </head>
 
 <body>
@@ -89,7 +91,7 @@
             </c:forEach>
         </table>
         <userFieldRight:pagination_list_requests idUser="${userId}" command="${command}" orderBy="${orderBy}"
-                                                 status_id="${status_id}" master_id="${master_id}"/>
+                                                 status_id="${status_id}" master_id="${master_id}" current_page = "${page}"/>
     </div>
 </div>
 

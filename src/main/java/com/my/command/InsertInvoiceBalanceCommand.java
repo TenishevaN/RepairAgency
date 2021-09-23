@@ -50,6 +50,9 @@ public class InsertInvoiceBalanceCommand implements Command {
                 req.setAttribute("errorMessage",  ServiceUtil.getKey("not_enough_funds_to_pay", currentLocale));
                 return Path.PAGE_ERROR_PAGE;
             }
+            System.out.println("total.compareTo(ammount)" + (total.compareTo(ammount)));
+            System.out.println("total " + total);
+            System.out.println("ammount" + ammount);
             //Server side data validation
             if(("payment".equals(operation)) & (total.compareTo(ammount) == -1)){
                 req.setAttribute("errorMessage",  ServiceUtil.getKey("not_enough_funds_to_pay", currentLocale));

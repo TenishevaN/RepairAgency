@@ -10,34 +10,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/dynamics.js"></script>
-    <script type="text/javascript">
-        function checkReplenishment() {
-            var ammount = document.getElementById("ammountValue").value;
-            if ((ammount === 0) || (ammount === null) || (ammount === "") || (ammount === "0")) {
-                $('#errorIndicateAmmount').css('visibility', 'visible');
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <script type="text/javascript" src="js/jst_dynamics1.js"></script>
 </head>
 
 <body>
 
 <div class="container">
-    <div>
-        <h2><fmt:message key="user"></fmt:message></h2>
-        <div class="divider bg-primary mx-auto"></div>
-    </div>
+    <h2><fmt:message key="user"></fmt:message></h2>
     <div class="row">
         <div class="col-md-5">
         </div>
         <div class="col-md-4">
             <div class="form-group">
-
                 <div class="form-inline">
-                    <label class="custom-margin-2"><fmt:message
+                    <label style="margin-right: 20px; font-size: 15px"><fmt:message
                             key="account_balance"></fmt:message> ${total}</label>
                     <c:if test="${(role eq 'manager')}">
                         <form action="controller" method="get">
@@ -54,47 +40,47 @@
             <form name="userForm" id="userForm" action="controller" method="post">
                 <input name="command" type="hidden" value="updateCardUser">
                 <input type="hidden" id="id" name="id" value="${user.id}"/>
-                <div class="form-group">
-                    <label for="login"><fmt:message key="login"></fmt:message></label>
-                    <input type="text" name="login" class="form-control" id="login" value="${user.login}"/>
+                <div>
+                    <label class="control-label col-xs-1"><fmt:message key="login"></fmt:message></label>
+                    <input type="text" name="login" class="form-control" id="loginValue" value="${user.login}"/>
+                    <label style="color:red; visibility: hidden" id="errorLogin"><fmt:message
+                            key="errorLogin"></fmt:message></label>
                 </div>
-                <div class="form-group">
-                    <label for="name"><fmt:message key="name"></fmt:message></label>
-                    <input type="text" name="name" class="form-control" id="name" value="${user.name}"/> <br>
-                </div>
-                <div class="form-group">
-                    <label for="email"><fmt:message key="email"></fmt:message></label>
-                    <input type="email" class="form-control" id="email" name="email" value="${user.email}"/> <br>
-                    <div style="color:red; visibility: hidden" id="errorEmail"><fmt:message key="errorEmail"></fmt:message></div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Role:</label>
-                    <userFieldRight:role id="${user.roleId}"/>
-                </div>
-                <div class="form-group">
-                    <label for="nameEN"><fmt:message key="name"></fmt:message> EN</label>
+                <label class="control-label col-xs-1"><fmt:message key="name"></fmt:message></label>
+                <input type="text" name="name" class="form-control" id="nameValue" value="${user.name}"/> <br>
+                <label style="color:red; visibility: hidden" id="errorName"><fmt:message
+                        key="errorName"></fmt:message></label>
+
+
+                <label class="control-label col-xs-1"><fmt:message key="email"></fmt:message></label>
+                <input type="email" class="form-control" id="email" name="email" value="${user.email}"/> <br>
+                <label style="color:red; visibility: hidden" id="errorEmail"><fmt:message
+                        key="errorEmail"></fmt:message></label>
+
+                <label class="control-label col-xs-1"><fmt:message key="role"></fmt:message></label>
+                <userFieldRight:role id="${user.roleId}"/>
+
+                </br>
+                <div>
+                    <label class="control-label col-xs-4"><fmt:message key="name"></fmt:message> EN</label>
                     <input type="text" name="nameEN" class="form-control" id="nameEN" value="${nameEN}"/> <br>
                 </div>
-                <div class="form-group">
-                    <label for="nameUK"><fmt:message key="name"></fmt:message> UK</label>
+                <div>
+                    <label class="control-label col-xs-4"><fmt:message key="name"></fmt:message> UK</label>
                     <input type="text" name="nameUK" class="form-control" id="nameUK" value="${nameUK}"/> <br>
                 </div>
-                <div class="form-group">
-                    <label for="nameRU"><fmt:message key="name"></fmt:message> RU</label>
+                <div>
+                    <label class="control-label col-xs-4"><fmt:message key="name"></fmt:message> RU</label>
                     <input type="text" name="nameRU" class="form-control" id="nameRU" value="${nameRU}"/> <br>
                 </div>
                 <div class="text-left mt-3">
-                    <button type="submit" onclick="return handleEmailChange()" class="btn btn-default"><fmt:message
+                    <button type="submit" onclick="return handleUserCardChange()" class="btn btn-default"><fmt:message
                             key="update"></fmt:message></button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<p></p>
-<hr>
-<h3></h3>
-<p></p>
 
 <%@ include file="footerBlock.jsp" %>
 

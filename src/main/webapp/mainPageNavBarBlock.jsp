@@ -16,6 +16,8 @@
                 <c:if test="${role != 'user'}">
                     <li><a href="controller?command=listUsers""><fmt:message key="users"></fmt:message></a></li>
                     <li><a href="controller?command=reports"><fmt:message key="reports"></fmt:message></a></li>
+                </c:if>
+                <c:if test="${role == 'admin'}">
                     <li><a href="controller?command=servicePage"><fmt:message key="service"></fmt:message></a></li>
                 </c:if>
             </ul>

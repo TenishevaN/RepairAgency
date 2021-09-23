@@ -27,7 +27,6 @@ public class CustomFilter implements Filter {
         outOfControl.add("login");
         outOfControl.add("insertUser");
 
-
         List<String> userRights = new ArrayList<>();
         userRights.add("newRepairRequest");
         userRights.add("repairRequest");
@@ -46,6 +45,8 @@ public class CustomFilter implements Filter {
         accessMap.put(Role.USER, userRights);
 
         List<String> masterRights = new ArrayList<>();
+        masterRights.add("openCardUser");
+        masterRights.add("updateCardUser");
         masterRights.add("openCardRepairRequest");
         masterRights.add("listRequests");
         masterRights.add("updateRepairRequest");

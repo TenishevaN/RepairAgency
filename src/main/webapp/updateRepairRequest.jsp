@@ -12,27 +12,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/dynamics.js"></script>
-    <script type="text/javascript">
-        function checkPayment() {
-
-            var ammount = document.getElementById("ammountValue").value;
-            var total = document.getElementById("total").value;
-            if ((ammount === 0) || (ammount === null) || (ammount === "") || (ammount === "0")) {
-                $('#errorIndicateAmmount').css('visibility', 'visible');
-                $('#errorNotEnoughFundsToPay').css('visibility', 'hidden');
-                return false;
-            }
-         alert(" total " + total);
-            alert("ammount " + ammount);
-            if (Number(total) < Number(ammount)) {
-                $('#errorNotEnoughFundsToPay').css('visibility', 'visible');
-                $('#errorIndicateAmmount').css('visibility', 'hidden');
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <script type="text/javascript" src="js/jst_dynamics1.js"></script>
 </head>
 
 <body>

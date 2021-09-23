@@ -22,8 +22,6 @@ public class FieldRoleTag extends SimpleTagSupport {
     public void doTag() throws JspException {
         String output = "";
         JspWriter out = getJspContext().getOut();
-
-
             output = "<select class = form-control name=roleId>";
             for (Role role : Role.values()) {
                 if (role.getId() == id) {

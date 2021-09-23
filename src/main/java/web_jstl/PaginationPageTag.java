@@ -18,6 +18,7 @@ public class PaginationPageTag extends SimpleTagSupport {
     String orderBy;
     String status_id;
     String master_id;
+    int current_page;
 
     public int getIdUser() {
         return idUser;
@@ -59,6 +60,10 @@ public class PaginationPageTag extends SimpleTagSupport {
         this.master_id = master_id;
     }
 
+    public void setCurrent_page(int current_page) {
+        this.current_page = current_page;
+    }
+
     @Override
     public void doTag() throws JspException {
 
@@ -66,7 +71,6 @@ public class PaginationPageTag extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
 
         int page = getPageCount();
-        System.out.println("page " + page);
         if (page > 1) {
             output += "<ul class = form-inline>";
             for (int i = 1; i <= page; i++) {
@@ -78,7 +82,11 @@ public class PaginationPageTag extends SimpleTagSupport {
                 output += "<input type = hidden name = changeOrder class = form-control value = false>";
                 output += "<input type = hidden class = form-control name = page value = " + i + " >";
                 output += "<input type = hidden class = form-control name = orderBy value = " + orderBy + " >";
-                output += "<input type = submit value = " + i + "><br>";
+                if (current_page == i){
+                    output += "<input type = submit style = color:blue;border: 2px solid #eee value = " + i + "><br>";
+                } else {
+                    output += "<input type = submit  value = " + i + "><br>";
+                }
                 output += "</form>";
                 output += "</div>";
             }

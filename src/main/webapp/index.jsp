@@ -9,7 +9,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/dynamics.js"></script>
+    <script type="text/javascript" src="js/jst_dynamics1.js"></script>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="uk"/>
                         <c:param name="page" value="index.jsp"/>
-                        </c:url>">UK</a>
+                        </c:url>">UA</a>
                 </li>
                 <li>
                     <a href="<c:url value="changeLocale.jsp">
@@ -104,20 +104,22 @@
                         <input type="hidden" name="command" value="insertUser">
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
-                            <input type="text" name="login" class="form-control" id="login" required><br>
+                            <input type="text" name="login" class="form-control" id="loginValue"><br>
+                            <div style="color:red; visibility: hidden" id="errorLogin"><fmt:message key="errorLogin"></fmt:message></div>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
-                            <input type="password" name="password" id="passcode" class="form-control" required>
+                            <input type="password" name="password" id="passcode" class="form-control">
                             <div style="color:red; visibility: hidden" id="errorPassword"><fmt:message key="errorPassword"></fmt:message></div>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="name"></fmt:message></label>
-                            <input type="text" name="name" class="form-control" id="name"><br>
+                            <input type="text" name="name" class="form-control" id="nameValue"><br>
+                            <div style="color:red; visibility: hidden" id="errorName"><fmt:message key="errorName"></fmt:message></div>
                         </div>
                         <div class="form-group">
                             <label for="email"><fmt:message key="email"></fmt:message></label>
-                            <input type="email" name="email" id="email" class="form-control" required><br>
+                            <input type="email" name="email" id="email" class="form-control"><br>
                             <div style="color:red; visibility: hidden" id="errorEmail"><fmt:message key="errorEmail"></fmt:message></div>
                         </div>
                         <button type="submit" onclick="return handleSubmitRegistrationUserForm()"

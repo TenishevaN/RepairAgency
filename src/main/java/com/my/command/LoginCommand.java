@@ -62,18 +62,7 @@ public class LoginCommand implements Command {
                 session.setAttribute("currentLocale", "en");
             }
 
-//			// work with i18n
-//			String userLocaleName = user.getLocaleName();
-//		//	log.trace("userLocalName --> " + userLocaleName);
-//
-//			if (userLocaleName != null && !userLocaleName.isEmpty()) {
-//				Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", userLocaleName);
-//
-//				session.setAttribute("defaultLocale", userLocaleName);
-//		//		log.trace("Set the session attribute: defaultLocaleName --> " + userLocaleName);
-//
-//				log.info("Locale for user: defaultLocale --> " + userLocaleName);
-//			}
+
         }
 
         return forward;
