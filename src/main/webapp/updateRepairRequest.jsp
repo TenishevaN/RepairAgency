@@ -12,7 +12,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jst_dynamics1.js"></script>
+    <script type="text/javascript" src="js/jst_dynamics.js"></script>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
             <h2><fmt:message key="repair_request"></fmt:message></h2>
-            <div class="divider bg-primary mx-auto"></div>
+            <div style="height:20px"></div>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div style="width:500px" class="form-group">
+                        <div style="width:500px; height:250px" class="form-group">
                             <label class="control-label col-xs-4"><fmt:message key="description"></fmt:message>:</label>
                             <userFieldRight:description descriptionText="${repairRequest.description}"
                                                         nameRole="${role}"/>
@@ -57,11 +57,13 @@
                             <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"
                                                    currentLocale="${currentLocale}" area="card"/>
                         </div>
+                        <div style="height:20px"></div>
                         <div>
                             <label><fmt:message key="master"></fmt:message></label>
                             <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}"
                                                    currentLocale="${currentLocale}" area="card"/>
                         </div>
+                        <div style="height:20px"></div>
                         <div>
                             <label><fmt:message key="cost"></fmt:message></label>
                             <userFieldRight:cost costValue="${cost}" nameRole="${role}"/>

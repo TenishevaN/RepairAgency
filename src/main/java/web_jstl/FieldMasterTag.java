@@ -58,7 +58,7 @@ public class FieldMasterTag extends SimpleTagSupport {
         UserDAO userDAO = new UserDAO();
         User currentMaster = userDAO.get(idMaster);
 
-        Map<User, List<AccountLocalization>> listMaster = Controller.masterList;
+        Map<User, List<AccountLocalization>> listMaster = userDAO.getMasterList();
         int idLocale = Language.getId(currentLocale);
         if (area.equals("list")) {
             if (currentMaster != null) {

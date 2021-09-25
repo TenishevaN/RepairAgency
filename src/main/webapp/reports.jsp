@@ -5,14 +5,14 @@
 
 <html>
 <head>
-    <title>Repair agency</title>
+    <title><fmt:message key="repair_agency"></fmt:message></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jst_dynamics1.js"></script>
+    <script type="text/javascript" src="js/jst_dynamics.js"></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
                         <input type="hidden" name="command"  value="sortListRequestsByDate">
                         <input type="hidden" name="changeOrder" class="form-control" value="true">
                         <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
-                        <input type="submit" name="open" value=<fmt:message key="date"></fmt:message>><br>
+                        <input type="submit" class = "custom-margin-2" name="open" value=<fmt:message key="date"></fmt:message>><br>
                     </form>
                 </li>
                 <li>
@@ -38,7 +38,7 @@
                         <input type="hidden" name="currentLocale" class="form-control" value="true">
                         <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
                         <input type="hidden" name="orderBy" class="form-control" value="${currentLocale}">
-                        <input type="submit" name="open" value=<fmt:message key="status"></fmt:message>><br>
+                        <input type="submit" name="open" class = "custom-margin-2" value=<fmt:message key="status"></fmt:message>><br>
                     </form>
                 </li>
                 <li>
@@ -46,7 +46,7 @@
                         <input type="hidden" name="command"  value="sortListRequestsByCost">
                         <input type="hidden" name="changeOrder" class="form-control" value="true">
                         <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
-                        <input type="submit" name="open" value=<fmt:message key="cost"></fmt:message>><br>
+                        <input type="submit" name="open" class = "custom-margin-2" value=<fmt:message key="cost"></fmt:message>><br>
                     </form>
                 </li>
             </ul>
@@ -59,7 +59,7 @@
                 <th><fmt:message key="user"></fmt:message></th>
                 <th><fmt:message key="master"></fmt:message></th>
                 <th><fmt:message key="cost"></fmt:message></th>
-                <th>Description</th>
+                <th><fmt:message key="description"></fmt:message></th>
             </tr>
             <c:forEach items="${repairRequests}" var="item">
                 <tr>

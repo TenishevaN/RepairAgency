@@ -9,7 +9,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jst_dynamics1.js"></script>
+    <script type="text/javascript" src="js/jst_dynamics.js"></script>
 </head>
 <body>
 

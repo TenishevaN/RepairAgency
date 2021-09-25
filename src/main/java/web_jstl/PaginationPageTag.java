@@ -74,7 +74,7 @@ public class PaginationPageTag extends SimpleTagSupport {
         if (page > 1) {
             output += "<ul class = form-inline>";
             for (int i = 1; i <= page; i++) {
-                output += "<div>";
+                output += "<div class = custom-margin-2>";
                 output += "<form action = controller method = get >";
                 output += "<input type = hidden name = command  value = " + command + ">";
                 output += "<input type = hidden name = status_id  value = " + status_id + ">";
@@ -83,7 +83,7 @@ public class PaginationPageTag extends SimpleTagSupport {
                 output += "<input type = hidden class = form-control name = page value = " + i + " >";
                 output += "<input type = hidden class = form-control name = orderBy value = " + orderBy + " >";
                 if (current_page == i){
-                    output += "<input type = submit style = color:blue;border: 2px solid #eee value = " + i + "><br>";
+                    output += "<input type = submit style = padding:5px 10px value = " + i + "><br>";
                 } else {
                     output += "<input type = submit  value = " + i + "><br>";
                 }

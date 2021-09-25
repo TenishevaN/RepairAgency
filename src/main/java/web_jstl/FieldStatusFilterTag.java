@@ -10,8 +10,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class FieldStatusFilterTag extends SimpleTagSupport {
 
@@ -31,7 +29,6 @@ public class FieldStatusFilterTag extends SimpleTagSupport {
     public void doTag() throws JspException {
         String output = "";
         JspWriter out = getJspContext().getOut();
-        System.out.println(" -- currentLocale --" + currentLocale);
         output = "<select name = status_id>";
         StatusDAO statusDAO = new StatusDAO();
         List<Status> listStatus = statusDAO.getAll(currentLocale);

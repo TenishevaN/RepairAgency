@@ -41,46 +41,41 @@ public class UpdateUserCommand implements Command {
             userDAO.update(user);
         } catch (Exception ex) {
             log.debug("user  was not updated " + ex.getMessage());
-            req.setAttribute("errorMessage",  ServiceUtil.getKey("user_was_not_updated", currentLocale));
+            req.setAttribute("errorMessage", ServiceUtil.getKey("user_was_not_updated", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
 
-        boolean masterRole = roleChanged(userRoleId, roleId);
-         if(masterRole){
-             String nameEn = req.getParameter("nameEN");
-             AccountLocalization accountLocalization = null;
-             if ((nameEn != null) || (!nameEn.isEmpty())) {
+        boolean masterRole = roleChanged(roleId);
+        if (masterRole) {
+            String nameEn = req.getParameter("nameEN");
+            AccountLocalization accountLocalization;
+            if ((nameEn != null) || (!nameEn.isEmpty())) {
 
-                 AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
-                 accountLocalization = accountLocalizationDAO.get(user.getId(), 1);
-                 accountLocalization.setName(nameEn);
-                 accountLocalizationDAO.update(accountLocalization);
-             }
-             String nameRU = req.getParameter("nameRU");
-             if ((nameRU != null) || (!nameRU.isEmpty())) {
-                 AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
-                 accountLocalization = accountLocalizationDAO.get(user.getId(), 3);
-                 accountLocalization.setName(nameRU);
-                 accountLocalizationDAO.update(accountLocalization);
-             }
-             String nameUK = req.getParameter("nameUK");
-             if ((nameUK != null) || (!nameUK.isEmpty())) {
-                 AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
-                 accountLocalization = accountLocalizationDAO.get(user.getId(), 2);
-                 accountLocalization.setName(nameUK);
-                 accountLocalizationDAO.update(accountLocalization);
-             }
-         }
+                AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+                accountLocalization = accountLocalizationDAO.get(user.getId(), 1);
+                accountLocalization.setName(nameEn);
+                accountLocalizationDAO.update(accountLocalization);
+            }
+            String nameRU = req.getParameter("nameRU");
+            if ((nameRU != null) || (!nameRU.isEmpty())) {
+                AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+                accountLocalization = accountLocalizationDAO.get(user.getId(), 3);
+                accountLocalization.setName(nameRU);
+                accountLocalizationDAO.update(accountLocalization);
+            }
+            String nameUK = req.getParameter("nameUK");
+            if ((nameUK != null) || (!nameUK.isEmpty())) {
+                AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+                accountLocalization = accountLocalizationDAO.get(user.getId(), 2);
+                accountLocalization.setName(nameUK);
+                accountLocalizationDAO.update(accountLocalization);
+            }
+        }
         return Path.COMMAND_OPEN_USER_BY_ID + req.getParameter("id");
     }
 
-    private boolean roleChanged(final int userRoleId, final int roleId) {
+    private boolean roleChanged(final int roleId) {
 
-        int masterId = Role.MASTER.getId();
-        if ((userRoleId != roleId) && ((roleId == masterId) || (userRoleId == masterId))) {
-            Controller.setMasterList();
-        }
-
-        return (roleId == masterId);
+        return (roleId == Role.MASTER.getId());
     }
 }

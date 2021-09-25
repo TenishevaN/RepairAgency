@@ -1,6 +1,10 @@
 
+import com.my.db.dao.UserDAO;
+import com.my.db.model.User;
+
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -32,5 +36,6 @@ public class ContextListener implements ServletContextListener {
         // save descriptions to servlet context
         context.setAttribute("locales", locales);
         context.setAttribute("currentLocale", "en");
+
     }
 }

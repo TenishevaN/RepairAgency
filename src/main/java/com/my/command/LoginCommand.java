@@ -4,6 +4,7 @@ import com.my.Path;
 import com.my.db.model.Role;
 import com.my.db.model.User;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import com.my.db.dao.UserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 /**
  * Login command.
@@ -61,8 +64,6 @@ public class LoginCommand implements Command {
             if (currentLocale == null) {
                 session.setAttribute("currentLocale", "en");
             }
-
-
         }
 
         return forward;
