@@ -46,7 +46,6 @@ public class ListRequestsCommand implements Command {
             } else {
                 repairRequests = repairRequestDAO.getAll(start, total);
              }
-
             req.setAttribute("repairRequests", repairRequests);
             req.setAttribute("role", currentRole.getName());
             req.setAttribute("userId", currentUser.getId());

@@ -14,7 +14,7 @@ public class User  implements Serializable {
 	private transient String password;
 	private int roleId;
 	private int invoiceId;
-	private BigDecimal invoiceAmmount;
+
 
 	public int getId() {
 		return id;
@@ -76,13 +76,6 @@ public class User  implements Serializable {
 		this.invoiceId = invoiceId;
 	}
 
-	public BigDecimal getInvoiceAmmount() {
-		return invoiceAmmount;
-	}
-
-	public void setInvoiceAmmount(BigDecimal invoiceAmmount) {
-		this.invoiceAmmount = invoiceAmmount;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -107,7 +100,6 @@ public class User  implements Serializable {
 				", password='" + password + '\'' +
 				", roleId=" + roleId +
 				", invoiceId=" + invoiceId +
-				", invoiceAmmount=" + invoiceAmmount +
 				'}';
 	}
 }

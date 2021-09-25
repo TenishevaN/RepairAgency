@@ -21,6 +21,7 @@ public class InsertUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        boolean inserted;
         String currentLocale = (String) req.getAttribute("currentLocale");
         if (currentLocale == null) {
             req.getSession().setAttribute("currentLocale", "en");
@@ -37,10 +38,14 @@ public class InsertUserCommand implements Command {
 
         try {
             UserDAO userDAO = new UserDAO();
-            userDAO.insert(user);
-
+            inserted = userDAO.insert(user);
         } catch (Exception ex) {
             log.debug("insert user exception "+ex.getMessage());
+            req.setAttribute("errorMessage",  ServiceUtil.getKey("insert_user_exception", currentLocale));
+            return Path.PAGE_ERROR_PAGE;
+        }
+
+        if (!inserted){
             req.setAttribute("errorMessage",  ServiceUtil.getKey("insert_user_exception", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }

@@ -1,17 +1,20 @@
 package com.my.db.dao;
 
+import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import org.apache.logging.log4j.LogManager;
 
 import java.sql.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+
 public class ManagerDAO {
 
     private static ManagerDAO instance;
-    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(ManagerDAO.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(ManagerDAO.class);
 
     public static synchronized ManagerDAO getInstance() {
+
         if (instance == null) {
             instance = new ManagerDAO();
         }
@@ -28,8 +31,17 @@ public class ManagerDAO {
         }
     }
 
+    protected ManagerDAO(String url) {
 
-   private DataSource ds;
+        MysqlConnectionPoolDataSource mds = new MysqlConnectionPoolDataSource();
+        mds.setURL(url);
+        mds.setUser("root");
+        mds.setPassword("root");
+        ds = mds;
+    }
+
+
+    private DataSource ds;
 
     public Connection getConnection() throws SQLException {
         return ds.getConnection();

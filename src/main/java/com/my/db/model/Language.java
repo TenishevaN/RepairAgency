@@ -13,7 +13,7 @@ public enum Language {
         return id;
     }
 
-    public int getId(String name) {
+    public static int getId(String name) {
         if ("uk".equals(name)) {
             return UK.getId();
         }

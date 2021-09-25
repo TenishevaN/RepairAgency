@@ -1,15 +1,12 @@
 package web_jstl;
 
-import com.my.ServiceUtil;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
 import com.my.db.model.Language;
 import com.my.db.model.User;
 import com.my.web.Controller;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import org.apache.logging.log4j.LogManager;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
@@ -43,7 +40,7 @@ public class FieldMasterTag extends SimpleTagSupport {
     }
 
     @Override
-    public void doTag() throws JspException {
+    public void doTag() {
 
         JspWriter out = getJspContext().getOut();
         String output = getOutput();
@@ -57,18 +54,24 @@ public class FieldMasterTag extends SimpleTagSupport {
     private String getOutput() {
 
         String output = "";
+        String name = "";
         UserDAO userDAO = new UserDAO();
         User currentMaster = userDAO.get(idMaster);
-        Map<User, List<AccountLocalization>> listMaster = Controller.masterList;
-        int idLocale = Language.EN.getId(currentLocale);
 
+        Map<User, List<AccountLocalization>> listMaster = Controller.masterList;
+        int idLocale = Language.getId(currentLocale);
         if (area.equals("list")) {
             if (currentMaster != null) {
-                String name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-                output += name;
+                try {
+                    name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
+                    output += name;
+                } catch (Exception ex) {
+                    log.debug(" master tag without name for localization {} ", currentLocale);
+                }
             }
             return output;
         }
+
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
             output = "<select name = masterId>";
             log.debug(" FieldMasterTag {} ", listMaster);
@@ -76,7 +79,11 @@ public class FieldMasterTag extends SimpleTagSupport {
                 output += "<option  value = -1></option>";
             }
             for (Map.Entry<User, List<AccountLocalization>> master : listMaster.entrySet()) {
-                String name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
+                try {
+                    name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
+                } catch (Exception ex) {
+                    log.debug(" master tag without name for localization {} ", currentLocale);
+                }
                 if (master.getKey().getId() == idMaster) {
                     output += "<option  value=" + master.getKey().getId() + " selected>" + name + "</option>";
                 } else {
@@ -88,8 +95,12 @@ public class FieldMasterTag extends SimpleTagSupport {
 
         } else {
             if (currentMaster != null) {
-                String name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-                output += name;
+                try {
+                    name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
+                    output += name;
+                } catch (Exception ex) {
+                    log.debug(" master tag without name for localization {} ", currentLocale);
+                }
                 return output;
             }
         }

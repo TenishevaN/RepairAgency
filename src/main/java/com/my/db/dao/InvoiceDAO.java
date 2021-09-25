@@ -51,6 +51,8 @@ public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
         ResultSet resultSet = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(ADD_NEW_INVOICE, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, invoice.getAccount_id());
             if (preparedStatement.executeUpdate() == 0) {
@@ -90,6 +92,8 @@ public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
 
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(UPDATE_INVOICE);
             preparedStatement.setBigDecimal(1, invoice.getAmmount());
             preparedStatement.setInt(2, invoice.getId());

@@ -71,6 +71,8 @@ public class AccountLocalizationDAO extends ManagerDAO{
         ResultSet resultSet = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(INSERT_USER_LOCALIZATION, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, languageId);
             preparedStatement.setInt(2, userId);
@@ -98,6 +100,8 @@ public class AccountLocalizationDAO extends ManagerDAO{
 
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(UPDATE_USER_LOCALIZATION);
             preparedStatement.setString(1, accountLocalization.getName());
             preparedStatement.setInt(2, accountLocalization.getAccount_id());

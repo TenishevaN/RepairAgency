@@ -5,6 +5,7 @@ import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
-   private static final Logger log = LogManager.getLogger(UserDAO.class);
+    private static final Logger log = LogManager.getLogger(UserDAO.class);
 
     public static final String TABLE_USER = "account";
     private static final String ADD_NEW_USER = "INSERT INTO " + TABLE_USER + "(login, password, role_id, email, name) values (?, ?, ?, ?, ?);";
@@ -22,12 +23,18 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM " + TABLE_USER + " WHERE login = ? and deleted = false";
     private static final String FIND_ALL_MASTERS = "SELECT id, role_id, name FROM account ac where role_id = 3 and deleted = false;";
     private static final String UPDATE_USER = "UPDATE " + TABLE_USER + " SET login = ?, name = ?, role_id = ?, invoice_id = ?, email = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
-    private static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account where account.id = ?;";
-    public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true "+ " WHERE " + SQLConstants.FIELD_ID + " = ?;";
+    public static final String FIND_USER_BY_ID = "SELECT account.id, account.name, account.login, account.password, account.invoice_id, account.email,  account.role_id FROM account where account.id = ?;";
+    public static final String DELETE_USER = "UPDATE " + TABLE_USER + " SET deleted = true " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String DELETE_MARKED_USER = "Delete from " + TABLE_USER + " where deleted = true";
 
     public UserDAO() {
+        super();
     }
+
+    public UserDAO(String url) throws NamingException {
+        super(url);
+    }
+
 
     @Override
     public boolean insert(User user) {
@@ -37,6 +44,8 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         ResultSet resultSet = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(ADD_NEW_USER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
@@ -75,7 +84,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             }
 
         } catch (SQLException ex) {
-            log.debug("get all users exception {}",  ex.getMessage());
+            log.debug("get all users exception {}", ex.getMessage());
         }
 
         return users;
@@ -89,7 +98,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
              ResultSet rs = stmt.executeQuery(FIND_ALL_MASTERS);) {
             while (rs.next()) {
                 User newMaster = mapMaster(rs);
-                AccountLocalizationDAO accountLocalizationDAO = new  AccountLocalizationDAO();
+                AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
                 List<AccountLocalization> userLocalization = accountLocalizationDAO.get(newMaster.getId());
                 masters.put(newMaster, userLocalization);
             }
@@ -103,6 +112,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
     @Override
     public User get(int id) {
+
         User user = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -159,6 +169,8 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(UPDATE_USER);
             preparedStatement.setString(1, element.getLogin());
             preparedStatement.setString(2, element.getName());
@@ -178,7 +190,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             connection.commit();
         } catch (SQLException ex) {
             rollBackTransaction(connection);
-            log.debug("update user exception {}",  ex.getMessage());
+            log.debug("update user exception {}", ex.getMessage());
             return false;
 
         } finally {
@@ -193,15 +205,12 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(DELETE_USER);
             preparedStatement.setInt(1, user.getId());
             preparedStatement.executeUpdate();
-            connection.commit();
         } catch (SQLException ex) {
-            rollBackTransaction(connection);
             log.debug(" delete user exception {}", ex.getMessage());
             return false;
         } finally {
@@ -218,6 +227,8 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(DELETE_MARKED_USER);
             preparedStatement.executeUpdate();
             connection.commit();
@@ -239,7 +250,7 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             user.setId(rs.getInt(SQLConstants.FIELD_ID));
             user.setName(rs.getString(SQLConstants.FIELD_NAME));
         } catch (SQLException ex) {
-            log.debug("Map master exception {}",  ex.getMessage());
+            log.debug("Map master exception {}", ex.getMessage());
         }
         return user;
     }
@@ -262,10 +273,8 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             user.setEmail(rs.getString("email"));
 
         } catch (SQLException ex) {
-            log.debug("Map user exception {}",  ex.getMessage());
+            log.debug("Map user exception {}", ex.getMessage());
         }
         return user;
     }
-
-   
 }

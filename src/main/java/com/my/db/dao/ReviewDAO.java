@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReviewDAO extends ManagerDAO implements InterfaceDAO<Review> {
+public class ReviewDAO extends ManagerDAO{
 
     private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(ReviewDAO.class);
 
@@ -16,7 +16,6 @@ public class ReviewDAO extends ManagerDAO implements InterfaceDAO<Review> {
     private static final String FIND_ALL_REVIEWS_BY_REQUEST_ID = "SELECT r.id, r.repair_request_id, r.comment, r.date FROM " + TABLE_REVIEW + " r LEFT JOIN repair_request rr ON r.repair_request_id = rr.id  LEFT JOIN account a ON rr.account_id = a.id WHERE r.repair_request_id = ?";
     private static final String ADD_NEW_REVIEW = "INSERT INTO review (repair_request_id, comment) VALUES(?, ?);";
 
-      @Override
     public boolean insert(Review element) {
 
         Connection connection = null;
@@ -24,6 +23,8 @@ public class ReviewDAO extends ManagerDAO implements InterfaceDAO<Review> {
         ResultSet resultSet = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(ADD_NEW_REVIEW, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, element.getRepairRequestId());
             preparedStatement.setString(2, (element.getComment()));
@@ -49,7 +50,6 @@ public class ReviewDAO extends ManagerDAO implements InterfaceDAO<Review> {
         return true;
     }
 
-    @Override
     public List<Review> getAll() {
         List<Review> reviews = new ArrayList<>();
         try (Connection con = getConnection();
@@ -103,15 +103,5 @@ public class ReviewDAO extends ManagerDAO implements InterfaceDAO<Review> {
             log.debug("exception Review: " + ex.getMessage());
         }
         return review;
-    }
-
-    @Override
-    public Review get(int id) {
-        return null;
-    }
-
-    @Override
-    public boolean update(Review element) {
-        return false;
     }
 }

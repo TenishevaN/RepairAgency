@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatusDAO extends ManagerDAO implements InterfaceDAO<Status> {
+public class StatusDAO extends ManagerDAO  {
 
     private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(StatusDAO.class);
 
@@ -78,25 +78,5 @@ public class StatusDAO extends ManagerDAO implements InterfaceDAO<Status> {
             log.debug("map status exception " + ex.getMessage());
         }
         return status;
-    }
-
-    @Override
-    public boolean insert(Status element) {
-        return false;
-    }
-
-    @Override
-    public List<Status> getAll() {
-        return null;
-    }
-
-    @Override
-    public Status get(int id) {
-        return null;
-    }
-
-    @Override
-    public boolean update(Status element) {
-        return false;
     }
 }

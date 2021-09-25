@@ -3,6 +3,7 @@ package com.my.db.dao;
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
 
+import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,14 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
     private static final String COUNT_ALL_REPAIR_REQUESTS = "SELECT COUNT(id) AS count FROM repair_request;";
     public static final String DELETE_REPAIR_REQUEST = "DELETE FROM " + TABLE_REPAIR_REQUEST + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
 
+    public RepairRequestDAO() {
+        super();
+    }
+
+    public RepairRequestDAO(String url) throws NamingException {
+        super(url);
+    }
+
     @Override
     public boolean update(RepairRequest element) {
 
@@ -30,6 +39,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(UPDATE_REPAIR_REQUEST);
             preparedStatement.setString(1, element.getDescription());
             preparedStatement.setBigDecimal(2, element.getCost());
@@ -243,6 +254,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(ADD_REPAIR_REQUEST, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, element.getUserId());
             preparedStatement.setString(2, element.getDescription());
@@ -299,6 +312,8 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
 
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement = connection.prepareStatement(DELETE_REPAIR_REQUEST);
             preparedStatement.setInt(1, repairRequest.getId());
             preparedStatement.executeUpdate();
