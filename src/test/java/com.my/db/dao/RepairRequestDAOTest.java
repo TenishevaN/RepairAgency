@@ -1,10 +1,13 @@
 package com.my.db.dao;
 
 import com.my.db.model.RepairRequest;
+import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
+
 import javax.naming.NamingException;
 import java.io.*;
 import java.nio.charset.StandardCharsets;

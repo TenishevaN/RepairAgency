@@ -1,22 +1,30 @@
 package com.my.db.dao;
 
-
 import com.my.db.model.Invoice;
+import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(InvoiceDAO.class);
-
-    private static final String FIND_INVOICE = "SELECT * FROM INVOICE WHERE ID = ?;";
     private static final String TABLE_INVOICE = "invoice";
+    private static final String FIND_INVOICE = "SELECT * FROM "+ TABLE_INVOICE + " WHERE ID = ?;";
     private static final String ADD_NEW_INVOICE = "INSERT INTO " + TABLE_INVOICE + "(account_id) values (?);";
     private static final String UPDATE_INVOICE = "UPDATE " + TABLE_INVOICE + " SET ammount = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
+    private static final String FIND_ALL_INVOICES = "SELECT * FROM " + TABLE_INVOICE + ";";
 
+    public InvoiceDAO() {
+        super();
+    }
+
+    public InvoiceDAO(String url) {
+        super(url);
+    }
 
     public Invoice get(int id) {
         Invoice invocie = null;
@@ -79,7 +87,20 @@ public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
 
     @Override
     public List<Invoice> getAll() {
-        return null;
+
+        List<Invoice> invoices = new ArrayList<>();
+        try (Connection con = getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(FIND_ALL_INVOICES);) {
+            while (rs.next()) {
+                invoices.add(mapInvoice(rs));
+            }
+
+        } catch (SQLException ex) {
+            log.debug("get all users exception {}", ex.getMessage());
+        }
+
+        return invoices;
     }
 
 
@@ -114,7 +135,7 @@ public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
         return true;
     }
 
-      private Invoice mapInvoice(ResultSet rs) {
+    private Invoice mapInvoice(ResultSet rs) {
 
         Invoice invoice = new Invoice();
         try {

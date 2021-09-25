@@ -23,7 +23,7 @@ public final class Controller extends HttpServlet {
     public static volatile Map<User, List<AccountLocalization>>  masterList;
 
     public Controller() {
-      setMasterList();
+    //  setMasterList();
     }
 
     public static  void  setMasterList() {
