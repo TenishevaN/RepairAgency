@@ -52,10 +52,17 @@
 	height: 70%;
 	position: center;
 }
+.custom-margin-3 {
+	margin-left: 3px;
+	margin-right: 3px;
+}
 .custom-margin-2 {
-	margin-left: 10px;
-	margin-right: 10px;
-
+	margin-left: 2px;
+	margin-right: 2px;
+}
+.custom-margin-1 {
+	margin-left: 1px;
+	margin-right: 1px;
 }
 
 

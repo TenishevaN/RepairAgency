@@ -9,7 +9,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jst_dynamics.js"></script>
+    <script type="text/javascript" src="js/java_script_dynamic.js"></script>
 </head>
 <body>
 
@@ -18,9 +18,9 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#"><fmt:message key="home"></fmt:message></a></li>
-             </ul>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li class="custom-margin-1">
                     <a href="<c:url value="changeLocale.jsp">
                         <c:param name="action" value="post"/>
                         <c:param name="locale" value="uk"/>
@@ -41,7 +41,6 @@
                         <c:param name="page" value="index.jsp"/>
                         </c:url>">EN</a>
                 </li>
-
                 <li><a href=#insertModalLoginPage" data-toggle="modal"
                        data-target="#insertModalRegistrationPage"><span
                         class="glyphicon glyphicon-registration-mark"></span> <fmt:message
@@ -105,22 +104,26 @@
                         <div class="form-group">
                             <label for="login"><fmt:message key="login"></fmt:message></label>
                             <input type="text" name="login" class="form-control" id="loginValue"><br>
-                            <div style="color:red; visibility: hidden" id="errorLogin"><fmt:message key="errorLogin"></fmt:message></div>
+                            <div style="color:red; visibility: hidden" id="errorLogin"><fmt:message
+                                    key="errorLogin"></fmt:message></div>
                         </div>
                         <div class="form-group">
                             <label for="password"><fmt:message key="password"></fmt:message></label>
                             <input type="password" name="password" id="passcode" class="form-control">
-                            <div style="color:red; visibility: hidden" id="errorPassword"><fmt:message key="errorPassword"></fmt:message></div>
+                            <div style="color:red; visibility: hidden" id="errorPassword"><fmt:message
+                                    key="errorPassword"></fmt:message></div>
                         </div>
                         <div class="form-group">
                             <label for="login"><fmt:message key="name"></fmt:message></label>
                             <input type="text" name="name" class="form-control" id="nameValue"><br>
-                            <div style="color:red; visibility: hidden" id="errorName"><fmt:message key="errorName"></fmt:message></div>
+                            <div style="color:red; visibility: hidden" id="errorName"><fmt:message
+                                    key="errorName"></fmt:message></div>
                         </div>
                         <div class="form-group">
                             <label for="email"><fmt:message key="email"></fmt:message></label>
                             <input type="email" name="email" id="email" class="form-control"><br>
-                            <div style="color:red; visibility: hidden" id="errorEmail"><fmt:message key="errorEmail"></fmt:message></div>
+                            <div style="color:red; visibility: hidden" id="errorEmail"><fmt:message
+                                    key="errorEmail"></fmt:message></div>
                         </div>
                         <button type="submit" onclick="return handleSubmitRegistrationUserForm()"
                                 class="btn btn-default"><fmt:message

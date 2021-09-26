@@ -12,7 +12,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jst_dynamics.js"></script>
+    <script type="text/javascript" src="js/java_script_dynamic.js"></script>
 </head>
 
 <body>
@@ -41,9 +41,11 @@
                             <label class="control-label col-xs-4"><fmt:message key="description"></fmt:message>:</label>
                             <userFieldRight:description descriptionText="${repairRequest.description}"
                                                         nameRole="${role}"/>
+                            <label style="color:red; visibility: hidden" id="errorDescription"><fmt:message
+                                    key="error_description"></fmt:message></label>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-default"><fmt:message
+                            <button type="submit" class="btn btn-default" onclick="return handleDescriptionChange()"><fmt:message
                                     key="update"></fmt:message></button>
                         </div>
                     </div>
@@ -84,18 +86,18 @@
                                 <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                                        value="${repairRequest.id}"/>
                                 <input type="hidden" id="role" name="role" value="${role}"/>
-                                <label>Write a review:</label>
+                                <label><fmt:message key="write_review"></fmt:message>:</label>
 
                                 <div style="width:500px" class="form-group" value="Comment">
-                                            <textarea rows="5" class="form-control" name="comment"
-                                                      placeholder="What are you looking for?">  <fmt:message
-                                                    key="write_your_coment"></fmt:message>.. </textarea>
+                                            <textarea rows="5" class="form-control" name="comment" id="commentValue">  </textarea>
+                                    <label style="color:red; visibility: hidden" id="errorComment"><fmt:message
+                                            key="error_description"></fmt:message></label>
                                 </div>
                                 <div class="text-left mt-3">
                                     <input type="hidden" id="idRepairRequest" name="idRepairRequest"
                                            value="${repairRequest.id}"/>
                                     <input type="hidden" id="role" name="role" value="${role}"/>
-                                    <button type="submit" class="btn btn-default"><fmt:message
+                                    <button type="submit" class="btn btn-default" onclick="return handleCommentChange()"><fmt:message
                                             key="send"></fmt:message></button>
                                 </div>
                             </form>
@@ -103,7 +105,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="reviews-list-item">
-                            <userFieldRight:listReviews idRepairRequest="${repairRequest.id}"/>
+                            <userFieldRight:listReviews idRepairRequest="${repairRequest.id}" currentLocale="${currentLocale}"/>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ function handleNameChange() {
 
     var name = document.getElementById("nameValue").value;
 
-    if((name === null) || (name ==="")){
+    if ((name === null) || (name === "")) {
         $('#errorName').css('visibility', 'visible');
         return false;
     }
@@ -55,30 +55,54 @@ function handlePasswordChange() {
     return true;
 }
 
+function handleDescriptionChange() {
+
+    var descriptionValue = document.getElementById("descriptionValue").value;
+
+    if ((descriptionValue === null) || (descriptionValue === "")) {
+        $('#errorDescription').css('visibility', 'visible');
+        return false;
+    }
+    return true;
+}
+
+function handleCommentChange() {
+
+    var commentValue = document.getElementById("commentValue").value;
+    commentValue = commentValue.trim();
+    if ((commentValue === null) || (commentValue === "")) {
+        $('#errorComment').css('visibility', 'visible');
+
+        return false;
+    }
+    return true;
+}
+
 function handleSubmitRegistrationUserForm() {
 
     var passwordCorrect = handlePasswordChange();
     var emailCorrect = handleEmailChange();
     var loginCorrect = handleLoginChange();
-    var nameCorrect =  handleNameChange();
+    var nameCorrect = handleNameChange();
 
     return (passwordCorrect && emailCorrect && loginCorrect && nameCorrect);
 }
 
-function handleUserCardChange(){
+function handleUserCardChange() {
 
     var loginCorrect = handleLoginChange();
     var emailCorrect = handleEmailChange();
-    var nameCorrect =  handleNameChange();
+    var nameCorrect = handleNameChange();
 
     return (emailCorrect && loginCorrect && nameCorrect);
 }
-    function checkReplenishment() {
+
+function checkReplenishment() {
     var ammount = Number(document.getElementById("ammountValue").value);
     if ((ammount === 0) || (ammount === null)) {
-    $('#errorIndicateAmmount').css('visibility', 'visible');
-    return false;
-}
+        $('#errorIndicateAmmount').css('visibility', 'visible');
+        return false;
+    }
     return true;
 }
 

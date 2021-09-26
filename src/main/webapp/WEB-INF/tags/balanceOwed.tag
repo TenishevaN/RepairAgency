@@ -13,7 +13,7 @@
     <c:if test="${role eq 'user'}">
 
         <form action="controller" method="get">
-            <button type="button" class="btn btn-default" data-toggle="modal"
+            <button type="button" class="custom-margin-2" data-toggle="modal"
                     data-target="#insertPaymentPage">
                 <fmt:message key="pay"></fmt:message>
             </button>

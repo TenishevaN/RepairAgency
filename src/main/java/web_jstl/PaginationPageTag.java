@@ -83,7 +83,7 @@ public class PaginationPageTag extends SimpleTagSupport {
                 output += "<input type = hidden class = form-control name = page value = " + i + " >";
                 output += "<input type = hidden class = form-control name = orderBy value = " + orderBy + " >";
                 if (current_page == i){
-                    output += "<input type = submit style = padding:5px 10px value = " + i + "><br>";
+                    output += "<input type = submit style = padding:5px 1px value = " + i + "><br>";
                 } else {
                     output += "<input type = submit  value = " + i + "><br>";
                 }

@@ -26,7 +26,7 @@ public class FieldDescriptionTag extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
 
         if (("user".equals(nameRole))) {
-            output = "<textarea rows=10 class=form-control name = description>" + descriptionText + "</textarea>";
+            output = "<textarea rows=10 class=form-control name = description id = descriptionValue>" + descriptionText + "</textarea>";
 
         } else {
             output += descriptionText;
