@@ -67,7 +67,7 @@ DROP TABLE IF EXISTS `db_repair_agency`.`account` ;
 CREATE TABLE IF NOT EXISTS `db_repair_agency`.`account` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(15) NOT NULL,
-  `password` VARCHAR(11) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role_id` INT NULL,
   `email` VARCHAR(60) NULL,
@@ -143,7 +143,7 @@ DROP TABLE IF EXISTS `db_repair_agency`.`repair_request` ;
 
 CREATE TABLE IF NOT EXISTS `db_repair_agency`.`repair_request` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `cost` DECIMAL(10,0) UNSIGNED ZEROFILL NULL,
+  `cost` DECIMAL(10) UNSIGNED ZEROFILL NULL,
   `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status_id` INT NOT NULL DEFAULT 1,
   `master_id` INT NULL DEFAULT NULL,
@@ -381,12 +381,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `db_repair_agency`;
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (1, 'admin', '1', DEFAULT, 1, NULL, DEFAULT, 'admin', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (2, 'manager', '1', DEFAULT, 2, NULL, DEFAULT, 'manager', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (3, 'master', '1', DEFAULT, 3, NULL, DEFAULT, 'master', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (4, 'master2', '1', DEFAULT, 3, NULL, DEFAULT, 'master2', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (5, 'user1', '1', DEFAULT, 4, NULL, DEFAULT, 'user1', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (6, 'user2', '1', DEFAULT, 4, NULL, DEFAULT, 'user2', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (1, 'admin', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 1, NULL, DEFAULT, 'admin', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (2, 'manager', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 2, NULL, DEFAULT, 'manager', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (3, 'master', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 3, NULL, DEFAULT, 'master', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (4, 'master2', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 3, NULL, DEFAULT, 'master2', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (5, 'user1', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 4, NULL, DEFAULT, 'user1', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (6, 'user2', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 4, NULL, DEFAULT, 'user2', NULL, NULL);
 
 COMMIT;
 

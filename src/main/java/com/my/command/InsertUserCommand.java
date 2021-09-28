@@ -1,6 +1,7 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.Security;
 import com.my.ServiceUtil;
 import com.my.db.dao.AccountLocalizationDAO;
 import com.my.db.dao.UserDAO;
@@ -32,6 +33,7 @@ public class InsertUserCommand implements Command {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        password = Security.encrypt(password);
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);

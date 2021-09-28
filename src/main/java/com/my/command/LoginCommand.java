@@ -1,11 +1,14 @@
 package com.my.command;
 
 import com.my.Path;
+import com.my.Security;
 import com.my.db.model.Role;
 import com.my.db.model.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import com.my.db.dao.UserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,8 +45,9 @@ public class LoginCommand implements Command {
         UserDAO userDAO = new UserDAO();
         User user = userDAO.get(login);
         log.info("Found in DB: user --> " + user);
-
-        if (user == null || !password.equals(user.getPassword())) {
+        String userPassword = user.getPassword();
+        String decryptedPassword = Security.decrypt(userPassword);
+        if (user == null || !password.equals(decryptedPassword)) {
             errorMessage = "Cannot find user with such login/password";
             request.setAttribute("errorMessage", errorMessage);
             log.error("errorMessage --> " + errorMessage);
