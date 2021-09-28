@@ -2,16 +2,19 @@ package com.my.db.dao;
 
 import com.my.db.model.AccountLocalization;
 import org.apache.logging.log4j.LogManager;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * {@ code AccountLocalizationDAO} class implementation InterfaceDAO for the account localization model.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code AccountLocalizationDAO} class implementation InterfaceDAO for the account localization model.
  */
-public class AccountLocalizationDAO extends ManagerDAO{
+public class AccountLocalizationDAO extends ManagerDAO {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(AccountLocalizationDAO.class);
 
@@ -136,7 +139,7 @@ public class AccountLocalizationDAO extends ManagerDAO{
             accountLocalization.setName(rs.getString(SQLConstants.FIELD_NAME));
 
         } catch (SQLException ex) {
-            log.debug("Map account localization exception {}",  ex.getMessage());
+            log.debug("Map account localization exception {}", ex.getMessage());
         }
         return accountLocalization;
     }

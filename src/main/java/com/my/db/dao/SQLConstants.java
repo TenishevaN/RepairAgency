@@ -1,9 +1,11 @@
 package com.my.db.dao;
 
 /**
+ * {@ code SQLConstants} class stores field names from the database.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code SQLConstants} class stores field names from the database.
  */
 public final class SQLConstants {
 

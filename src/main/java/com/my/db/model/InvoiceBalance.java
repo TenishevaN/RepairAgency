@@ -5,12 +5,13 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code InvoiceBalance} class represents invoice balance object.
  * <br>
  * Each invoice has id, invoice id, repair request id, ammount
  * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 public class InvoiceBalance implements Serializable {
 

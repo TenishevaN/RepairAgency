@@ -9,18 +9,21 @@ import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * {@ code InsertUserCommand} class represents the implementation of the command to insert user into the database.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code InsertUserCommand} class represents the implementation of the command to insert user into the database.
  */
 public class InsertUserCommand implements Command {
 
-    private static final Logger log =  LogManager.getLogger(InsertUserCommand.class);
+    private static final Logger log = LogManager.getLogger(InsertUserCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -45,13 +48,13 @@ public class InsertUserCommand implements Command {
             UserDAO userDAO = new UserDAO();
             inserted = userDAO.insert(user);
         } catch (Exception ex) {
-            log.debug("insert user exception "+ex.getMessage());
-            req.setAttribute("errorMessage",  ServiceUtil.getKey("insert_user_exception", currentLocale));
+            log.debug("insert user exception " + ex.getMessage());
+            req.setAttribute("errorMessage", ServiceUtil.getKey("insert_user_exception", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
 
-        if (!inserted){
-            req.setAttribute("errorMessage",  ServiceUtil.getKey("insert_user_exception", currentLocale));
+        if (!inserted) {
+            req.setAttribute("errorMessage", ServiceUtil.getKey("insert_user_exception", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
 

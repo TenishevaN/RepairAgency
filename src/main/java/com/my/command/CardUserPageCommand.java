@@ -19,9 +19,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * {@ code CardUserPageCommand} class represents the implementation of the command to open the user card.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code CardUserPageCommand} class represents the implementation of the command to open the user card.
  */
 public class CardUserPageCommand implements Command {
 
@@ -58,7 +60,7 @@ public class CardUserPageCommand implements Command {
             System.out.println("role " + role);
             Invoice invoice = new InvoiceDAO().get(user.getInvoiceId());
             BigDecimal total = BigDecimal.ZERO;
-            if(invoice != null) {
+            if (invoice != null) {
                 total = invoice.getAmmount();
             }
             if (total != null) {

@@ -5,12 +5,13 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code Review} class represents review object.
  * <br>
  * Each review has id,  repair request id, date, comment
  * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 public class Review implements Serializable {
 

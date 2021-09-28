@@ -3,12 +3,13 @@ package com.my.db.model;
 import java.util.Objects;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code AccountLocalization} class uses to localize user.
  * <br>
  * Each account localization has id, account id, language id
  * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 public class AccountLocalization {
 

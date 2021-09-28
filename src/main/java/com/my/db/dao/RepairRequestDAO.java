@@ -2,19 +2,22 @@ package com.my.db.dao;
 
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
+
 import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * {@ code RepairRequestDAO} class implementation InterfaceDAO for the repair request model.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code RepairRequestDAO} class implementation InterfaceDAO for the repair request model.
  */
 public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairRequest> {
 
-    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(RepairRequestDAO.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(RepairRequestDAO.class);
 
     private static final String TABLE_REPAIR_REQUEST = "repair_request";
     private static final String TABLE_REPAIR_REQUEST_FULL = "repair_request_full";
@@ -102,7 +105,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         try {
             connection = getConnection();
             String sqlQuery = FIND_ALL_REPAIR_REQUESTS_FULL + " limit " + total + " OFFSET " + start;
-             preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement = connection.prepareStatement(sqlQuery);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 repairRequests.add(mapRepairRequest(resultSet));
@@ -200,7 +203,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
              ResultSet rs = stmt.executeQuery(sqlQuery);) {
             while (rs.next()) {
                 count = rs.getInt(1);
-                   }
+            }
         } catch (SQLException ex) {
             log.debug(ex.getMessage());
         }
@@ -272,7 +275,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
                 element.setId(resultSet.getInt(1));
             }
         } catch (SQLException ex) {
-               rollBackTransaction(connection);
+            rollBackTransaction(connection);
             //  logger.log(Level.INFO, ex.getMessage());
             return false;
 
@@ -333,7 +336,6 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
         }
         return true;
     }
-
 
 
     public List<RepairRequest> getAllByUserId(int id, int start, int total) {

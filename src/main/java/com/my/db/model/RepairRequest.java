@@ -6,12 +6,13 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code RepairRequest} class represents properties and behaviours of repairRequest objects.
  * <br>
  * Each repairRequest has id, user id, user name, status id, status name, master id, cost, date description
  * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 public class RepairRequest implements Serializable {
 

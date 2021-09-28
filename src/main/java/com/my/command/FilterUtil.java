@@ -7,22 +7,25 @@ import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
+ * {@ code FilterUtil} class represents the service class to implement filtering with different parameters.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code FilterUtil} class represents the service class to implement filtering with different parameters.
  */
-public class FilterUtil extends PaginationUtil{
+public class FilterUtil extends PaginationUtil {
 
     private static final Logger log = LogManager.getLogger(FilterUtil.class);
 
     private void SetInitialParameters(HttpServletRequest req) {
 
-         SetPaginationInitialParameters(req);
+        SetPaginationInitialParameters(req);
     }
 
     protected String doExecute(HttpServletRequest req, String sortField, String command) {
@@ -37,9 +40,9 @@ public class FilterUtil extends PaginationUtil{
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
             int filterValue = Integer.parseInt(req.getParameter(sortField));
 
-            if(filterValue != -1){
+            if (filterValue != -1) {
                 repairRequests = repairRequestDAO.getAll(start, total, sortField, filterValue);
-             } else{
+            } else {
                 repairRequests = repairRequestDAO.getAll(start, total);
             }
             req.setAttribute("repairRequests", repairRequests);
@@ -74,7 +77,5 @@ public class FilterUtil extends PaginationUtil{
             log.debug("filter exception {}", ex.getMessage());
         }
         return Path.PAGE_LIST_REPAIR_REQUESTS;
-
-
     }
 }

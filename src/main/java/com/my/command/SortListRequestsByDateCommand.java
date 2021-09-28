@@ -4,9 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * {@ code SortListRequestsByDateCommand} class represents the implementation of the command to sort list requests by date.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code SortListRequestsByDateCommand} class represents the implementation of the command to sort list requests by date.
  */
 public class SortListRequestsByDateCommand extends SortUtil implements Command {
     @Override

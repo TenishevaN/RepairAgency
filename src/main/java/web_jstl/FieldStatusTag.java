@@ -3,6 +3,7 @@ package web_jstl;
 import com.my.db.dao.StatusDAO;
 import com.my.db.model.Status;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -11,9 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * {@ code FieldStatusTag} class represents the custom tag to display status field for the different roles.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code FieldStatusTag} class represents the custom tag to display status field for the different roles.
  */
 public class FieldStatusTag extends SimpleTagSupport {
 

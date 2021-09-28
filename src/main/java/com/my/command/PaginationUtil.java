@@ -5,20 +5,22 @@ import com.my.db.model.User;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * {@ code PaginationUtil} class represents the service class to implement painations on the page.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code PaginationUtil} class represents the service class to implement painations on the page.
  */
 public class PaginationUtil {
 
-    protected int start;
-    protected int total = 5;
     protected String pageParameter;
+    public static int start;
+    public static int total = 5;
 
-    protected void SetPaginationInitialParameters(HttpServletRequest req) {
+    public void SetPaginationInitialParameters(HttpServletRequest req) {
 
         start = 0;
-       pageParameter = req.getParameter("page");
+        pageParameter = req.getParameter("page");
         if (pageParameter != null) {
             start = Integer.parseInt(req.getParameter("page"));
         }
@@ -30,10 +32,19 @@ public class PaginationUtil {
         }
     }
 
-    protected void setPaginationSessionParameters(HttpServletRequest req, User currentUser, String command) {
+    public void setPaginationSessionParameters(HttpServletRequest req, User currentUser, String command) {
 
         req.setAttribute("userId", currentUser.getId());
         req.setAttribute("page", 1);
         req.setAttribute("command", command);
+    }
+
+    public void setPaginationSessionParameterPage(HttpServletRequest req) {
+
+         if (pageParameter != null) {
+            req.setAttribute("page", pageParameter);
+        } else {
+            req.setAttribute("page", 1);
+        }
     }
 }

@@ -2,14 +2,17 @@ package web_jstl;
 
 import com.my.db.model.Role;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
+ * {@ code FieldRoleTag} class represents the custom tag to display role field.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code FieldRoleTag} class represents the custom tag to display role field.
  */
 public class FieldRoleTag extends SimpleTagSupport {
 
@@ -22,23 +25,23 @@ public class FieldRoleTag extends SimpleTagSupport {
 
 
     @Override
-    public void doTag(){
+    public void doTag() {
         String output = "";
         JspWriter out = getJspContext().getOut();
-            output = "<select class = form-control name=roleId>";
-            for (Role role : Role.values()) {
-                if (role.getId() == id) {
-                    output += "<option  value=" + role.getId() + " selected>" + role.getName() + "</option>";
-                } else {
-                    output += "<option  value=" + role.getId() + ">" + role.getName() + "</option>";
-                }
+        output = "<select class = form-control name=roleId>";
+        for (Role role : Role.values()) {
+            if (role.getId() == id) {
+                output += "<option  value=" + role.getId() + " selected>" + role.getName() + "</option>";
+            } else {
+                output += "<option  value=" + role.getId() + ">" + role.getName() + "</option>";
             }
-            output += "</select>";
+        }
+        output += "</select>";
 
         try {
             out.println(output);
         } catch (IOException e) {
-       //     log.debug(e.getMessage());
+            //     log.debug(e.getMessage());
         }
 
     }

@@ -4,15 +4,18 @@ import com.my.db.dao.RepairRequestDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
+ * {@ code PaginationPageTag} class represents the custom tag to display pagination section.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code PaginationPageTag} class represents the custom tag to display pagination section.
  */
 public class PaginationPageTag extends SimpleTagSupport {
 
@@ -86,7 +89,7 @@ public class PaginationPageTag extends SimpleTagSupport {
                 output += "<input type = hidden name = changeOrder class = form-control value = false>";
                 output += "<input type = hidden class = form-control name = page value = " + i + " >";
                 output += "<input type = hidden class = form-control name = orderBy value = " + orderBy + " >";
-                if (current_page == i){
+                if (current_page == i) {
                     output += "<input type = submit style = padding:5px 1px value = " + i + "><br>";
                 } else {
                     output += "<input type = submit  value = " + i + "><br>";
@@ -96,7 +99,7 @@ public class PaginationPageTag extends SimpleTagSupport {
             }
             output += "</ul>";
         }
-         try {
+        try {
             out.println(output);
         } catch (IOException e) {
             log.debug("PaginationPageTag exception " + e.getMessage());
@@ -118,7 +121,7 @@ public class PaginationPageTag extends SimpleTagSupport {
 
     private int calculateTotalPagesNotForUser(RepairRequestDAO repairRequestDAO) {
 
-        if ("-1".equals(status_id) || "-1".equals(master_id)){
+        if ("-1".equals(status_id) || "-1".equals(master_id)) {
             return calculateCount(repairRequestDAO.getCountOfAllRequests());
         }
 
@@ -128,7 +131,7 @@ public class PaginationPageTag extends SimpleTagSupport {
         if ("filtertListRequestsByMaster".equals(command)) {
             return calculateCount((int) repairRequestDAO.getCountOfAllRequestsByMaster(master_id));
         }
-            return calculateCount(repairRequestDAO.getCountOfAllRequests());
+        return calculateCount(repairRequestDAO.getCountOfAllRequests());
     }
 
     private int calculateCount(int count) {
@@ -138,6 +141,6 @@ public class PaginationPageTag extends SimpleTagSupport {
         if (totalCount % 5 > 0) {
             totalPages++;
         }
-         return totalPages;
+        return totalPages;
     }
 }

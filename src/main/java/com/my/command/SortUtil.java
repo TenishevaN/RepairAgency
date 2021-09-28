@@ -7,17 +7,20 @@ import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
+ * {@ code SortUtil} class represents the service class to implement sorting with different parameters.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code SortUtil} class represents the service class to implement sorting with different parameters.
  */
 public class SortUtil extends PaginationUtil {
 
-    private static final Logger log =  LogManager.getLogger(SortUtil.class);
+    private static final Logger log = LogManager.getLogger(SortUtil.class);
     protected String orderBy;
 
 

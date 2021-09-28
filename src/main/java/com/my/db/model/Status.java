@@ -3,12 +3,13 @@ package com.my.db.model;
 import java.util.Objects;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code Status} class represents properties and behaviours of status objects.
  * <br>
  * Each status has id, name
  * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 
 public class Status {

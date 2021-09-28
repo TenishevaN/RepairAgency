@@ -7,18 +7,21 @@ import com.my.db.model.RepairRequest;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * {@ code InsertRepairRequestCommand} class represents the implementation of the command to insert repair request into the database.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code InsertRepairRequestCommand} class represents the implementation of the command to insert repair request into the database.
  */
 public class InsertRepairRequestCommand implements Command {
 
-    private static final Logger log =  LogManager.getLogger(InsertRepairRequestCommand.class);
+    private static final Logger log = LogManager.getLogger(InsertRepairRequestCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -36,7 +39,7 @@ public class InsertRepairRequestCommand implements Command {
 
         } catch (Exception ex) {
             log.debug("request not added exception " + ex.getMessage());
-            req.setAttribute("errorMessage",  ServiceUtil.getKey("request_not_added", currentLocale));
+            req.setAttribute("errorMessage", ServiceUtil.getKey("request_not_added", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
         return Path.COMMAND_LIST_REQUESTS;

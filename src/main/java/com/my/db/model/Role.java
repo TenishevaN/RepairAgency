@@ -2,12 +2,13 @@ package com.my.db.model;
 
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code Role} enum represents role object.
  * <br>
  * Each role has id
  * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 
 public enum Role {

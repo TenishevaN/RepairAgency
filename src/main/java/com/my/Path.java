@@ -1,10 +1,12 @@
 package com.my;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code Controller} class represents path holder (jsp pages, controller commands).
  * It's the only one servlet that depends on the request command parameter executes the corresponding actions.
+ * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 public final class Path {
 

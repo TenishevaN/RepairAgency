@@ -2,18 +2,21 @@ package com.my.db.dao;
 
 import com.my.db.model.Review;
 import org.apache.logging.log4j.LogManager;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * {@ code ReviewDAO} class implementation InterfaceDAO for the review model.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code ReviewDAO} class implementation InterfaceDAO for the review model.
  */
-public class ReviewDAO extends ManagerDAO{
+public class ReviewDAO extends ManagerDAO {
 
-    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(ReviewDAO.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(ReviewDAO.class);
 
     public static final String TABLE_REVIEW = "review";
     private static final String FIND_ALL_REVIEWS = "SELECT * FROM " + TABLE_REVIEW;

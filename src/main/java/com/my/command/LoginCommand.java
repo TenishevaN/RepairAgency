@@ -14,9 +14,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * {@ code LoginCommand} class represents the implementation of the command for the authorization and authentication.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code LoginCommand} class represents the implementation of the command for the authorization and authentication.
  */
 public class LoginCommand implements Command {
 

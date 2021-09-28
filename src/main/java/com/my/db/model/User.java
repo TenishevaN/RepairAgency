@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code User} class represents properties and behaviours of user objects.
  * <br>
  * Each user has id, login, name, email, password, role id, invoice id
  * <br>
+ *
+ * @author Tenisheva N.I.
+ * @version 1.0
  */
 public class User implements Serializable {
 

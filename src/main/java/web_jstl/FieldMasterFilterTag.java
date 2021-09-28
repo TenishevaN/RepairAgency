@@ -6,6 +6,7 @@ import com.my.db.model.AccountLocalization;
 import com.my.db.model.Language;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -14,9 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * {@ code FieldMasterFilterTag} class represents the master filter tag to display the master filter.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code FieldMasterFilterTag} class represents the master filter tag to display the master filter.
  */
 public class FieldMasterFilterTag extends SimpleTagSupport {
 

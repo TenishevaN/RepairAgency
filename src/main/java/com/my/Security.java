@@ -12,6 +12,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 
+/**
+ *  {@ code ServiceUtil} class represents the implementation of the encryption, decription password.
+ * <br>
+ * @author Tenisheva N.I.
+ * @version 1.0
+
+ */
 public class Security {
 
     private static final Logger log = LogManager.getLogger(LoginCommand.class);

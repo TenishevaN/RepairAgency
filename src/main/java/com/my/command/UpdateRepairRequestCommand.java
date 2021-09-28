@@ -6,53 +6,56 @@ import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
 /**
+ * {@ code UpdateRepairRequestCommand} class represents the implementation of the command to update repair request in the database.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code UpdateRepairRequestCommand} class represents the implementation of the command to update repair request in the database.
  */
 public class UpdateRepairRequestCommand implements Command {
 
-    private static final Logger log =  LogManager.getLogger(UpdateRepairRequestCommand.class);
+    private static final Logger log = LogManager.getLogger(UpdateRepairRequestCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         HttpSession session = req.getSession(false);
         String currentLocale = (String) session.getAttribute("currentLocale");
-          try {
+        try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
             RepairRequest repairRequest = repairRequestDAO.get(Integer.parseInt(req.getParameter("idRepairRequest")));
 
             String statusId = req.getParameter("statusId");
-            if(statusId != null && !statusId.isEmpty()){
+            if (statusId != null && !statusId.isEmpty()) {
                 repairRequest.setStatusId(Integer.parseInt(statusId));
             }
             String masterId = req.getParameter("masterId");
-            if((masterId != null) && (!masterId.isEmpty())){
-               repairRequest.setMasterId(Integer.parseInt(masterId));
+            if ((masterId != null) && (!masterId.isEmpty())) {
+                repairRequest.setMasterId(Integer.parseInt(masterId));
             }
             repairRequest.setMasterName(req.getParameter("master_name"));
             String cost = req.getParameter("cost");
-            if( cost != null && !cost.isEmpty()){
+            if (cost != null && !cost.isEmpty()) {
                 repairRequest.setCost(new BigDecimal(req.getParameter("cost")).multiply(BigDecimal.valueOf(100)));
             }
 
             String description = req.getParameter("description");
-            if(description != null){
+            if (description != null) {
                 repairRequest.setDescription(description);
             }
-          repairRequestDAO.update(repairRequest);
+            repairRequestDAO.update(repairRequest);
 
         } catch (Exception ex) {
-              log.debug("repair request  was not updated " + ex.getMessage());
-              req.setAttribute("errorMessage",  ServiceUtil.getKey("repair_request_was_not_updated", currentLocale));
-              return Path.PAGE_ERROR_PAGE;
+            log.debug("repair request  was not updated " + ex.getMessage());
+            req.setAttribute("errorMessage", ServiceUtil.getKey("repair_request_was_not_updated", currentLocale));
+            return Path.PAGE_ERROR_PAGE;
         }
         return Path.COMMAND_OPEN_REPAIR_REQUEST_BY_ID + req.getParameter("idRepairRequest");
     }

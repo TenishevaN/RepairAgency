@@ -4,6 +4,7 @@ import com.my.ServiceUtil;
 import com.my.db.dao.StatusDAO;
 import com.my.db.model.Status;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -11,9 +12,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * {@ code FieldStatusFilterTag} class represents the master status tag to display the status filter.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code FieldStatusFilterTag} class represents the master status tag to display the status filter.
  */
 public class FieldStatusFilterTag extends SimpleTagSupport {
 
@@ -36,15 +39,15 @@ public class FieldStatusFilterTag extends SimpleTagSupport {
         output = "<select name = status_id>";
         StatusDAO statusDAO = new StatusDAO();
         List<Status> listStatus = statusDAO.getAll(currentLocale);
-        if (idStatus == -1){
+        if (idStatus == -1) {
             output += "<option  value = -1  selected>" + ServiceUtil.getKey("all", currentLocale) + "</option>";
-        } else{
+        } else {
             output += "<option  value = -1>" + ServiceUtil.getKey("all", currentLocale) + "</option>";
         }
         for (Status status : listStatus) {
             if (status.getId() == idStatus) {
                 output += "<option  value = " + status.getId() + " selected>" + status.getName() + "</option>";
-            } else{
+            } else {
                 output += "<option  value = " + status.getId() + ">" + status.getName() + "</option>";
             }
         }

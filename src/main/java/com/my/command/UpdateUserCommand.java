@@ -14,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Tenisheva N.I.
- * @version 1.0
  * {@ code UpdateUserCommand} class represents the implementation of the command to update user in the database.
+* <br>
+*     @author Tenisheva N.I.
+ *    @version 1.0
  */
 public class UpdateUserCommand implements Command {
 

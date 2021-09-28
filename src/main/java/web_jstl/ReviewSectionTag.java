@@ -4,15 +4,18 @@ import com.my.ServiceUtil;
 import com.my.db.dao.ReviewDAO;
 import com.my.db.model.Review;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.List;
 
 /**
+ * {@ code ReviewSectionTag} class represents the custom tag to display review section.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code ReviewSectionTag} class represents the custom tag to display review section.
  */
 public class ReviewSectionTag extends SimpleTagSupport {
 

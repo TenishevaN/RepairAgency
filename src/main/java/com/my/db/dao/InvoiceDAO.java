@@ -2,20 +2,23 @@ package com.my.db.dao;
 
 import com.my.db.model.Invoice;
 import org.apache.logging.log4j.LogManager;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * {@ code InvoiceDAO} class implementation InterfaceDAO for the invoice model.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code InvoiceDAO} class implementation InterfaceDAO for the invoice model.
  */
 public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(InvoiceDAO.class);
     private static final String TABLE_INVOICE = "invoice";
-    private static final String FIND_INVOICE = "SELECT * FROM "+ TABLE_INVOICE + " WHERE ID = ?;";
+    private static final String FIND_INVOICE = "SELECT * FROM " + TABLE_INVOICE + " WHERE ID = ?;";
     private static final String ADD_NEW_INVOICE = "INSERT INTO " + TABLE_INVOICE + "(account_id) values (?);";
     private static final String UPDATE_INVOICE = "UPDATE " + TABLE_INVOICE + " SET ammount = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String FIND_ALL_INVOICES = "SELECT * FROM " + TABLE_INVOICE + ";";

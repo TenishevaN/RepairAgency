@@ -7,9 +7,11 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 /**
+ * {@ code ContextListener} class represents context listener.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code ContextListener} class represents context listener.
  */
 public class ContextListener implements ServletContextListener {
 

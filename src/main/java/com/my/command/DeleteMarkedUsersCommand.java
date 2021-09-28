@@ -4,17 +4,20 @@ import com.my.Path;
 import com.my.db.dao.UserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * {@ code DeleteMarkedUsersCommand} class represents the implementation of the command to delete users marked as deleted.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code DeleteMarkedUsersCommand} class represents the implementation of the command to delete users marked as deleted.
  */
 public class DeleteMarkedUsersCommand implements Command {
 
-    private static final Logger log =  LogManager.getLogger(DeleteMarkedUsersCommand.class);
+    private static final Logger log = LogManager.getLogger(DeleteMarkedUsersCommand.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -23,7 +26,7 @@ public class DeleteMarkedUsersCommand implements Command {
             userDAO.deleteMarkedUsers();
         } catch (Exception ex) {
             log.debug("delete marked usere exception exception {}", ex.getMessage());
-            return  Path.PAGE_ERROR_PAGE;
+            return Path.PAGE_ERROR_PAGE;
         }
         return Path.SERVICE_PAGE;
     }

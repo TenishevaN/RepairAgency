@@ -2,18 +2,21 @@ package com.my.db.dao;
 
 import com.my.db.model.Status;
 import org.apache.logging.log4j.LogManager;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * {@ code StatusDAO} class implementation InterfaceDAO for the staus model.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code StatusDAO} class implementation InterfaceDAO for the staus model.
  */
-public class StatusDAO extends ManagerDAO  {
+public class StatusDAO extends ManagerDAO {
 
-    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(StatusDAO.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(StatusDAO.class);
 
     private static final String FIND_ALL_STATUS_BY_LOCALE = "SELECT * FROM status_localization left join language on status_localization.language_id = language.id WHERE language.code = ? order by status_id;";
     private static final String FIND_STATUS_BY_ID = "SELECT * FROM status_localization left join language on status_localization.language_id = language.id WHERE language.code = ? and status_localization.status_id = ?;";

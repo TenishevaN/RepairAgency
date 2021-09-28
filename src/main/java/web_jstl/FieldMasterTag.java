@@ -5,6 +5,7 @@ import com.my.db.model.AccountLocalization;
 import com.my.db.model.Language;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
@@ -12,9 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * {@ code FieldMasterTag} class represents the custom tag to display master for the different roles.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code FieldMasterTag} class represents the custom tag to display master for the different roles.
  */
 public class FieldMasterTag extends SimpleTagSupport {
 

@@ -4,6 +4,7 @@ import com.my.db.model.AccountLocalization;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,9 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * {@ code UserDAO} class implementation InterfaceDAO for the user model.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code UserDAO} class implementation InterfaceDAO for the user model.
  */
 public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
 

@@ -2,19 +2,22 @@ package com.my.db.dao;
 
 import com.my.db.model.InvoiceBalance;
 import org.apache.logging.log4j.LogManager;
+
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * {@ code InvoiceBalanceDAO} class implementation InterfaceDAO for the invoice balance model.
+ * <br>
+ *
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code InvoiceBalanceDAO} class implementation InterfaceDAO for the invoice balance model.
  */
 public class InvoiceBalanceDAO extends ManagerDAO implements InterfaceDAO<InvoiceBalance> {
 
-    private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(InvoiceBalanceDAO.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(InvoiceBalanceDAO.class);
 
     private static final String TABLE_INVOICE_BALANCE = "invoice_balance";
     private static final String ADD_NEW_PAYMENT = "INSERT INTO " + TABLE_INVOICE_BALANCE + "(invoice_id, repair_request_id, ammount) values (?, ?, ?);";
