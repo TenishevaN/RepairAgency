@@ -2,12 +2,15 @@ package com.my.db.dao;
 
 import com.my.db.model.AccountLocalization;
 import org.apache.logging.log4j.LogManager;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code AccountLocalizationDAO} class implementation InterfaceDAO for the account localization model.
+ */
 public class AccountLocalizationDAO extends ManagerDAO{
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(AccountLocalizationDAO.class);

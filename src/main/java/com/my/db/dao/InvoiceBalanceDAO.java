@@ -2,12 +2,16 @@ package com.my.db.dao;
 
 import com.my.db.model.InvoiceBalance;
 import org.apache.logging.log4j.LogManager;
-
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code InvoiceBalanceDAO} class implementation InterfaceDAO for the invoice balance model.
+ */
 public class InvoiceBalanceDAO extends ManagerDAO implements InterfaceDAO<InvoiceBalance> {
 
     private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(InvoiceBalanceDAO.class);

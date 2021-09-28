@@ -4,10 +4,14 @@ import com.my.Path;
 import com.my.db.dao.UserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code DeleteMarkedUsersCommand} class represents the implementation of the command to delete users marked as deleted.
+ */
 public class DeleteMarkedUsersCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(DeleteMarkedUsersCommand.class);

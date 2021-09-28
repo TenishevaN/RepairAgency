@@ -4,6 +4,11 @@ import com.my.db.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code PaginationUtil} class represents the service class to implement painations on the page.
+ */
 public class PaginationUtil {
 
     protected int start;

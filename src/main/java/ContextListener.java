@@ -1,16 +1,16 @@
 
-import com.my.db.dao.UserDAO;
-import com.my.db.model.User;
-
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code ContextListener} class represents context listener.
+ */
 public class ContextListener implements ServletContextListener {
 
     public void contextDestroyed(ServletContextEvent event) {

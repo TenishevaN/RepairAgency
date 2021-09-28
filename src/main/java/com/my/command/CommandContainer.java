@@ -2,6 +2,11 @@ package com.my.command;
 
 import java.util.*;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code CommandContainer} class stores the map of commands and their class implementation.
+ */
 public class CommandContainer {
 	
 	private static Map<String, Command> commands;

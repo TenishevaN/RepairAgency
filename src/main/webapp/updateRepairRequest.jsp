@@ -121,7 +121,7 @@
                                         <div class="reviews-list-item">
                                             <div class="reviews-list-item-question">
                                                 <userFieldRight:listReviews
-                                                        idRepairRequest="${repairRequest.id}"/>
+                                                        idRepairRequest="${repairRequest.id}"  currentLocale="${currentLocale}"/>
                                             </div>
                                         </div>
                                     </div>

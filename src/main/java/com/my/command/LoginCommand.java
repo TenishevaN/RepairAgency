@@ -3,22 +3,17 @@ package com.my.command;
 import com.my.Path;
 import com.my.db.model.Role;
 import com.my.db.model.User;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.my.db.dao.UserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
 /**
- * Login command.
- *
- * @author Tenisheva N.
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code LoginCommand} class represents the implementation of the command for the authorization and authentication.
  */
 public class LoginCommand implements Command {
 

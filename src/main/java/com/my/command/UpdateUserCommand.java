@@ -7,14 +7,17 @@ import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
 import com.my.db.model.Role;
 import com.my.db.model.User;
-import com.my.web.Controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code UpdateUserCommand} class represents the implementation of the command to update user in the database.
+ */
 public class UpdateUserCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(UpdateUserCommand.class);

@@ -4,16 +4,19 @@ import com.my.Path;
 import com.my.ServiceUtil;
 import com.my.db.dao.AccountLocalizationDAO;
 import com.my.db.dao.UserDAO;
-import com.my.db.model.AccountLocalization;
 import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code InsertUserCommand} class represents the implementation of the command to insert user into the database.
+ */
 public class InsertUserCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(InsertUserCommand.class);

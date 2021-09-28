@@ -2,9 +2,7 @@ package com.my.web.filter;
 
 import com.my.Path;
 import com.my.db.model.Role;
-import com.my.web.Controller;
 import org.apache.logging.log4j.LogManager;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code CustomFilter} class represents filter realization.
+ */
 
 @WebFilter("/*")
 public class CustomFilter implements Filter {

@@ -2,12 +2,16 @@ package com.my.db.dao;
 
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
-
 import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code RepairRequestDAO} class implementation InterfaceDAO for the repair request model.
+ */
 public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairRequest> {
 
     private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(RepairRequestDAO.class);
@@ -15,7 +19,7 @@ public class RepairRequestDAO extends ManagerDAO implements InterfaceDAO<RepairR
     private static final String TABLE_REPAIR_REQUEST = "repair_request";
     private static final String TABLE_REPAIR_REQUEST_FULL = "repair_request_full";
     private static final String ADD_REPAIR_REQUEST = "INSERT INTO repair_request (account_id, description) VALUES(?, ?);";
-    private static final String FIND_REPAIR_REQUEST_BY_ID = "SELECT * FROM repair_request_full WHERE id = ?;";
+    private static final String FIND_REPAIR_REQUEST_BY_ID = "SELECT * FROM " + TABLE_REPAIR_REQUEST_FULL + " WHERE id = ?;";
     private static final String FIND_ALL_REPAIR_REQUEST_BY_USER_ID = "SELECT * FROM " + TABLE_REPAIR_REQUEST_FULL + " WHERE account_id = ?";
     private static final String UPDATE_REPAIR_REQUEST = "UPDATE " + TABLE_REPAIR_REQUEST + " SET " + SQLConstants.FIELD_DESCRIPTION + " = ?, cost = ?, master_id = ?, status_id = ? " + " WHERE " + SQLConstants.FIELD_ID + " = ?;";
     private static final String FIND_ALL_REPAIR_REQUESTS_FULL = "SELECT * FROM " + TABLE_REPAIR_REQUEST_FULL;

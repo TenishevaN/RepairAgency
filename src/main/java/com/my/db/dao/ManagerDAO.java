@@ -2,12 +2,15 @@ package com.my.db.dao;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import org.apache.logging.log4j.LogManager;
-
 import java.sql.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
-
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code ManagerDAO} class repesents database manager.
+ */
 public class ManagerDAO {
 
     private static ManagerDAO instance;

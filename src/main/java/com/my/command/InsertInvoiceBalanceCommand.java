@@ -8,12 +8,16 @@ import com.my.db.dao.UserDAO;
 import com.my.db.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code InsertInvoiceBalanceCommand} class represents the implementation of the command to store invoice changes in the database.
+ */
 public class InsertInvoiceBalanceCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(InsertInvoiceBalanceCommand.class);

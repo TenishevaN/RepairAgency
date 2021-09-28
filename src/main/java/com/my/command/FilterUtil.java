@@ -1,18 +1,21 @@
 package com.my.command;
 
 import com.my.Path;
-import com.my.ServiceUtil;
 import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code FilterUtil} class represents the service class to implement filtering with different parameters.
+ */
 public class FilterUtil extends PaginationUtil{
 
     private static final Logger log = LogManager.getLogger(FilterUtil.class);

@@ -13,7 +13,7 @@
                         key="profile"></fmt:message></a></li>
                 <li><a href="controller?command=listRequests"><fmt:message key="repair_requests"></fmt:message></a></li>
                 <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
-                <c:if test="${role != 'user'}">
+                <c:if test="${role != 'user' && role != 'master'}">
                     <li><a href="controller?command=listUsers""><fmt:message key="users"></fmt:message></a></li>
                     <li><a href="controller?command=reports"><fmt:message key="reports"></fmt:message></a></li>
                 </c:if>

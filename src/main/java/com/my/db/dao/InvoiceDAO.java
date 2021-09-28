@@ -1,14 +1,16 @@
 package com.my.db.dao;
 
 import com.my.db.model.Invoice;
-import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code InvoiceDAO} class implementation InterfaceDAO for the invoice model.
+ */
 public class InvoiceDAO extends ManagerDAO implements InterfaceDAO<Invoice> {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(InvoiceDAO.class);

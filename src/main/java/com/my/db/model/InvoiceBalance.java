@@ -4,6 +4,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code InvoiceBalance} class represents invoice balance object.
+ * <br>
+ * Each invoice has id, invoice id, repair request id, ammount
+ * <br>
+ */
 public class InvoiceBalance implements Serializable {
 
     private static final long serialVersionUID = 8466257860808346236L;

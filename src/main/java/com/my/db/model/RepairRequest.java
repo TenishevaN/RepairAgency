@@ -5,6 +5,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code RepairRequest} class represents properties and behaviours of repairRequest objects.
+ * <br>
+ * Each repairRequest has id, user id, user name, status id, status name, master id, cost, date description
+ * <br>
+ */
 public class RepairRequest implements Serializable {
 
     private static final long serialVersionUID = 8466257860808346236L;

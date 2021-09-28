@@ -4,12 +4,16 @@ import com.my.db.dao.RepairRequestDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code PaginationPageTag} class represents the custom tag to display pagination section.
+ */
 public class PaginationPageTag extends SimpleTagSupport {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(PaginationPageTag.class);

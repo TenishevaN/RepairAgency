@@ -2,12 +2,15 @@ package web_jstl;
 
 import com.my.db.model.Role;
 import org.apache.logging.log4j.LogManager;
-
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code FieldRoleTag} class represents the custom tag to display role field.
+ */
 public class FieldRoleTag extends SimpleTagSupport {
 
     private int id;
@@ -19,7 +22,7 @@ public class FieldRoleTag extends SimpleTagSupport {
 
 
     @Override
-    public void doTag() throws JspException {
+    public void doTag(){
         String output = "";
         JspWriter out = getJspContext().getOut();
             output = "<select class = form-control name=roleId>";

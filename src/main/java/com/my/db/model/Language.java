@@ -1,5 +1,13 @@
 package com.my.db.model;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code Language} enum represents laguage object.
+ * <br>
+ * Each invoice has id
+ * <br>
+ */
 public enum Language {
     EN(1), UK(2), RU(3);
 

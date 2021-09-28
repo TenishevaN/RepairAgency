@@ -1,5 +1,10 @@
 package com.my.db.dao;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code SQLConstants} class stores field names from the database.
+ */
 public final class SQLConstants {
 
     public static final String FIELD_ID = "id";

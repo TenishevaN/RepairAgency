@@ -6,11 +6,15 @@ import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code DeleteRepairRequestCommand} class represents the implementation of the command to delete repair request.
+ */
 public class DeleteRepairRequestCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(DeleteRepairRequestCommand.class);

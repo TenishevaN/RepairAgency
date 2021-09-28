@@ -4,6 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code Review} class represents review object.
+ * <br>
+ * Each review has id,  repair request id, date, comment
+ * <br>
+ */
 public class Review implements Serializable {
 
     private static final long serialVersionUID = 8466257860808346236L;

@@ -17,6 +17,11 @@ import java.math.BigDecimal;
 
 import com.my.ServiceUtil;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code CardRepairRequestPageCommand} class represents the implementation of the command to open the repair request card.
+ */
 public class CardRepairRequestPageCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(LoginCommand.class);
@@ -40,7 +45,6 @@ public class CardRepairRequestPageCommand implements Command {
             }
             req.setAttribute("repairRequest", repairRequest);
             req.setAttribute("role", userRole.getName());
-
             BigDecimal balance_owed = BigDecimal.ZERO;
             BigDecimal paid = new InvoiceBalanceDAO().getBalanceOwed(id);
             if (paid != null) {
@@ -62,12 +66,11 @@ public class CardRepairRequestPageCommand implements Command {
             req.setAttribute("cost", cost);
             req.setAttribute("balance_owed", balance_owed);
             BigDecimal total = new InvoiceDAO().get(user.getInvoiceId()).getAmmount();
-            if(total != null){
+            if (total != null) {
                 req.setAttribute("total", total.divide(BigDecimal.valueOf(100)));
-            } else{
+            } else {
                 req.setAttribute("total", 0);
             }
-
         } catch (Exception ex) {
             log.debug("exception open repair request {}", ex.getMessage());
             req.setAttribute("errorMessage", ServiceUtil.getKey("no_document", currentLocale));

@@ -5,11 +5,7 @@ import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
 import com.my.db.model.Language;
 import com.my.db.model.User;
-import com.my.web.Controller;
 import org.apache.logging.log4j.LogManager;
-
-import javax.naming.Context;
-import javax.servlet.ServletContextListener;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -17,6 +13,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code FieldMasterFilterTag} class represents the master filter tag to display the master filter.
+ */
 public class FieldMasterFilterTag extends SimpleTagSupport {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldMasterFilterTag.class);

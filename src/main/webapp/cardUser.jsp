@@ -20,22 +20,25 @@
     <div class="row">
         <div class="col-md-5">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <div class="form-inline">
-                    <label style="margin-right: 20px; font-size: 15px"><fmt:message
-                            key="account_balance"></fmt:message> ${total}</label>
-                    <c:if test="${(role eq 'manager')}">
-                        <form action="controller" method="get">
-                            <button type="button" class="btn btn-default" data-toggle="modal"
-                                    data-target="#insertReplenishmentPage">
-                                <fmt:message key="replenish"></fmt:message>
-                            </button>
-                        </form>
-                    </c:if>
+
+        <c:if test="${(showAccount eq 'true')}">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label style="margin-right: 20px; font-size: 15px"><fmt:message
+                                key="account_balance"></fmt:message> ${total}</label>
+                        <c:if test="${(role eq 'manager')}">
+                            <form action="controller" method="get">
+                                <button type="button" class="btn btn-default" data-toggle="modal"
+                                        data-target="#insertReplenishmentPage">
+                                    <fmt:message key="replenish"></fmt:message>
+                                </button>
+                            </form>
+                        </c:if>
+                    </div>
                 </div>
             </div>
-        </div>
+        </c:if>
         <div class="col-md-8 mx-auto">
             <form name="userForm" id="userForm" action="controller" method="post">
                 <input name="command" type="hidden" value="updateCardUser">
@@ -51,12 +54,12 @@
                 <label style="color:red; visibility: hidden" id="errorName"><fmt:message
                         key="errorName"></fmt:message></label>
 
-
-                <label class="control-label col-xs-1"><fmt:message key="email"></fmt:message></label>
-                <input type="email" class="form-control" id="email" name="email" value="${user.email}"/> <br>
-                <label style="color:red; visibility: hidden" id="errorEmail"><fmt:message
-                        key="errorEmail"></fmt:message></label>
-
+                <div>
+                    <label class="control-label col-xs-1"><fmt:message key="email"></fmt:message></label>
+                    <input type="email" class="form-control" id="email" name="email" value="${user.email}"/> <br>
+                    <label style="color:red; visibility: hidden" id="errorEmail"><fmt:message
+                            key="errorEmail"></fmt:message></label>
+                </div>
                 <label class="control-label col-xs-1"><fmt:message key="role"></fmt:message></label>
                 <userFieldRight:role id="${user.roleId}"/>
 

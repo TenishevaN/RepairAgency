@@ -1,29 +1,28 @@
 package com.my.web;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.my.command.*;
-import com.my.db.dao.UserDAO;
-import com.my.db.model.AccountLocalization;
-import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code Controller} class represents realization of the Command patern.
+ * It's the only one servlet that depends on the request command parameter executes the corresponding actions.
+ */
 
 @WebServlet("/controller")
 public final class Controller extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(Controller.class);
 
-    public static volatile Map<User, List<AccountLocalization>>  masterList;
 
     public Controller() {
-   }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

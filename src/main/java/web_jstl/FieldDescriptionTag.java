@@ -6,6 +6,11 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code FieldDescriptionTag} class represents the description tag to display description for the different roles.
+ */
 public class FieldDescriptionTag extends SimpleTagSupport {
 
     private String descriptionText;

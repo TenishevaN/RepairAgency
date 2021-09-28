@@ -2,11 +2,15 @@ package com.my.db.dao;
 
 import com.my.db.model.Status;
 import org.apache.logging.log4j.LogManager;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code StatusDAO} class implementation InterfaceDAO for the staus model.
+ */
 public class StatusDAO extends ManagerDAO  {
 
     private static final org.apache.logging.log4j.Logger log =  LogManager.getLogger(StatusDAO.class);

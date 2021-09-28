@@ -1,13 +1,16 @@
 package web_jstl;
 
-import com.my.web.filter.CustomFilter;
 import org.apache.logging.log4j.LogManager;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code FieldCostTag} class represents the custom tag to display cost for the different roles.
+ */
 public class FieldCostTag extends SimpleTagSupport {
 
     private String costValue;
@@ -29,9 +32,9 @@ public class FieldCostTag extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
 
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
-            output = "<input type = number step = 0.01 class=form - control name = cost value= "+ costValue +">";
+            output = "<input type = number step = 0.01 class=form - control name = cost value= " + costValue + ">";
         } else {
-            output +=  costValue;
+            output += costValue;
         }
         try {
             out.println(output);

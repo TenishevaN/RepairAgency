@@ -8,12 +8,16 @@ import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code ReportPageCommand} class represents the implementation of the command to obtain reports data from the database.
+ */
 public class ReportPageCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(ReportPageCommand.class);

@@ -4,15 +4,18 @@ import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
 import com.my.db.model.Language;
 import com.my.db.model.User;
-import com.my.web.Controller;
 import org.apache.logging.log4j.LogManager;
-
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code FieldMasterTag} class represents the custom tag to display master for the different roles.
+ */
 public class FieldMasterTag extends SimpleTagSupport {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldMasterTag.class);

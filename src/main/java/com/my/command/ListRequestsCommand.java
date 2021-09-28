@@ -8,12 +8,16 @@ import com.my.db.model.Role;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code ListRequestsCommand} class represents the implementation of the command to obtain list of repair reqests from the database.
+ */
 public class ListRequestsCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(ListRequestsCommand.class);

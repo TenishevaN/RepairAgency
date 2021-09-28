@@ -7,11 +7,15 @@ import com.my.db.model.RepairRequest;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code InsertRepairRequestCommand} class represents the implementation of the command to insert repair request into the database.
+ */
 public class InsertRepairRequestCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(InsertRepairRequestCommand.class);

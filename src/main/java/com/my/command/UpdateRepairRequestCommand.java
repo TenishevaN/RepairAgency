@@ -6,12 +6,16 @@ import com.my.db.dao.RepairRequestDAO;
 import com.my.db.model.RepairRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code UpdateRepairRequestCommand} class represents the implementation of the command to update repair request in the database.
+ */
 public class UpdateRepairRequestCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(UpdateRepairRequestCommand.class);

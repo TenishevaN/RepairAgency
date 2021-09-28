@@ -2,7 +2,6 @@ package com.my.command;
 
 import java.util.*;
 import javax.servlet.http.*;
-
 import com.my.Path;
 import com.my.ServiceUtil;
 import com.my.db.dao.UserDAO;
@@ -10,6 +9,11 @@ import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @author Tenisheva N.I.
+ * @version 1.0
+ * {@ code ListUsersCommand} class represents the implementation of the command to obtain list of users from the database.
+ */
 public class ListUsersCommand implements Command {
 
     private static final Logger log =  LogManager.getLogger(ListUsersCommand.class);
