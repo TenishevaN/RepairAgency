@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 /**
  * @author Tenisheva N.I.
  * @version 1.0
- * {@ code Controller} class represents realization of the Command patern.
+ * {@ code Controller} class represents realization of the Command pattern.
  * It's the only one servlet that depends on the request command parameter executes the corresponding actions.
  */
 

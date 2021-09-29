@@ -38,6 +38,5 @@ public class ContextListener implements ServletContextListener {
         // save descriptions to servlet context
         context.setAttribute("locales", locales);
         context.setAttribute("currentLocale", "en");
-
     }
 }

@@ -121,8 +121,8 @@
                         </div>
                         <div class="form-group">
                             <label for="email"><fmt:message key="email"></fmt:message></label>
-                            <input type="email" name="email" id="email" class="form-control"><br>
-                            <div style="color:red; visibility: hidden" id="errorEmail"><fmt:message
+                            <input type="email" class="form-control" name="email" id="email" value = "servicemailtest2021@gmail.com"><br>
+                            <div style="color:red; visibility: hidden" id="errorEmail" ><fmt:message
                                     key="errorEmail"></fmt:message></div>
                         </div>
                         <button type="submit" onclick="return handleSubmitRegistrationUserForm()"

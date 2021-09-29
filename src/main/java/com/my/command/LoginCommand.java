@@ -1,5 +1,6 @@
 package com.my.command;
 
+import com.my.EmailService;
 import com.my.Path;
 import com.my.Security;
 import com.my.db.model.Role;
@@ -30,7 +31,6 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest request,
                           HttpServletResponse response) {
 
-
         HttpSession session = request.getSession();
         String login = request.getParameter("login");
         String password = request.getParameter("password");
@@ -60,11 +60,6 @@ public class LoginCommand implements Command {
             session.setAttribute("user", user);
             session.setAttribute("role", userRole);
             log.info("User " + user + " logged as " + userRole.toString().toLowerCase());
-
-            String currentLocale = (String) session.getAttribute("currentLocale");
-            if (currentLocale == null) {
-                session.setAttribute("currentLocale", "en");
-            }
         }
 
         return forward;

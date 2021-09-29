@@ -43,7 +43,7 @@
                     <input type="hidden" name="command" value="filtertListRequestsByStatus">
                     <label class=custom-margin-2> <fmt:message key="status"></fmt:message>:</label>
                     <div class="custom-margin-2">
-                        <userFieldRight:status_filter currentLocale="${currentLocale}" idStatus="${idStatus}"/>
+                        <userFieldRight:status_filter currentLocale="${sessionScope.currentLocale}" idStatus="${idStatus}"/>
                     </div>
                     <input type="submit" class="custom-margin-2" name="open" value=<fmt:message
                             key="status"></fmt:message>><br>
@@ -55,7 +55,7 @@
                     <input type="hidden" name="command" value="filtertListRequestsByMaster">
                     <label class=custom-margin-2><fmt:message key="master"></fmt:message>:</label>
                     <div class="custom-margin-2">
-                        <userFieldRight:master_filter currentLocale="${currentLocale}" idMaster="${idMaster}"/>
+                        <userFieldRight:master_filter currentLocale="${sessionScope.currentLocale}" idMaster="${idMaster}"/>
                     </div>
                     <input type="submit" class="custom-margin-2" name="open" value=<fmt:message
                             key="master"></fmt:message>><br>
@@ -80,9 +80,9 @@
                 <td>${item.id}</td>
                 <td>${item.date}</td>
                 <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}"
-                                           currentLocale="${currentLocale}" area="list"/></td>
+                                           currentLocale="${sessionScope.currentLocale}" area="list"/></td>
                 <td><userFieldRight:master idMaster="${item.masterId}" nameRole="${role}"
-                                           currentLocale="${currentLocale}" area="list"/></td>
+                                           currentLocale="${sessionScope.currentLocale}" area="list"/></td>
                 <td><tagfile:cost cost="${item.cost}"></tagfile:cost></td>
                 <td>${item.description}</td>
                 <td>
