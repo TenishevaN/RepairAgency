@@ -22,59 +22,72 @@
     <div class="container">
         <h1><fmt:message key="report"></fmt:message></h1>
 
-               <ul class="nav navbar-nav">
-                <li>
-                    <form action="controller" method="get">
-                        <input type="hidden" name="command"  value="sortListRequestsByDate">
-                        <input type="hidden" name="changeOrder" class="form-control" value="true">
-                        <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
-                        <input type="submit" class = "custom-margin-2" name="open" value=<fmt:message key="date"></fmt:message>><br>
-                    </form>
-                </li>
-                <li>
-                    <form action="controller" method="get">
-                        <input type="hidden" name="command"  value="sortListRequestsByStatus">
-                        <input type="hidden" name="changeOrder" class="form-control" value="true">
-                        <input type="hidden" name="currentLocale" class="form-control" value="true">
-                        <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
-                        <input type="hidden" name="orderBy" class="form-control" value="${currentLocale}">
-                        <input type="submit" name="open" class = "custom-margin-2" value=<fmt:message key="status"></fmt:message>><br>
-                    </form>
-                </li>
-                <li>
-                    <form action="controller" method="get">
-                        <input type="hidden" name="command"  value="sortListRequestsByCost">
-                        <input type="hidden" name="changeOrder" class="form-control" value="true">
-                        <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
-                        <input type="submit" name="open" class = "custom-margin-2" value=<fmt:message key="cost"></fmt:message>><br>
-                    </form>
-                </li>
-            </ul>
+        <ul class="nav navbar-nav">
+            <li>
+                <form action="controller" method="get">
+                    <input type="hidden" name="command" value="sortListRequestsByDate">
+                    <input type="hidden" name="changeOrder" class="form-control" value="true">
+                    <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
+                    <input type="submit" class="custom-margin-2" name="open" value=<fmt:message
+                            key="date"></fmt:message>><br>
+                </form>
+            </li>
+            <li>
+                <form action="controller" method="get">
+                    <input type="hidden" name="command" value="sortListRequestsByStatus">
+                    <input type="hidden" name="changeOrder" class="form-control" value="true">
+                    <input type="hidden" name="currentLocale" class="form-control" value="true">
+                    <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
+                    <input type="hidden" name="orderBy" class="form-control" value="${currentLocale}">
+                    <input type="submit" name="open" class="custom-margin-2" value=<fmt:message
+                            key="status"></fmt:message>><br>
+                </form>
+            </li>
+            <li>
+                <form action="controller" method="get">
+                    <input type="hidden" name="command" value="sortListRequestsByCost">
+                    <input type="hidden" name="changeOrder" class="form-control" value="true">
+                    <input type="hidden" name="orderBy" class="form-control" value="${orderBy}">
+                    <input type="submit" name="open" class="custom-margin-2" value=<fmt:message
+                            key="cost"></fmt:message>><br>
+                </form>
+            </li>
+            <li>
+                <form action="controller" method="get">
+                    <input type="hidden" name="command" value="formReportPDF">
+                    <input type="submit" name="open" class="custom-margin-2" value=<fmt:message
+                            key="report_pdf"></fmt:message>><br>
+                </form>
+            </li>
+        </ul>
         <div style="height:300px" class="container">
-        <table class="table table-bordered">
-            <tr>
-                <th>&#8470;</th>
-                <th><fmt:message key="date"></fmt:message></th>
-                <th><fmt:message key="status"></fmt:message></th>
-                <th><fmt:message key="user"></fmt:message></th>
-                <th><fmt:message key="master"></fmt:message></th>
-                <th><fmt:message key="cost"></fmt:message></th>
-                <th><fmt:message key="description"></fmt:message></th>
-            </tr>
-            <c:forEach items="${repairRequests}" var="item">
+            <table class="table table-bordered">
                 <tr>
-                    <td>${item.id}</td>
-                    <td>${item.date}</td>
-                    <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}" currentLocale="${currentLocale}" area="list"/></td>
-                    <td>${item.userName}</td>
-                    <td><userFieldRight:master idMaster="${item.masterId}" nameRole="${role}" currentLocale="${currentLocale}" area="list"/></td>
-                    <td>${item.cost}</td>
-                    <td>${item.description}</td>
+                    <th>&#8470;</th>
+                    <th><fmt:message key="date"></fmt:message></th>
+                    <th><fmt:message key="status"></fmt:message></th>
+                    <th><fmt:message key="user"></fmt:message></th>
+                    <th><fmt:message key="master"></fmt:message></th>
+                    <th><fmt:message key="cost"></fmt:message></th>
+                    <th><fmt:message key="description"></fmt:message></th>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach items="${repairRequests}" var="item">
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.date}</td>
+                        <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}"
+                                                   currentLocale="${currentLocale}" area="list"/></td>
+                        <td>${item.userName}</td>
+                        <td><userFieldRight:master idMaster="${item.masterId}" nameRole="${role}"
+                                                   currentLocale="${currentLocale}" area="list"/></td>
+                        <td>${item.cost}</td>
+                        <td>${item.description}</td>
+                    </tr>
+                </c:forEach>
+            </table>
         </div>
-            <userFieldRight:pagination_list_requests idUser ="${userId}" command = "${command}" orderBy = "${orderBy}" current_page = "${page}"/>
+        <userFieldRight:pagination_list_requests idUser="${userId}" command="${command}" orderBy="${orderBy}"
+                                                 current_page="${page}"/>
     </div>
 </div>
 

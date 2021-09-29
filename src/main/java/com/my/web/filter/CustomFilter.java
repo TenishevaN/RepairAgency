@@ -70,6 +70,7 @@ public class CustomFilter implements Filter {
         managerRights.add("filtertListRequestsByMaster");
         managerRights.add("replenishInvoice");
         managerRights.add("insertInvoiceBalance");
+        managerRights.add("formReportPDF");
         accessMap.put(Role.MANAGER, managerRights);
 
         List<String> adminRights = new ArrayList<>();

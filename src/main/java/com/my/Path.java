@@ -20,12 +20,10 @@ public final class Path {
     public static final String SERVICE_PAGE = "servicePage.jsp";
     public static String PAGE_LIST_REPAIR_REQUESTS = "listRepairRequests.jsp";
 
-
     // commands
     public static final String COMMAND_LIST_USERS = "controller?command=listUsers";
     public static final String COMMAND_LIST_REQUESTS = "controller?command=listRequests";
     public static final String COMMAND_OPEN_REPAIR_REQUEST_BY_ID = "controller?command=openCardRepairRequest&id=";
     public static final String COMMAND_OPEN_USER_BY_ID = "controller?command=openCardUser&id=";
-
-
+    public static final String COMMAND_REPORTS = "controller?command=reports";
 }

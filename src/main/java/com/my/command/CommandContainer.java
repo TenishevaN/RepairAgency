@@ -37,6 +37,7 @@ public class CommandContainer {
         commands.put("deleteUser", new DeleteUserCommand());
         commands.put("deleteMarkedUsers", new DeleteMarkedUsersCommand());
         commands.put("servicePage", new ServicePageCommand());
+        commands.put("formReportPDF", new FormReportPDFCommand());
 
     }
 

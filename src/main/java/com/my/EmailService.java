@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 /**
- * {@ code EmailService} class represents the imlamantation of the sending email.
+ * {@ code EmailService} class represents the implementation of the sending email.
  * <br>
  *
  * @author Tenisheva N.I.
