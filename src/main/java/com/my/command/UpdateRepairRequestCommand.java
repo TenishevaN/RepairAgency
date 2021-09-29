@@ -45,7 +45,6 @@ public class UpdateRepairRequestCommand implements Command {
             if (cost != null && !cost.isEmpty()) {
                 repairRequest.setCost(new BigDecimal(req.getParameter("cost")).multiply(BigDecimal.valueOf(100)));
             }
-
             String description = req.getParameter("description");
             if (description != null) {
                 repairRequest.setDescription(description);

@@ -33,7 +33,6 @@ public class ListRequestsCommand implements Command {
         List<RepairRequest> repairRequests;
         try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
-
             User currentUser = (User) req.getSession().getAttribute("user");
             Role currentRole = Role.getRole(currentUser);
             PaginationUtil paginationUtil = new PaginationUtil();

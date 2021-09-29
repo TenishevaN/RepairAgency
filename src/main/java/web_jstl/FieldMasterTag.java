@@ -27,6 +27,10 @@ public class FieldMasterTag extends SimpleTagSupport {
     private String nameRole;
     private String currentLocale;
     private String area;
+    private String output;
+    private String name;
+    private int idLocale;
+    private Map<User, List<AccountLocalization>> listMaster;
 
     public void setCurrentLocale(String currentLocale) {
         this.currentLocale = currentLocale;
@@ -59,18 +63,16 @@ public class FieldMasterTag extends SimpleTagSupport {
 
     private String getOutput() {
 
-        String output = "";
-        String name = "";
         UserDAO userDAO = new UserDAO();
         User currentMaster = userDAO.get(idMaster);
 
-        Map<User, List<AccountLocalization>> listMaster = userDAO.getMasterList();
-        int idLocale = Language.getId(currentLocale);
+        listMaster = userDAO.getMasterList();
+        idLocale = Language.getId(currentLocale);
         if (area.equals("list")) {
             if (currentMaster != null) {
                 try {
                     name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-                    output += name;
+                    output = name;
                 } catch (Exception ex) {
                     log.debug(" master tag without name for localization {} ", currentLocale);
                 }
@@ -79,37 +81,41 @@ public class FieldMasterTag extends SimpleTagSupport {
         }
 
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
-            output = "<select name = masterId>";
-            log.debug(" FieldMasterTag {} ", listMaster);
-            if (idMaster == -1) {
-                output += "<option  value = -1></option>";
-            }
-            for (Map.Entry<User, List<AccountLocalization>> master : listMaster.entrySet()) {
-                try {
-                    name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-                } catch (Exception ex) {
-                    log.debug(" master tag without name for localization {} ", currentLocale);
-                }
-                if (master.getKey().getId() == idMaster) {
-                    output += "<option  value=" + master.getKey().getId() + " selected>" + name + "</option>";
-                } else {
-                    output += "<option  value=" + master.getKey().getId() + ">" + name + "</option>";
-                }
-            }
-            output += "</select>";
-            return output;
-
+            return formSelectMasterField();
         } else {
             if (currentMaster != null) {
                 try {
                     name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-                    output += name;
+                    output = name;
                 } catch (Exception ex) {
                     log.debug(" master tag without name for localization {} ", currentLocale);
                 }
                 return output;
             }
         }
+        return output;
+    }
+
+    private String formSelectMasterField() {
+
+        output = "<select name = masterId>";
+        log.debug(" FieldMasterTag {} ", listMaster);
+        if (idMaster == -1) {
+            output = "<option  value = -1></option>";
+        }
+        for (Map.Entry<User, List<AccountLocalization>> master : listMaster.entrySet()) {
+            try {
+                name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
+            } catch (Exception ex) {
+                log.debug(" master tag without name for localization {} ", currentLocale);
+            }
+            if (master.getKey().getId() == idMaster) {
+                output += "<option  value=" + master.getKey().getId() + " selected>" + name + "</option>";
+            } else {
+                output += "<option  value=" + master.getKey().getId() + ">" + name + "</option>";
+            }
+        }
+        output += "</select>";
         return output;
     }
 }

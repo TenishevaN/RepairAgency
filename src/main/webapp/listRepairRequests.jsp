@@ -18,7 +18,7 @@
 
 <body>
 
-<div class="container">
+<div class="container"  style="height:500px">
     <div class="container-fluid text-center">
         <h1><fmt:message key="requests"></fmt:message></h1>
     </div>
@@ -43,7 +43,8 @@
                     <input type="hidden" name="command" value="filtertListRequestsByStatus">
                     <label class=custom-margin-2> <fmt:message key="status"></fmt:message>:</label>
                     <div class="custom-margin-2">
-                        <userFieldRight:status_filter currentLocale="${sessionScope.currentLocale}" idStatus="${idStatus}"/>
+                        <userFieldRight:status_filter currentLocale="${sessionScope.currentLocale}"
+                                                      idStatus="${idStatus}"/>
                     </div>
                     <input type="submit" class="custom-margin-2" name="open" value=<fmt:message
                             key="status"></fmt:message>><br>
@@ -55,7 +56,8 @@
                     <input type="hidden" name="command" value="filtertListRequestsByMaster">
                     <label class=custom-margin-2><fmt:message key="master"></fmt:message>:</label>
                     <div class="custom-margin-2">
-                        <userFieldRight:master_filter currentLocale="${sessionScope.currentLocale}" idMaster="${idMaster}"/>
+                        <userFieldRight:master_filter currentLocale="${sessionScope.currentLocale}"
+                                                      idMaster="${idMaster}"/>
                     </div>
                     <input type="submit" class="custom-margin-2" name="open" value=<fmt:message
                             key="master"></fmt:message>><br>
@@ -63,7 +65,7 @@
             </li>
         </ul>
     </c:if>
-
+    <div style="height:400px" class="container">
     <table class="table">
         <tr>
             <th>&#8470;</th>
@@ -102,10 +104,11 @@
             </tr>
         </c:forEach>
     </table>
+
+</div>
     <userFieldRight:pagination_list_requests idUser="${userId}" command="${command}" orderBy="${orderBy}"
                                              status_id="${status_id}" master_id="${master_id}"
                                              current_page="${page}"/>
-</div>
 </div>
 
 <%@ include file="footerBlock.jsp" %>
@@ -129,11 +132,12 @@
                         <label class="control-label col-xs-4"><fmt:message key="description"></fmt:message>:</label>
                         <div class="form-group" style="width:500px" value="Comment">
                                             <textarea rows="10" class="form-control"
-                                                      name=description id = descriptionValue></textarea>
+                                                      name=description id=descriptionValue></textarea>
                             <label style="color:red; visibility: hidden" id="errorDescription"><fmt:message
                                     key="error_description"></fmt:message></label>
                         </div>
-                        <button type="submit" class="btn btn-default" onclick="return handleDescriptionChange()"><fmt:message key="send"></fmt:message></button>
+                        <button type="submit" class="btn btn-default" onclick="return handleDescriptionChange()">
+                            <fmt:message key="send"></fmt:message></button>
                         <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message
                                 key="close"></fmt:message></button>
                     </form>

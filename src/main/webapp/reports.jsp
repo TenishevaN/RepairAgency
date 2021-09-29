@@ -50,7 +50,7 @@
                     </form>
                 </li>
             </ul>
-
+        <div style="height:300px" class="container">
         <table class="table table-bordered">
             <tr>
                 <th>&#8470;</th>
@@ -73,9 +73,9 @@
                 </tr>
             </c:forEach>
         </table>
+        </div>
             <userFieldRight:pagination_list_requests idUser ="${userId}" command = "${command}" orderBy = "${orderBy}" current_page = "${page}"/>
     </div>
-</div>
 </div>
 
 <%@ include file="footerBlock.jsp" %>

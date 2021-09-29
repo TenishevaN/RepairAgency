@@ -92,5 +92,4 @@ public class InsertUserCommand implements Command {
         user.setRoleId(4);
         return user;
     }
-
 }
