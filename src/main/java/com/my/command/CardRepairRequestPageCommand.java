@@ -67,12 +67,12 @@ public class CardRepairRequestPageCommand implements Command {
 
         BigDecimal cost = repairRequest.getCost();
         BigDecimal paid = new InvoiceBalanceDAO().getBalanceOwed(id);
+        if (cost != null) {
+            balance_owed = cost;
+            cost = cost.divide(BigDecimal.valueOf(100));
+        }
         if (paid != null) {
             balance_owed = balance_owed.add(paid);
-        }
-        if (cost != null) {
-            balance_owed = balance_owed.add(cost);
-            cost = cost.divide(BigDecimal.valueOf(100));
         }
         if ((balance_owed != BigDecimal.ZERO)) {
             balance_owed = balance_owed.divide(BigDecimal.valueOf(100));

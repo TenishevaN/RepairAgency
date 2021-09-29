@@ -32,6 +32,7 @@ public class LoginCommand implements Command {
                           HttpServletResponse response) {
 
         HttpSession session = request.getSession();
+        setDefaultLocale(session);
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
@@ -65,4 +66,11 @@ public class LoginCommand implements Command {
         return forward;
     }
 
+    private void setDefaultLocale(HttpSession session) {
+
+        String currentLocale = (String) session.getAttribute("currentLocale");
+        if (currentLocale == null) {
+            session.setAttribute("currentLocale", "en");
+        }
+    }
 }

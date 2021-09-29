@@ -28,6 +28,8 @@ import java.util.List;
 public class CardUserPageCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(CardUserPageCommand.class);
+    private BigDecimal total = BigDecimal.ZERO;
+    private String showAccount = "false";
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -39,7 +41,6 @@ public class CardUserPageCommand implements Command {
             Role userRole = (Role) session.getAttribute("role");
             UserDAO userDAO = new UserDAO();
             String id = req.getParameter("id");
-
             User currentUser = (User) session.getAttribute("user");
             if (id.isEmpty()) {
                 user = userDAO.get(currentUser.getId());
@@ -53,46 +54,53 @@ public class CardUserPageCommand implements Command {
                 req.setAttribute("errorMessage", ServiceUtil.getKey("no_right_for_document", currentLocale));
                 return Path.PAGE_ERROR_PAGE;
             }
-
-            String role = userRole.getName();
             req.setAttribute("user", user);
-            req.setAttribute("role", role);
-            System.out.println("role " + role);
-            Invoice invoice = new InvoiceDAO().get(user.getInvoiceId());
-            BigDecimal total = BigDecimal.ZERO;
-            if (invoice != null) {
-                total = invoice.getAmmount();
-            }
-            if (total != null) {
-                total = total.divide(BigDecimal.valueOf(100));
-            }
-
+            req.setAttribute("role", userRole.getName());
+            getTotal(user);
             req.setAttribute("total", total);
-
-            String showAccount = "false";
-            if (user.getRoleId() == 4) {
-                showAccount = "true";
-            }
+            getShowAccunt(user);
             req.setAttribute("showAccount", showAccount);
-
-            AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
-            List<AccountLocalization> accountLocalization = accountLocalizationDAO.get(user.getId());
-            for (AccountLocalization item : accountLocalization) {
-                if (item.getLanguage_id() == 1) {
-                    req.setAttribute("nameEN", item.getName());
-                }
-                if (item.getLanguage_id() == 2) {
-                    req.setAttribute("nameUK", item.getName());
-                }
-                if (item.getLanguage_id() == 3) {
-                    req.setAttribute("nameRU", item.getName());
-                }
-            }
+            addAccountLocalization(req, user);
         } catch (Exception ex) {
             log.debug("exception open user {}", ex.getMessage());
             req.setAttribute("errorMessage", ServiceUtil.getKey("no_document", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
         return Path.PAGE_USER;
+    }
+
+    private void getShowAccunt(User user) {
+
+        if (user.getRoleId() == 4) {
+            showAccount = "true";
+        }
+    }
+
+    private void getTotal(User user) {
+
+        Invoice invoice = new InvoiceDAO().get(user.getInvoiceId());
+        if (invoice != null) {
+            total = invoice.getAmmount();
+        }
+        if (total != null) {
+            total = total.divide(BigDecimal.valueOf(100));
+        }
+    }
+
+    private void addAccountLocalization(HttpServletRequest req, User user) {
+
+        AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+        List<AccountLocalization> accountLocalization = accountLocalizationDAO.get(user.getId());
+        for (AccountLocalization item : accountLocalization) {
+            if (item.getLanguage_id() == 1) {
+                req.setAttribute("nameEN", item.getName());
+            }
+            if (item.getLanguage_id() == 2) {
+                req.setAttribute("nameUK", item.getName());
+            }
+            if (item.getLanguage_id() == 3) {
+                req.setAttribute("nameRU", item.getName());
+            }
+        }
     }
 }

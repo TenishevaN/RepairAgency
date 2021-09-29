@@ -24,68 +24,40 @@ import java.math.BigDecimal;
 public class InsertInvoiceBalanceCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(InsertInvoiceBalanceCommand.class);
+    private BigDecimal ammount = BigDecimal.ZERO;
+    private BigDecimal total = BigDecimal.ZERO;
+    private String currentLocale;
+    private String idRepairRequest = "-1";
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         HttpSession session = req.getSession(false);
-        String currentLocale = (String) session.getAttribute("currentLocale");
+        currentLocale = (String) session.getAttribute("currentLocale");
 
         int idUser = Integer.parseInt(req.getParameter("idUser"));
         User user = new UserDAO().get(idUser);
         Integer invoiceId = user.getInvoiceId();
-
-        log.debug("insert payment {}", invoiceId);
-        if (invoiceId == -1) {
-            req.setAttribute("errorMessage", ServiceUtil.getKey("don't_have_an_invoice", currentLocale));
-            return Path.PAGE_ERROR_PAGE;
-        }
-        String idRepairRequest = req.getParameter("idRepairRequest");
-        if (idRepairRequest == null) {
-            idRepairRequest = "-1";
-        }
-        BigDecimal ammount = new BigDecimal(req.getParameter("ammount"));
+        idRepairRequest = req.getParameter("idRepairRequest");
         String operation = req.getParameter("operation");
-
         try {
-            BigDecimal total = new InvoiceDAO().get(user.getInvoiceId()).getAmmount();
-            if (total == null) {
-                total = BigDecimal.ZERO;
+            ammount = new BigDecimal(req.getParameter("ammount"));
+            BigDecimal totalBalance = new InvoiceDAO().get(user.getInvoiceId()).getAmmount();
+            if(totalBalance != null){
+                total = totalBalance;
             }
-            //Server side data validation
-            if (("payment".equals(operation)) & (total == BigDecimal.ZERO)) {
-                req.setAttribute("errorMessage", ServiceUtil.getKey("not_enough_funds_to_pay", currentLocale));
-                return Path.PAGE_ERROR_PAGE;
-            }
-            System.out.println("total.compareTo(ammount)" + (total.compareTo(ammount)));
-            System.out.println("total " + total);
-            System.out.println("ammount" + ammount);
-            //Server side data validation
-            if (("payment".equals(operation)) & (total.compareTo(ammount) == -1)) {
-                req.setAttribute("errorMessage", ServiceUtil.getKey("not_enough_funds_to_pay", currentLocale));
-                return Path.PAGE_ERROR_PAGE;
+            String errorPage = validateOnServer(req, operation);
+            if (errorPage != null) {
+                return errorPage;
             }
             if ("payment".equals(operation)) {
                 ammount = ammount.negate();
             }
-            InvoiceBalance payment = new InvoiceBalance();
-            payment.setInvoiceId(invoiceId);
-            payment.setRepairRequestId(Integer.parseInt(idRepairRequest));
-            payment.setAmmount(ammount.multiply(BigDecimal.valueOf(100)));
-
-            InvoiceBalanceDAO invoiceBalanceDAO = new InvoiceBalanceDAO();
-            invoiceBalanceDAO.insert(payment);
-
-            InvoiceDAO invoiceDAO = new InvoiceDAO();
-            Invoice invoice = invoiceDAO.get(idUser);
-            invoice.setAmmount(invoiceBalanceDAO.getTotal(invoice.getId()));
-            invoiceDAO.update(invoice);
-
+            Invoice invoice = updateInvoiceAmmount(invoiceId, idUser);
             User currentUser = (User) req.getSession().getAttribute("user");
             Role userRole = Role.getRole(currentUser);
             session.setAttribute("user", currentUser);
             session.setAttribute("role", userRole);
-
             if ("-1".equals(idRepairRequest)) {
                 //replenish the user invoice from the user card
                 req.setAttribute("total", invoice.getAmmount());
@@ -99,5 +71,38 @@ public class InsertInvoiceBalanceCommand implements Command {
             req.setAttribute("errorMessage", ServiceUtil.getKey("payment_was_not_carried_out", "en"));
             return Path.PAGE_ERROR_PAGE;
         }
+    }
+
+    private Invoice updateInvoiceAmmount(Integer invoiceId, int idUser) {
+
+        ammount = ammount.multiply(BigDecimal.valueOf(100));
+        InvoiceBalance payment = new InvoiceBalance();
+        payment.setInvoiceId(invoiceId);
+        payment.setRepairRequestId(Integer.parseInt(idRepairRequest));
+        payment.setAmmount(ammount);
+        InvoiceBalanceDAO invoiceBalanceDAO = new InvoiceBalanceDAO();
+        invoiceBalanceDAO.insert(payment);
+        log.debug("invoiceBalanceDAO " +invoiceBalanceDAO);
+        InvoiceDAO invoiceDAO = new InvoiceDAO();
+        Invoice invoice = invoiceDAO.get(idUser);
+        invoice.setAmmount(invoiceBalanceDAO.getTotal(invoice.getId()));
+        invoiceDAO.update(invoice);
+         return invoice;
+    }
+
+    //Server side data validation
+    private String validateOnServer(HttpServletRequest req, String operation) {
+
+        String errorPage = null;
+        if (("payment".equals(operation)) & (total == BigDecimal.ZERO)) {
+            req.setAttribute("errorMessage", ServiceUtil.getKey("not_enough_funds_to_pay", currentLocale));
+
+            errorPage = Path.PAGE_ERROR_PAGE;
+        }
+        if (("payment".equals(operation)) & (total.compareTo(ammount) == -1)) {
+            req.setAttribute("errorMessage", ServiceUtil.getKey("not_enough_funds_to_pay", currentLocale));
+            errorPage = Path.PAGE_ERROR_PAGE;
+        }
+        return errorPage;
     }
 }

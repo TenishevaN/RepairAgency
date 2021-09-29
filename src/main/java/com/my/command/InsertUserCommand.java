@@ -64,6 +64,8 @@ public class InsertUserCommand implements Command {
         String currentLocale = (String) session.getAttribute("currentLocale");
         if (currentLocale == null) {
             currentLocale = "en";
+            session.setAttribute("currentLocale", currentLocale);
+
         }
         return currentLocale;
     }
