@@ -62,7 +62,7 @@
                         <div style="height:20px"></div>
                         <div>
                             <label><fmt:message key="master"></fmt:message></label>
-                            <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}"
+                            <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}" listMaster = "${listMasters}"
                                                    currentLocale="${currentLocale}" area="card"/>
                         </div>
                         <div style="height:20px"></div>

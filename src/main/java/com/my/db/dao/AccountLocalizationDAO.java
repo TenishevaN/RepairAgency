@@ -3,6 +3,7 @@ package com.my.db.dao;
 import com.my.db.model.AccountLocalization;
 import org.apache.logging.log4j.LogManager;
 
+import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,13 @@ public class AccountLocalizationDAO extends ManagerDAO {
     private static final String UPDATE_USER_LOCALIZATION = "UPDATE account_localization SET name = ? where account_id = ? and language_id = ?;";
     private static final String INSERT_USER_LOCALIZATION = "INSERT INTO account_localization (language_id, account_id) values (?, ?)";
 
+    public AccountLocalizationDAO() {
+        super();
+    }
+
+    public AccountLocalizationDAO(String url) throws NamingException {
+        super(url);
+    }
     public List<AccountLocalization> get(int id) {
         List<AccountLocalization> accountLocalization = new ArrayList<>();
         PreparedStatement pstmt = null;

@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/include/head.jspf" %>
 <%@ include file="mainPageNavBarBlock.jsp" %>
 <%@ taglib prefix="userFieldRight" uri="/WEB-INF/tlib/userFieldRight.tld" %>
+<%@ taglib prefix="tagfile" tagdir="/WEB-INF/tags" %>
 
 
 <html>
@@ -74,13 +75,13 @@
                 <c:forEach items="${repairRequests}" var="item">
                     <tr>
                         <td>${item.id}</td>
-                        <td>${item.date}</td>
+                        <td><fmt:formatDate pattern="dd MM yyyy" value="${item.date}"/></td>
                         <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}"
                                                    currentLocale="${currentLocale}" area="list"/></td>
                         <td>${item.userName}</td>
                         <td><userFieldRight:master idMaster="${item.masterId}" nameRole="${role}"
                                                    currentLocale="${currentLocale}" area="list"/></td>
-                        <td>${item.cost}</td>
+                        <td><tagfile:cost cost="${item.cost}"></tagfile:cost></td>
                         <td>${item.description}</td>
                     </tr>
                 </c:forEach>

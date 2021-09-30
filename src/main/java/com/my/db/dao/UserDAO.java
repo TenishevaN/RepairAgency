@@ -41,7 +41,6 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
         super(url);
     }
 
-
     @Override
     public boolean insert(User user) {
 
@@ -105,6 +104,31 @@ public class UserDAO extends ManagerDAO implements InterfaceDAO<User> {
             while (rs.next()) {
                 User newMaster = mapMaster(rs);
                 AccountLocalizationDAO accountLocalizationDAO = new AccountLocalizationDAO();
+                List<AccountLocalization> userLocalization = accountLocalizationDAO.get(newMaster.getId());
+                masters.put(newMaster, userLocalization);
+            }
+            log.debug("Get list master {}", masters);
+        } catch (SQLException ex) {
+            log.debug("Get list master exception {}", ex.getMessage());
+        }
+        return masters;
+
+    }
+
+    public Map<User, List<AccountLocalization>> getMasterList(String url) {
+
+        Map<User, List<AccountLocalization>> masters = new HashMap<>();
+        try (Connection con = getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(FIND_ALL_MASTERS);) {
+            while (rs.next()) {
+                User newMaster = mapMaster(rs);
+                AccountLocalizationDAO accountLocalizationDAO = null;
+                try {
+                    accountLocalizationDAO = new AccountLocalizationDAO(url);
+                } catch (NamingException e) {
+                    log.debug("Get list master {}", masters);
+                }
                 List<AccountLocalization> userLocalization = accountLocalizationDAO.get(newMaster.getId());
                 masters.put(newMaster, userLocalization);
             }

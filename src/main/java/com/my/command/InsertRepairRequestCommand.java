@@ -3,6 +3,7 @@ package com.my.command;
 import com.my.Path;
 import com.my.ServiceUtil;
 import com.my.db.dao.RepairRequestDAO;
+import com.my.db.model.AccountLocalization;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * {@ code InsertRepairRequestCommand} class represents the implementation of the command to insert repair request into the database.
@@ -28,6 +31,8 @@ public class InsertRepairRequestCommand implements Command {
 
         HttpSession session = req.getSession(false);
         String currentLocale = (String) session.getAttribute("currentLocale");
+        Map<User, List<AccountLocalization>> listMasters = (Map<User, List<AccountLocalization>>)  session.getServletContext().getAttribute("listMasters");
+        req.setAttribute("listMaster", listMasters);
         try {
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
             RepairRequest repairRequest = new RepairRequest();

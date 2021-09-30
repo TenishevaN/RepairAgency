@@ -6,6 +6,7 @@ import com.my.db.model.Language;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
@@ -49,6 +50,10 @@ public class FieldMasterTag extends SimpleTagSupport {
         this.area = area;
     }
 
+    public void setListMaster(Map<User, List<AccountLocalization>> listMaster) {
+        this.listMaster = listMaster;
+    }
+
     @Override
     public void doTag() {
 
@@ -65,8 +70,6 @@ public class FieldMasterTag extends SimpleTagSupport {
 
         UserDAO userDAO = new UserDAO();
         User currentMaster = userDAO.get(idMaster);
-
-        listMaster = userDAO.getMasterList();
         idLocale = Language.getId(currentLocale);
         if (area.equals("list")) {
             if (currentMaster != null) {

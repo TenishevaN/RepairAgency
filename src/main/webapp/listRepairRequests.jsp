@@ -18,7 +18,7 @@
 
 <body>
 
-<div class="container"  style="height:500px">
+<div class="container" style="height:500px">
     <div class="container-fluid text-center">
         <h1><fmt:message key="requests"></fmt:message></h1>
     </div>
@@ -57,6 +57,7 @@
                     <label class=custom-margin-2><fmt:message key="master"></fmt:message>:</label>
                     <div class="custom-margin-2">
                         <userFieldRight:master_filter currentLocale="${sessionScope.currentLocale}"
+                                                      listMaster="${listMasters}"
                                                       idMaster="${idMaster}"/>
                     </div>
                     <input type="submit" class="custom-margin-2" name="open" value=<fmt:message
@@ -66,46 +67,47 @@
         </ul>
     </c:if>
     <div style="height:400px" class="container">
-    <table class="table">
-        <tr>
-            <th>&#8470;</th>
-            <th><fmt:message key="date"></fmt:message></th>
-            <th><fmt:message key="status"></fmt:message></th>
-            <th><fmt:message key="master"></fmt:message></th>
-            <th><fmt:message key="cost"></fmt:message></th>
-            <th><fmt:message key="description"></fmt:message></th>
-            <th><fmt:message key="open"></fmt:message></th>
-            <th><fmt:message key="delete"></fmt:message></th>
-        </tr>
-        <c:forEach items="${repairRequests}" var="item">
+        <table class="table">
             <tr>
-                <td>${item.id}</td>
-                <td>${item.date}</td>
-                <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}"
-                                           currentLocale="${sessionScope.currentLocale}" area="list"/></td>
-                <td><userFieldRight:master idMaster="${item.masterId}" nameRole="${role}"
-                                           currentLocale="${sessionScope.currentLocale}" area="list"/></td>
-                <td><tagfile:cost cost="${item.cost}"></tagfile:cost></td>
-                <td>${item.description}</td>
-                <td>
-                    <form action="controller" method="get">
-                        <input type="hidden" name="command" value="openCardRepairRequest">
-                        <input type="hidden" name="id" id="id" class="form-control" value="${item.id}">
-                        <input type="submit" name="open" value=<fmt:message key="open"></fmt:message>><br>
-                    </form>
-                </td>
-                <td>
-                    <form action="controller" method="get">
-                        <input type="hidden" name="command" value="deleteCardRepairRequest">
-                        <input type="hidden" name="id" id="id" class="form-control" value="${item.id}">
-                        <input type="submit" name="delete" value=<fmt:message key="delete"></fmt:message>><br>
-                    </form>
-                </td>
+                <th>&#8470;</th>
+                <th><fmt:message key="date"></fmt:message></th>
+                <th><fmt:message key="status"></fmt:message></th>
+                <th><fmt:message key="master"></fmt:message></th>
+                <th><fmt:message key="cost"></fmt:message></th>
+                <th><fmt:message key="description"></fmt:message></th>
+                <th><fmt:message key="open"></fmt:message></th>
+                <th><fmt:message key="delete"></fmt:message></th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach items="${repairRequests}" var="item">
+                <tr>
+                    <td>${item.id}</td>
+                    <td><fmt:formatDate pattern="dd MM yyyy" value="${item.date}"/></td>
+                    <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}"
+                                               currentLocale="${sessionScope.currentLocale}" area="list"/></td>
+                    <td><userFieldRight:master idMaster="${item.masterId}" nameRole="${role}"
+                                               listMaster="${listMasters}"
+                                               currentLocale="${sessionScope.currentLocale}" area="list"/></td>
+                    <td><tagfile:cost cost="${item.cost}"></tagfile:cost></td>
+                    <td>${item.description}</td>
+                    <td>
+                        <form action="controller" method="get">
+                            <input type="hidden" name="command" value="openCardRepairRequest">
+                            <input type="hidden" name="id" id="id" class="form-control" value="${item.id}">
+                            <input type="submit" name="open" value=<fmt:message key="open"></fmt:message>><br>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="controller" method="get">
+                            <input type="hidden" name="command" value="deleteCardRepairRequest">
+                            <input type="hidden" name="id" id="id" class="form-control" value="${item.id}">
+                            <input type="submit" name="delete" value=<fmt:message key="delete"></fmt:message>><br>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
 
-</div>
+    </div>
     <userFieldRight:pagination_list_requests idUser="${userId}" command="${command}" orderBy="${orderBy}"
                                              status_id="${status_id}" master_id="${master_id}"
                                              current_page="${page}"/>

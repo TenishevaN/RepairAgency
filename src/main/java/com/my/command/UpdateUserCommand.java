@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * {@ code UpdateUserCommand} class represents the implementation of the command to update user in the database.
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpSession;
 public class UpdateUserCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(UpdateUserCommand.class);
+    private static int userRoleId;
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -41,9 +44,14 @@ public class UpdateUserCommand implements Command {
             return Path.PAGE_ERROR_PAGE;
         }
 
-        boolean masterRole = roleChanged(roleId);
-        if (masterRole) {
-            updateLocalizationForMaster(req, user);
+        updateLocalizationForMaster(req, user);
+        boolean masterRoleChaned = roleChanged(userRoleId, roleId);
+        if (masterRoleChaned) {
+            Map<User, List<AccountLocalization>> masters = userDAO.getMasterList();
+            session.getServletContext().setAttribute("listMasters", masters);
+
+            Map<User, List<AccountLocalization>> masters1 = (Map<User, List<AccountLocalization>>) session.getServletContext().getAttribute("listMasters");
+
         }
         return Path.COMMAND_OPEN_USER_BY_ID + req.getParameter("id");
     }
@@ -73,9 +81,13 @@ public class UpdateUserCommand implements Command {
         accountLocalizationDAO.update(accountLocalization);
     }
 
-    private boolean roleChanged(final int roleId) {
+    private boolean roleChanged(final int userRoleId, final int roleId) {
 
-        return (roleId == Role.MASTER.getId());
+        int masterId = Role.MASTER.getId();
+        if ((userRoleId != roleId) && ((roleId == masterId) || (userRoleId == masterId))) {
+            return true;
+        }
+        return false;
     }
 
     private User updateUser(HttpServletRequest req, UserDAO userDAO, int roleId) {
@@ -84,6 +96,7 @@ public class UpdateUserCommand implements Command {
         user.setLogin(req.getParameter("login"));
         user.setName(req.getParameter("name"));
         user.setEmail(req.getParameter("email"));
+        userRoleId = user.getRoleId();
         user.setRoleId(roleId);
         String invoiceId = req.getParameter("invoiceId");
         if ((invoiceId != null) && (!invoiceId.isEmpty())) {

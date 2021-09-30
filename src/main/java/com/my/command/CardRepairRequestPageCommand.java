@@ -4,6 +4,7 @@ import com.my.Path;
 import com.my.db.dao.InvoiceBalanceDAO;
 import com.my.db.dao.InvoiceDAO;
 import com.my.db.dao.RepairRequestDAO;
+import com.my.db.model.AccountLocalization;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
 import com.my.db.model.User;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import com.my.ServiceUtil;
 
@@ -38,6 +41,7 @@ public class CardRepairRequestPageCommand implements Command {
 
         HttpSession session = req.getSession(false);
         String currentLocale = (String) session.getAttribute("currentLocale");
+        Map<User, List<AccountLocalization>> listMasters = (Map<User, List<AccountLocalization>>) session.getServletContext().getAttribute("listMasters");
         try {
             Role userRole = (Role) session.getAttribute("role");
             RepairRequestDAO repairRequestDAO = new RepairRequestDAO();
@@ -53,7 +57,7 @@ public class CardRepairRequestPageCommand implements Command {
             computeBalance(repairRequest, user, req);
             req.setAttribute("role", userRole.getName());
             req.setAttribute("repairRequest", repairRequest);
-
+            req.setAttribute("listMaster", listMasters);
         } catch (Exception ex) {
             log.debug("exception open repair request {}", ex.getMessage());
             req.setAttribute("errorMessage", ServiceUtil.getKey("no_document", currentLocale));

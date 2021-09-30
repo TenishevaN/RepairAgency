@@ -3,7 +3,9 @@ package com.my.command;
 import com.my.Path;
 import com.my.ServiceUtil;
 import com.my.db.dao.RepairRequestDAO;
+import com.my.db.model.AccountLocalization;
 import com.my.db.model.RepairRequest;
+import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * {@ code UpdateRepairRequestCommand} class represents the implementation of the command to update repair request in the database.
@@ -56,6 +60,7 @@ public class UpdateRepairRequestCommand implements Command {
             req.setAttribute("errorMessage", ServiceUtil.getKey("repair_request_was_not_updated", currentLocale));
             return Path.PAGE_ERROR_PAGE;
         }
+
         return Path.COMMAND_OPEN_REPAIR_REQUEST_BY_ID + req.getParameter("idRepairRequest");
     }
 }

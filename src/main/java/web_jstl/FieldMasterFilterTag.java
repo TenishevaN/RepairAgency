@@ -26,6 +26,7 @@ public class FieldMasterFilterTag extends SimpleTagSupport {
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldMasterFilterTag.class);
     private int idMaster;
     private String currentLocale;
+    private Map<User, List<AccountLocalization>> listMaster;
 
     public void setCurrentLocale(String currentLocale) {
         this.currentLocale = currentLocale;
@@ -33,6 +34,10 @@ public class FieldMasterFilterTag extends SimpleTagSupport {
 
     public void setIdMaster(int idMaster) {
         this.idMaster = idMaster;
+    }
+
+    public void setListMaster(Map<User, List<AccountLocalization>> listMaster) {
+        this.listMaster = listMaster;
     }
 
     @Override
@@ -44,9 +49,8 @@ public class FieldMasterFilterTag extends SimpleTagSupport {
         output = "<select name=master_id>";
 
         UserDAO userDAO = new UserDAO();
-        Map<User, List<AccountLocalization>> listMaster = userDAO.getMasterList();
 
-        if (idMaster == -1) {
+         if (idMaster == -1) {
             output += "<option  value = -1  selected>" + ServiceUtil.getKey("all", currentLocale) + "</option>";
         } else {
             output += "<option  value = -1>" + ServiceUtil.getKey("all", currentLocale) + "</option>";

@@ -80,6 +80,11 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>listMaster</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>pagination_list_requests</name>
@@ -127,6 +132,11 @@
         </attribute>
         <attribute>
             <name>idMaster</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>listMaster</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
