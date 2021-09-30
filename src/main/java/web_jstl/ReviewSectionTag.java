@@ -8,6 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +37,7 @@ public class ReviewSectionTag extends SimpleTagSupport {
 
     @Override
     public void doTag() {
+
         String output = "";
         JspWriter out = getJspContext().getOut();
         ReviewDAO reviewDAO = new ReviewDAO();
@@ -47,7 +51,7 @@ public class ReviewSectionTag extends SimpleTagSupport {
         output += "<p>" + reviewLabel + ":</p>";
         for (Review item : reviews) {
             output += "<div >";
-            output += "<time  class=date-answer > " + item.getDate() + "</time >";
+            output += "<time  class=date-answer > " + getFormatedDate(item.getDate()) + "</time >";
             output += "</div >";
             output += "<p class=ask-info >";
             output += item.getComment();
@@ -58,6 +62,12 @@ public class ReviewSectionTag extends SimpleTagSupport {
         } catch (IOException e) {
             log.debug(e.getMessage());
         }
+    }
+
+    private String getFormatedDate(Date date){
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd MMMM yyyy");
+        String dateFormatted = dt1.format(date);
+        return dateFormatted;
     }
 }
 

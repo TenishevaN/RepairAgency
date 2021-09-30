@@ -381,12 +381,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `db_repair_agency`;
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (1, 'admin', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 1, NULL, DEFAULT, 'admin', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (2, 'manager', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 2, NULL, DEFAULT, 'manager', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (3, 'master', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 3, NULL, DEFAULT, 'master', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (4, 'master2', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 3, NULL, DEFAULT, 'master2', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (5, 'user1', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 4, NULL, DEFAULT, 'user1', NULL, NULL);
-INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (6, 'user2', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 4, NULL, DEFAULT, 'user2', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (1, 'admin', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 1, 'servicemailtest2021@gmail.com', DEFAULT, 'admin', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (2, 'manager', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 2, 'servicemailtest2021@gmail.com', DEFAULT, 'manager', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (3, 'master', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 3, 'servicemailtest2021@gmail.com', DEFAULT, 'master', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (4, 'master2', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 3, 'servicemailtest2021@gmail.com', DEFAULT, 'master2', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (5, 'user1', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 4, 'servicemailtest2021@gmail.com', DEFAULT, 'user1', NULL, NULL);
+INSERT INTO `db_repair_agency`.`account` (`id`, `login`, `password`, `create_time`, `role_id`, `email`, `deleted`, `name`, `account_localization_id`, `invoice_id`) VALUES (6, 'user2', 'uNooe+r3zubSU9zpgsXL2w==', DEFAULT, 4, 'servicemailtest2021@gmail.com', DEFAULT, 'user2', NULL, NULL);
 
 COMMIT;
 

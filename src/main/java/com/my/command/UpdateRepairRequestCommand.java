@@ -47,7 +47,7 @@ public class UpdateRepairRequestCommand implements Command {
             repairRequest.setMasterName(req.getParameter("master_name"));
             String cost = req.getParameter("cost");
             if (cost != null && !cost.isEmpty()) {
-                repairRequest.setCost(new BigDecimal(req.getParameter("cost")).multiply(BigDecimal.valueOf(100)));
+                repairRequest.setCost(getCost(req));
             }
             String description = req.getParameter("description");
             if (description != null) {
@@ -62,5 +62,13 @@ public class UpdateRepairRequestCommand implements Command {
         }
 
         return Path.COMMAND_OPEN_REPAIR_REQUEST_BY_ID + req.getParameter("idRepairRequest");
+    }
+
+    private BigDecimal getCost(HttpServletRequest req) {
+        BigDecimal cost = new BigDecimal(req.getParameter("cost"));
+        if ((cost != BigDecimal.ZERO) && (cost != null)) {
+            return new BigDecimal(String.valueOf(cost.multiply(BigDecimal.valueOf(100))));
+        }
+        return BigDecimal.ZERO;
     }
 }
