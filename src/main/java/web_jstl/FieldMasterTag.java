@@ -6,7 +6,6 @@ import com.my.db.model.Language;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
@@ -28,15 +27,14 @@ public class FieldMasterTag extends SimpleTagSupport {
     private String nameRole;
     private String currentLocale;
     private String area;
-    private String output;
-    private String name;
     private int idLocale;
+    private User currentMaster;
+    private String output;
     private Map<User, List<AccountLocalization>> listMaster;
 
     public void setCurrentLocale(String currentLocale) {
         this.currentLocale = currentLocale;
     }
-
 
     public void setIdMaster(String idMaster) {
         this.idMaster = Integer.parseInt(idMaster);
@@ -69,57 +67,90 @@ public class FieldMasterTag extends SimpleTagSupport {
     private String getOutput() {
 
         UserDAO userDAO = new UserDAO();
-        User currentMaster = userDAO.get(idMaster);
+        currentMaster = userDAO.get(idMaster);
         idLocale = Language.getId(currentLocale);
         if (area.equals("list")) {
-            if (currentMaster != null) {
-                try {
-                    name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-                    output = name;
-                } catch (Exception ex) {
-                    log.debug(" master tag without name for localization {} ", currentLocale);
-                }
-            }
-            return output;
+            return formOutPutForList();
         }
-
         if (("admin".equals(nameRole)) || ("manager".equals(nameRole))) {
             return formSelectMasterField();
-        } else {
-            if (currentMaster != null) {
-                try {
-                    name = listMaster.entrySet().stream().filter(map -> map.getKey().equals(currentMaster)).findFirst().get().getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-                    output = name;
-                } catch (Exception ex) {
-                    log.debug(" master tag without name for localization {} ", currentLocale);
-                }
-                return output;
+        }
+        return formOutPutFieldName();
+    }
+
+    private String formOutPutFieldName() {
+
+        if (currentMaster != null) {
+            try {
+                return getNameForList();
+            } catch (Exception ex) {
+                log.debug(" master tag without name for localization {} ", currentLocale);
             }
         }
-        return output;
+        return "";
+    }
+
+    private String formOutPutForList() {
+
+        if (currentMaster != null) {
+            try {
+                return output = getNameForList();
+            } catch (Exception ex) {
+                log.debug(" master tag without name for localization {} ", currentLocale);
+            }
+        }
+        return "";
+    }
+
+    private String getNameForList() {
+
+        String name = listMaster.entrySet().stream()
+                .filter(map -> map.getKey().equals(currentMaster))
+                .findFirst()
+                .get().getValue().stream()
+                .filter(c -> c.getLanguage_id() == idLocale)
+                .findFirst().get().getName();
+        if (name != null) {
+            return name;
+        }
+        return "";
     }
 
     private String formSelectMasterField() {
 
         output = "<select name = masterId>";
-        log.debug(" FieldMasterTag {} ", listMaster);
         if (idMaster == -1) {
-            output = "<option  value = -1></option>";
+            output += "<option  value = -1></option>";
         }
         for (Map.Entry<User, List<AccountLocalization>> master : listMaster.entrySet()) {
-            try {
-                name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-            } catch (Exception ex) {
-                log.debug(" master tag without name for localization {} ", currentLocale);
-            }
-            if (master.getKey().getId() == idMaster) {
-                output += "<option  value=" + master.getKey().getId() + " selected>" + name + "</option>";
-            } else {
-                output += "<option  value=" + master.getKey().getId() + ">" + name + "</option>";
-            }
+
+            output += formOptionForSelectField(master);
         }
         output += "</select>";
         return output;
+    }
+
+    private String formOptionForSelectField(Map.Entry<User, List<AccountLocalization>> master) {
+
+        String name = getNameForSelectMenu(master);
+        if (master.getKey().getId() == idMaster) {
+            return "<option  value=" + master.getKey().getId() + " selected>" + name + "</option>";
+        }
+        return "<option  value=" + master.getKey().getId() + ">" + name + "</option>";
+    }
+
+    private String getNameForSelectMenu(Map.Entry<User, List<AccountLocalization>> master) {
+
+        try {
+            String name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
+            if (name != null) {
+                return name;
+            }
+            return "";
+        } catch (Exception ex) {
+            log.debug(" master tag without name for localization {} ", currentLocale);
+            return "";
+        }
     }
 }
 

@@ -55,19 +55,19 @@
                                              role="${fn:toLowerCase(role)}"></tagfile:balanceOwed>
 
                         <div>
-                            <label><fmt:message key="status"></fmt:message></label>
+                            <label><fmt:message key="status"></fmt:message>:</label>
                             <userFieldRight:status idStatus="${repairRequest.statusId}" nameRole="${role}"
                                                    currentLocale="${currentLocale}" area="card"/>
                         </div>
                         <div style="height:20px"></div>
                         <div>
-                            <label><fmt:message key="master"></fmt:message></label>
+                            <label><fmt:message key="master"></fmt:message>:</label>
                             <userFieldRight:master idMaster="${repairRequest.masterId}" nameRole="${role}" listMaster = "${listMasters}"
                                                    currentLocale="${currentLocale}" area="card"/>
                         </div>
                         <div style="height:20px"></div>
                         <div>
-                            <label><fmt:message key="cost"></fmt:message></label>
+                            <label><fmt:message key="cost"></fmt:message>:</label>
                             <userFieldRight:cost costValue="${cost}" nameRole="${role}"/>
                         </div>
                     </div>

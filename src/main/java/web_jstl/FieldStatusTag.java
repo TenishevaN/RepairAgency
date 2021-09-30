@@ -96,7 +96,9 @@ public class FieldStatusTag extends SimpleTagSupport {
     private String formStatusSelectForMaster() {
 
         output = "<select name=statusId>";
-        List<Status> masterList = listStatus.stream().filter(item -> (item.getId() == 2) || (item.getId() == 5) || (item.getId() == idStatus)).collect(Collectors.toList());
+        List<Status> masterList = listStatus.stream()
+                                            .filter(item -> (item.getId() == 2) || (item.getId() == 5) || (item.getId() == idStatus))
+                                            .collect(Collectors.toList());
         for (Status status : masterList) {
             if (status.getId() == idStatus) {
                 output += "<option  value=" + status.getId() + " selected>" + status.getName() + "</option>";
@@ -111,7 +113,9 @@ public class FieldStatusTag extends SimpleTagSupport {
     private String formStatusSelectForManager() {
 
         output = "<select name=statusId>";
-        List<Status> masterList = listStatus.stream().filter(item -> (item.getId() == 6) || (item.getId() == 3) || (item.getId() == 4) || (item.getId() == idStatus)).collect(Collectors.toList());
+        List<Status> masterList = listStatus.stream()
+                                             .filter(item -> (item.getId() == 6) || (item.getId() == 3) || (item.getId() == 4) || (item.getId() == idStatus))
+                                             .collect(Collectors.toList());
         for (Status status : masterList) {
             if (status.getId() == idStatus) {
                 output += "<option  value=" + status.getId() + " selected>" + status.getName() + "</option>";

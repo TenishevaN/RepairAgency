@@ -6,7 +6,7 @@
 
 <div class="form-inline">
     <div>
-        <label><fmt:message key="balance_owed"></fmt:message> ${balance_owed}</label>
+        <label><fmt:message key="balance_owed"></fmt:message>: ${balance_owed}</label>
     </div>
     </br>
     <c:set var="role" value="${role}"></c:set>
