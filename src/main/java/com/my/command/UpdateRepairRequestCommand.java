@@ -66,6 +66,7 @@ public class UpdateRepairRequestCommand implements Command {
 
     private BigDecimal getCost(HttpServletRequest req) {
         BigDecimal cost = new BigDecimal(req.getParameter("cost"));
+        log.debug("cost {}", cost);
         if ((cost != BigDecimal.ZERO) && (cost != null)) {
             return new BigDecimal(String.valueOf(cost.multiply(BigDecimal.valueOf(100))));
         }

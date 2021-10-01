@@ -76,7 +76,7 @@
             </br>
             <c:set var="role" value="${fn:toLowerCase(role)}"></c:set>
             <c:set var="statusId" value="${repairRequest.statusId}"></c:set>
-            <c:if test="${(role eq 'user') && (statusId == 3)}">
+            <c:if test="${(role eq 'user') && (statusId == 5)}">
 
                 <div class="row">
                     <div class="col-md-6">

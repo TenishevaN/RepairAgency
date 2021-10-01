@@ -253,7 +253,7 @@ DROP TABLE IF EXISTS `db_repair_agency`.`account_archive` ;
 CREATE TABLE IF NOT EXISTS `db_repair_agency`.`account_archive` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(15) NOT NULL,
-  `password` VARCHAR(11) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `email` VARCHAR(60) NULL,
   `account_id` INT NOT NULL DEFAULT 0,

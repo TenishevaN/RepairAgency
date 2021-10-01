@@ -4,6 +4,7 @@ import com.my.Path;
 import com.my.db.dao.InvoiceBalanceDAO;
 import com.my.db.dao.InvoiceDAO;
 import com.my.db.dao.RepairRequestDAO;
+import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
 import com.my.db.model.RepairRequest;
 import com.my.db.model.Role;
@@ -54,7 +55,7 @@ public class CardRepairRequestPageCommand implements Command {
                 req.setAttribute("errorMessage", ServiceUtil.getKey("no_right_for_document", currentLocale));
                 return Path.PAGE_ERROR_PAGE;
             }
-            computeBalance(repairRequest, user, req);
+            computeBalance(repairRequest, req);
             req.setAttribute("role", userRole.getName());
             req.setAttribute("repairRequest", repairRequest);
             req.setAttribute("listMaster", listMasters);
@@ -67,21 +68,28 @@ public class CardRepairRequestPageCommand implements Command {
         return Path.PAGE_UPDATE_REPAIR_REQUEST;
     }
 
-    private void computeBalance(RepairRequest repairRequest, User user, HttpServletRequest req) {
+    private void computeBalance(RepairRequest repairRequest,  HttpServletRequest req) {
 
         BigDecimal cost = repairRequest.getCost();
         BigDecimal paid = new InvoiceBalanceDAO().getBalanceOwed(id);
-        if (cost != null) {
+
+         if (cost != null) {
+             log.debug("repair request cost {}", cost);
             balance_owed = cost;
             cost = cost.divide(BigDecimal.valueOf(100));
         }
-        if (paid != null) {
+            if (paid != null) {
             balance_owed = balance_owed.add(paid);
         }
         if ((balance_owed != BigDecimal.ZERO)) {
             balance_owed = balance_owed.divide(BigDecimal.valueOf(100));
         }
-        BigDecimal total = new InvoiceDAO().get(user.getInvoiceId()).getAmmount();
+        BigDecimal total = BigDecimal.ZERO;
+        User requestUser = new UserDAO().get(repairRequest.getUserId());
+        BigDecimal invoiceAmmount = new InvoiceDAO().get(requestUser.getInvoiceId()).getAmmount();
+        if(invoiceAmmount != null){
+            total = invoiceAmmount;
+        }
         if (total != null) {
             total = total.divide(BigDecimal.valueOf(100));
         }

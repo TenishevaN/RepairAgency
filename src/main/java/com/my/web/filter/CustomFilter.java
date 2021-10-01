@@ -1,6 +1,7 @@
 package com.my.web.filter;
 
 import com.my.Path;
+import com.my.ServiceUtil;
 import com.my.db.model.Role;
 import org.apache.logging.log4j.LogManager;
 import javax.servlet.*;
@@ -75,22 +76,9 @@ public class CustomFilter implements Filter {
 
         List<String> adminRights = new ArrayList<>();
         adminRights.add("servicePage");
-        adminRights.add("deleteMarkedUsers");
-        adminRights.add("openCardRepairRequest");
-        adminRights.add("listRequests");
-        adminRights.add("updateRepairRequest");
-        adminRights.add("insertUser");
         adminRights.add("deleteUser");
-        adminRights.add("listUsers");
-        adminRights.add("openCardUser");
-        adminRights.add("updateCardUser");
-        adminRights.add("reports");
-        adminRights.add("sortListRequestsByDate");
-        adminRights.add("sortListRequestsByCost");
-        adminRights.add("sortListRequestsByStatus");
-        adminRights.add("filtertListRequestsByStatus");
-        adminRights.add("filtertListRequestsByMaster");
-        adminRights.add("replenishInvoice");
+        adminRights.add("deleteMarkedUsers");
+        adminRights.addAll(managerRights);
         accessMap.put(Role.ADMIN, adminRights);
     }
 
@@ -114,7 +102,8 @@ public class CustomFilter implements Filter {
         if (accessAllowed(request)) {
                chain.doFilter(request, response);
         } else {
-            String errorMessasge = "You do not have permission to access the requested resource";
+            String currentLocale = (String) request.getServletContext().getAttribute("currentLocale");
+            String errorMessasge = ServiceUtil.getKey("dont_have_permission_to_resource", currentLocale);
             request.setAttribute("errorMessage", errorMessasge);
             request.setAttribute("href", "controller?command=listRequests");
             request.setAttribute("hrefName", "Repair requests");
