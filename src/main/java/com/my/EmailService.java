@@ -24,15 +24,17 @@ public class EmailService {
     private static final int PORT = 587;
     private static final String USERNAME = "servicemailtest2021@gmail.com";
     private static final String PASSWORD = "serviceMailTest";
+    private User user;
+    private String locale;
 
     private static final Logger log = LogManager.getLogger(EmailService.class);
 
-
     public EmailService(User user, String locale) {
-        sendMail(user, locale);
+        this.user = user;
+        this.locale = locale;
     }
 
-    private void sendMail(User user, String locale) {
+    public boolean sendMail() {
 
         Properties prop = new Properties();
         prop.put("mail.smtp.auth", "true");
@@ -52,7 +54,6 @@ public class EmailService {
         });
 
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
@@ -66,7 +67,8 @@ public class EmailService {
             Transport.send(message);
         } catch (Exception e) {
            log.debug("email registration exception {}", e.getMessage());
+           return false;
         }
+        return true;
     }
-
 }

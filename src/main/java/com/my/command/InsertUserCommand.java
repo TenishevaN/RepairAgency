@@ -1,9 +1,6 @@
 package com.my.command;
 
-import com.my.EmailService;
-import com.my.Path;
-import com.my.Security;
-import com.my.ServiceUtil;
+import com.my.*;
 import com.my.db.dao.AccountLocalizationDAO;
 import com.my.db.dao.UserDAO;
 import com.my.db.model.Role;
@@ -25,15 +22,17 @@ import javax.servlet.http.HttpSession;
 public class InsertUserCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(InsertUserCommand.class);
+    private User user;
+    private String currentLocale;
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         boolean inserted;
         HttpSession session = req.getSession();
-        String currentLocale = getLocale(session);
+        currentLocale = getLocale(session);
 
-        User user = createUser(req);
+        user = createUser(req);
         try {
             UserDAO userDAO = new UserDAO();
             inserted = userDAO.insert(user);
@@ -54,9 +53,18 @@ public class InsertUserCommand implements Command {
         session.setAttribute("role", userRole);
         log.info("User " + user + " logged as " + userRole.toString().toLowerCase());
 
-        //email notification
-        new EmailService(user, currentLocale);
+        sendEmail();
         return Path.COMMAND_MAIN_PAGE;
+    }
+
+    private void sendEmail() {
+
+        Runnable runnable = () -> {
+            EmailService emailService = new EmailService(user, currentLocale);
+            emailService.sendMail();
+        };
+        Thread sendEmailThread = new Thread(runnable);
+        sendEmailThread.start();
     }
 
     private String getLocale(HttpSession session) {
