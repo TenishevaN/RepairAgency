@@ -39,7 +39,7 @@ public class ContextListener implements ServletContextListener {
         // obtain reale path on server
         String localesFileRealPath = context.getRealPath(localesFileName);
 
-        // locad descriptions
+        // locale descriptions
         Properties locales = new Properties();
         try {
             locales.load(new FileInputStream(localesFileRealPath));

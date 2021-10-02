@@ -64,7 +64,7 @@ public class ReviewSectionTag extends SimpleTagSupport {
     }
 
     private String getFormatedDate(Date date){
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd.MM.yyyy");
         String dateFormatted = dt1.format(date);
         return dateFormatted;
     }
