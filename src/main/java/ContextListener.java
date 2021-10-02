@@ -52,6 +52,7 @@ public class ContextListener implements ServletContextListener {
         context.setAttribute("currentLocale", "en");
         Map<User, List<AccountLocalization>> listMasters = getMasterList();
         context.setAttribute("listMasters", listMasters);
+        context.setAttribute("command", "start");
 
     }
 

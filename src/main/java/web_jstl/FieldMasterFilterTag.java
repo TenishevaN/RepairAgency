@@ -1,13 +1,11 @@
 package web_jstl;
 
 import com.my.ServiceUtil;
-import com.my.db.dao.UserDAO;
 import com.my.db.model.AccountLocalization;
 import com.my.db.model.Language;
 import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
@@ -25,6 +23,7 @@ public class FieldMasterFilterTag extends SimpleTagSupport {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(FieldMasterFilterTag.class);
     private int idMaster;
+    private int idLocale;
     private String currentLocale;
     private Map<User, List<AccountLocalization>> listMaster;
 
@@ -42,8 +41,8 @@ public class FieldMasterFilterTag extends SimpleTagSupport {
 
     @Override
     public void doTag(){
+
         String output = "";
-        String name = "";
         JspWriter out = getJspContext().getOut();
 
         output = "<select name=master_id>";
@@ -53,19 +52,9 @@ public class FieldMasterFilterTag extends SimpleTagSupport {
         } else {
             output += "<option  value = -1>" + ServiceUtil.getKey("all", currentLocale) + "</option>";
         }
-        int idLocale = Language.getId(currentLocale);
+        idLocale = Language.getId(currentLocale);
         for (Map.Entry<User, List<AccountLocalization>> master : listMaster.entrySet()) {
-            try {
-                name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
-            } catch (Exception ex) {
-                log.debug(ex.getMessage());
-            }
-
-            if (master.getKey().getId() == idMaster) {
-                output += "<option  value = " + master.getKey().getId() + " selected>" + name + "</option>";
-            } else {
-                output += "<option  value = " + master.getKey().getId() + ">" + name + "</option>";
-            }
+             output += formOptionForSelectField(master);
         }
         output += "</select>";
 
@@ -73,6 +62,30 @@ public class FieldMasterFilterTag extends SimpleTagSupport {
             out.println(output);
         } catch (IOException e) {
             log.debug(e.getMessage());
+        }
+    }
+
+    private String formOptionForSelectField(Map.Entry<User, List<AccountLocalization>> master) {
+
+        String name = getNameForSelectMenu(master);
+        if (master.getKey().getId() == idMaster) {
+            return "<option  value = " + master.getKey().getId() + " selected>" + name + "</option>";
+        } else {
+            return "<option  value = " + master.getKey().getId() + ">" + name + "</option>";
+        }
+    }
+
+    private String getNameForSelectMenu(Map.Entry<User, List<AccountLocalization>> master) {
+
+        try {
+            String name = master.getValue().stream().filter(c -> c.getLanguage_id() == idLocale).findFirst().get().getName();
+            if (name != null) {
+                return name;
+            }
+            return "";
+        } catch (Exception ex) {
+            log.debug(" master tag without name for localization {} ", currentLocale);
+            return "";
         }
     }
 }

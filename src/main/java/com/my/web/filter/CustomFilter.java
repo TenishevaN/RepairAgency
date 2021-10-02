@@ -4,6 +4,7 @@ import com.my.Path;
 import com.my.ServiceUtil;
 import com.my.db.model.Role;
 import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -86,8 +87,8 @@ public class CustomFilter implements Filter {
 
     }
 
-    public void init(FilterConfig fConfig) throws ServletException {
-       }
+    public void init(FilterConfig fConfig) {
+    }
 
     public void destroy() {
     }
@@ -100,7 +101,7 @@ public class CustomFilter implements Filter {
         response.setCharacterEncoding("UTF-8");
 
         if (accessAllowed(request)) {
-               chain.doFilter(request, response);
+            chain.doFilter(request, response);
         } else {
             String currentLocale = (String) request.getServletContext().getAttribute("currentLocale");
             String errorMessasge = ServiceUtil.getKey("dont_have_permission_to_resource", currentLocale);
@@ -121,10 +122,15 @@ public class CustomFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
+        boolean itIsStart = isStart(request);
+        if (itIsStart) {
+            return true;
+        }
+
         String commandName = request.getParameter("command");
 
         if (commandName == null || commandName.isEmpty())
-            return true;
+            return false;
 
         if (outOfControl.contains(commandName))
             return true;
@@ -139,6 +145,16 @@ public class CustomFilter implements Filter {
             return false;
         }
 
-         return accessMap.get(userRole).contains(commandName);
+        return accessMap.get(userRole).contains(commandName);
+    }
+
+    private boolean isStart(ServletRequest request) {
+
+        ServletContext context = request.getServletContext();
+        String start = (String) request.getServletContext().getAttribute("command");
+        if (start != null && ("start".equals(start))) {
+            return true;
+        }
+        return false;
     }
 }

@@ -75,7 +75,7 @@
                 <c:forEach items="${repairRequests}" var="item">
                     <tr>
                         <td>${item.id}</td>
-                        <td><fmt:formatDate pattern="dd MM yyyy" value="${item.date}"/></td>
+                        <td><fmt:formatDate pattern="dd.MM.yy" value="${item.date}"/></td>
                         <td><userFieldRight:status idStatus="${item.statusId}" nameRole="${role}"
                                                    currentLocale="${currentLocale}" area="list"/></td>
                         <td>${item.userName}</td>

@@ -1,8 +1,6 @@
 package web_jstl;
 
 import org.apache.logging.log4j.LogManager;
-
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
@@ -30,7 +28,7 @@ public class FieldCostTag extends SimpleTagSupport {
     }
 
     @Override
-    public void doTag() throws JspException {
+    public void doTag(){
         String output = "";
         JspWriter out = getJspContext().getOut();
 

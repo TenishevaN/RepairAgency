@@ -2,14 +2,16 @@ package web_jstl;
 
 import com.my.ServiceUtil;
 import com.my.db.dao.StatusDAO;
+import com.my.db.model.AccountLocalization;
 import com.my.db.model.Status;
+import com.my.db.model.User;
 import org.apache.logging.log4j.LogManager;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * {@ code FieldStatusFilterTag} class represents the master status tag to display the status filter.
@@ -33,7 +35,7 @@ public class FieldStatusFilterTag extends SimpleTagSupport {
     }
 
     @Override
-    public void doTag() throws JspException {
+    public void doTag() {
         String output = "";
         JspWriter out = getJspContext().getOut();
         output = "<select name = status_id>";
@@ -45,11 +47,7 @@ public class FieldStatusFilterTag extends SimpleTagSupport {
             output += "<option  value = -1>" + ServiceUtil.getKey("all", currentLocale) + "</option>";
         }
         for (Status status : listStatus) {
-            if (status.getId() == idStatus) {
-                output += "<option  value = " + status.getId() + " selected>" + status.getName() + "</option>";
-            } else {
-                output += "<option  value = " + status.getId() + ">" + status.getName() + "</option>";
-            }
+            output += formOptionForSelectField(status);
         }
         output += "</select>";
 
@@ -57,6 +55,15 @@ public class FieldStatusFilterTag extends SimpleTagSupport {
             out.println(output);
         } catch (IOException e) {
             log.debug(e.getMessage());
+        }
+    }
+
+    private String formOptionForSelectField(Status status) {
+
+        if (status.getId() == idStatus) {
+            return "<option  value = " + status.getId() + " selected>" + status.getName() + "</option>";
+        } else {
+            return "<option  value = " + status.getId() + ">" + status.getName() + "</option>";
         }
     }
 }
